@@ -12,7 +12,7 @@ public class Conexion {
 	
 	
 	private static String server= "localhost";
-	private static String port= "3306"; 
+	private static String port= "3306";    //Siempre sera este numero para MySQL
 	private static String BDD= "database";
 	private static String user= "dbuser";
 	private static String password= "dbpassword";
@@ -41,6 +41,7 @@ public class Conexion {
 	}
 	
 	//Metodo que envia una consulta a la BDD 
+	/* <? extends Object> nombre de la clase que vamos a consultar */
 	
 	public static ArrayList<Object> consultar(String query, Class<? extends Object> ob) throws Exception{
         ArrayList<Object> result = new ArrayList<Object>();
