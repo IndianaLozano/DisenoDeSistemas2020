@@ -1,6 +1,7 @@
 package InterfazGrafica;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,6 +16,8 @@ import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.Cursor;
+import java.awt.Dimension;
+
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.AbstractListModel;
@@ -31,7 +34,12 @@ public class VentanaAdmin extends JFrame {
 	public static VerEncuentros verEnc= new VerEncuentros();
 	public static PntInicio inicio= new PntInicio();
 	public static PntLogin login= new PntLogin();
-
+	public static PntCrearCompetencia pntCrearCompetencia = new PntCrearCompetencia();
+	
+	private static Dimension sizePnt;
+	private static CardLayout cl;
+	
+	public static String n_pntCrearCompetencia = "n_pntCrearCompetencia";
 	
 	/**
 	 * Launch the application.
@@ -57,20 +65,23 @@ public class VentanaAdmin extends JFrame {
 		setBounds(100, 100, 750, 470);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		setResizable(false);
 		setTitle("SPORTsYSTEM");
+		contentPane.setLayout(cl); // pasa al contentPane el CardLayout que creamos
+	
+		sizePnt = contentPane.getSize() ;
 		
-		//contentPane.add(listarComp);
-		//contentPane.add(verComp);
-		//contentPane.add(verEnc);
-		//contentPane.add(inicio);
-		//contentPane.add(login);
-		
-		
-		
-		
+		contentPane.add(n_pntCrearCompetencia, pntCrearCompetencia);
+		this.cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
 	
 	}
+	
+	public static void cambiarPantalla(JPanel panel, String nombrePnt) {
+		panel.setSize(sizePnt);
+		cl.show(contentPane, nombrePnt); // show: muestra esa Pnt en ese contenedor
+		contentPane.revalidate(); // "limpiar el contenedor o VentanaAdmin"
+		contentPane.repaint(); // "repintar el contenedor"		
+	}
+	
 }
