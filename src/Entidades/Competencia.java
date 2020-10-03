@@ -15,10 +15,24 @@ public class Competencia {
 	public int tantosGanadosAusenciaRival;
 	
 	public List<Participante> participantes;
-	public List<LugarDeRealizacion> lugaresDeRealizacion;
 	public Deporte deporte;
+	public List<Disponibilidad> disponibilidades; 
+	public Usuario usuario;
+	public Fixture fixture;
 	
+	public Competencia() {}
 	
+	public Competencia(int id, String nombre, Modalidad modalidad, Estado estado, String reglamento, Puntuacion puntuacion, boolean baja, int cantidadSets, int tantosGanadosAusenciaRival) {
+		this.idCompetencia=id;
+		this.nombre=nombre;
+		this.modalidad=modalidad;
+		this.estado=estado;
+		this.reglamento=reglamento;
+		this.puntuacion=puntuacion;
+		this.dadaDeBaja=baja;
+		this.cantidadSets=cantidadSets;
+		this.tantosGanadosAusenciaRival=tantosGanadosAusenciaRival;
+	}
 	
 	
 }

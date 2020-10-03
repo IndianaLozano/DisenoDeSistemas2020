@@ -24,7 +24,7 @@ import javax.swing.JSeparator;
 
 public class VentanaAdmin extends JFrame {
 
-	private JPanel contentPane;
+	public static JPanel contentPane;
 	
 	public static ListarCompetencia listarComp = new ListarCompetencia();
 	public static VerCompetencia verComp= new VerCompetencia();
