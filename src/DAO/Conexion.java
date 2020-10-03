@@ -13,9 +13,9 @@ public class Conexion {
 	
 	private static String server= "localhost";
 	private static String port= "3306";
-	private static String BDD= "fitnessking4";
-	private static String user= "elSanto";
-	private static String password= "ch4p3lc0";
+	private static String BDD= "";
+	private static String user= "";
+	private static String password= "";
 	
 	//METODOS-------------------------------------------------------------
 	
