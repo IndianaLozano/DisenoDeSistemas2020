@@ -16,7 +16,7 @@ public class Main {
 	/*public static List<Clase> getActividades() throws Exception{
 		try {
 			String query = "SELECT..";
-			ArrayList<Clase> actividades = (ArrayList<Clase>)((Object)Conexion.consultar(query, Clase.class));
+			ArrayList<Clase> clases = (ArrayList<Clase>)((Object)Conexion.consultar(query, Clase.class));
 			return clases;
 		}
 		catch(Exception ex) {
@@ -29,10 +29,8 @@ public class Main {
 	/*public static void altaActividad (String nombre, long idProfesor) throws Exception{
 		String query="" ;
 		try {
-			Conexion.ejecutar(query);
-			
+			Conexion.ejecutar(query);	
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		}
 	}*/
