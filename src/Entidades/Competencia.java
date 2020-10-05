@@ -19,9 +19,10 @@ public class Competencia {
 	public List<Disponibilidad> disponibilidades; 
 	public Usuario usuario;
 	public Fixture fixture;
-	
+	//Constructor sin parametros
 	public Competencia() {}
 	
+	//Constructor con parametros
 	public Competencia(int id, String nombre, Modalidad modalidad, Estado estado, String reglamento, Puntuacion puntuacion, boolean baja, int cantidadSets, int tantosGanadosAusenciaRival) {
 		this.idCompetencia=id;
 		this.nombre=nombre;

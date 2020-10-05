@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.Cursor;
@@ -84,5 +85,13 @@ public class VentanaAdmin extends JFrame {
 		contentPane.revalidate(); // "limpiar el contenedor o VentanaAdmin"
 		contentPane.repaint(); // "repintar el contenedor"		
 	}
+	//Ventana emergente
+	public static void mensaje(String error, String titulo) {
+		// TODO Auto-generated method stub
+		if (JOptionPane.showConfirmDialog(null, error, titulo, 
+			JOptionPane.PLAIN_MESSAGE, 
+			JOptionPane.ERROR_MESSAGE)==0);
+	}
+	
 	
 }
