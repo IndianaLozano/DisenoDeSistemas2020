@@ -37,7 +37,7 @@ public class VentanaAdmin extends JFrame {
 	public static PntCrearCompetencia pntCrearCompetencia = new PntCrearCompetencia();
 	
 	private static Dimension sizePnt;
-	private static CardLayout cl;
+	private static CardLayout cl= new CardLayout();
 	
 	public static String n_pntCrearCompetencia = "n_pntCrearCompetencia";
 	
@@ -73,7 +73,8 @@ public class VentanaAdmin extends JFrame {
 		sizePnt = contentPane.getSize() ;
 		
 		contentPane.add(n_pntCrearCompetencia, pntCrearCompetencia);
-		this.cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
+		
+		cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
 	
 	}
 	

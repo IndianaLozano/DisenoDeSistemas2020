@@ -17,10 +17,17 @@ import javax.swing.JTable;
 import java.awt.Rectangle;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JScrollPane;
+import java.awt.Component;
+import javax.swing.JButton;
+import java.awt.SystemColor;
 
 public class PntCrearCompetencia extends JPanel {
 	private JTextField textField;
-	private JTable table;
+	
+	public static JTable table= new JTable();
+	public static DefaultTableModel dm= new DefaultTableModel(){public boolean isCellEditable(int rowIndex, int columnIndex ) {return false;}};
+
 
 	/**
 	 * Create the panel.
@@ -28,11 +35,6 @@ public class PntCrearCompetencia extends JPanel {
 	public PntCrearCompetencia() {
 		setPreferredSize(new Dimension(730, 460));
 		setLayout(null);
-		
-		Button button_2_1 = new Button("-");
-		button_2_1.setFont(new Font("Calibri", Font.PLAIN, 15));
-		button_2_1.setBounds(263, 214, 17, 14);
-		add(button_2_1);
 		
 		JLabel lblCrearNuevaCompetencia = new JLabel("CREAR NUEVA COMPETENCIA DEPORTIVA");
 		lblCrearNuevaCompetencia.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -100,7 +102,7 @@ public class PntCrearCompetencia extends JPanel {
 		
 		Button button = new Button("Atr\u00E1s");
 		button.setFont(new Font("Calibri", Font.PLAIN, 14));
-		button.setBounds(66, 391, 70, 22);
+		button.setBounds(42, 391, 94, 22);
 		add(button);
 		
 		Button button_1 = new Button("Siguiente");
@@ -108,37 +110,25 @@ public class PntCrearCompetencia extends JPanel {
 		button_1.setBounds(601, 391, 70, 22);
 		add(button_1);
 		
-		table = new JTable();
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(130);
-		table.getColumnModel().getColumn(0).setMinWidth(130);
-		table.getColumnModel().getColumn(1).setPreferredWidth(50);
-		table.getColumnModel().getColumn(1).setMinWidth(50);
-		table.getColumnModel().getColumn(2).setPreferredWidth(15);
-		table.getColumnModel().getColumn(2).setMinWidth(0);
-		table.setRowHeight(25);
-		table.setBounds(new Rectangle(1, 1, 1, 1));
-		table.setBounds(42, 208, 246, 160);
-		add(table);
-		
 		JLabel lblReglamento = new JLabel("Reglamento");
 		lblReglamento.setFont(new Font("Calibri", Font.PLAIN, 14));
 		lblReglamento.setBounds(346, 160, 221, 14);
 		add(lblReglamento);
+		
+		dm.addColumn("Lugar");
+		dm.addColumn("Disp");
+		
+		table.setModel(dm);
+		
+		JScrollPane scrollPane_1 = new JScrollPane(table);
+		scrollPane_1.setBounds(41, 208, 286, 177);
+		add(scrollPane_1);
+		
+		JButton btnNewButton = new JButton("-");
+		btnNewButton.setBackground(SystemColor.inactiveCaptionBorder);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnNewButton.setBounds(290, 176, 37, 21);
+		add(btnNewButton);
 
 	}
 	
