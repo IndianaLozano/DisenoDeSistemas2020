@@ -45,6 +45,8 @@ public class PntCrearCompetencia extends JPanel {
 	public static JComboBox cb_deporte = new JComboBox();
 	public static JComboBox cb_modalidad = new JComboBox();
 	public static JComboBox cb_lugar = new JComboBox();
+	public static JComboBox cb_disponibilidad = new JComboBox();
+
 
 
 	
@@ -90,6 +92,8 @@ public class PntCrearCompetencia extends JPanel {
 					try {
 						cb_lugar.removeAllItems();
 						llenarCBLugar(idDeporteSeleccionado);
+						deleteAllRows(dm);
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -127,12 +131,21 @@ public class PntCrearCompetencia extends JPanel {
 		cb_lugar.setBounds(42, 177, 161, 20);
 		add(cb_lugar);
 		
-		JComboBox cb_disponibilidad = new JComboBox();
 		cb_disponibilidad.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9"}));
 		cb_disponibilidad.setBounds(201, 177, 68, 20);
 		add(cb_disponibilidad);
 		
 		btn_mas = new Button("+");
+		btn_mas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nombreLugar= cb_lugar.getSelectedItem().toString();
+				int disp= Integer.parseInt(cb_disponibilidad.getSelectedItem().toString());
+				Object[] fila= {nombreLugar, disp};
+				dm.addRow(fila);
+				
+				
+			}
+		});
 		btn_mas.setFont(new Font("Calibri", Font.PLAIN, 15));
 		btn_mas.setBounds(275, 174, 23, 22);
 		add(btn_mas);
@@ -234,6 +247,12 @@ public class PntCrearCompetencia extends JPanel {
 			cb_lugar.addItem(nombreLugar);
 		}
 		
+	}
+	
+	public static void deleteAllRows(final DefaultTableModel model) {
+	       for( int i = model.getRowCount() - 1; i >= 0; i-- ) {
+	           model.removeRow(i);
+	       }
 	}
 	
 	
