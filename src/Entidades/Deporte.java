@@ -19,7 +19,7 @@ public class Deporte {
 	
 	public Deporte(String datos) {
 		String[] atributo = datos.split("\t");
-		//parseInt convesor de String a Int
+		//parseInt conversor de String a Int
 		this.idDeporte = Integer.parseInt(atributo[0]);
 		this.nombre= atributo[1];
 		
