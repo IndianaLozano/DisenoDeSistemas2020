@@ -12,7 +12,6 @@ public class LugarDeRealizacionDAO {
 	//Métodos de consulta
 	
 	public static List<LugarDeRealizacion> getLugaresDeporte(int idDeporte ) throws Exception{
-		System.out.println(idDeporte);
 		try {
 			String query = "SELECT DISTINCT * FROM database.lugar_de_realizacion lr JOIN database.deporte_lugar dl ON (dl.id_lugar = lr.id_lugar) WHERE id_deporte= " + idDeporte + " ;";
 		
