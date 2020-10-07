@@ -2,6 +2,8 @@ package Entidades;
 
 import java.util.List;
 
+import Gestores.GestorDeCompetencia;
+
 public class Competencia {
 
 	public int idCompetencia;
@@ -40,6 +42,25 @@ public class Competencia {
 	public Competencia(String datos) {
 		
 		String[] atributo = datos.split("\t");
+		this.idCompetencia= Integer.parseInt(atributo[0]);
+		this.nombre=atributo[6];
+		this.cantidadSets= Integer.parseInt(atributo[9]);
+		this.reglamento= atributo[8];
+		this.tantosGanadosAusenciaRival= Integer.parseInt(atributo[10]);
+		try {
+			this.estado= GestorDeCompetencia.obtenerEstado(Integer.parseInt(atributo[3])).get(0);
+			this.modalidad= GestorDeCompetencia.obtenerModalidad(Integer.parseInt(atributo[2])).get(0);
+			
+			} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
 		
 		
 		

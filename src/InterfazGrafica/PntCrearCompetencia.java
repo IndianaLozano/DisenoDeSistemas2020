@@ -24,7 +24,9 @@ import Entidades.LugarDeRealizacion;
 import Entidades.Modalidad;
 import Gestores.GestorDeCompetencia;
 import Gestores.GestorLugaresDeRealizacion;
+import javafx.scene.control.RadioButton;
 
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 import java.awt.Component;
@@ -65,6 +67,7 @@ public class PntCrearCompetencia extends JPanel {
 	public PntCrearCompetencia() {
 		setPreferredSize(new Dimension(730, 460));
 		setLayout(null);
+		
 		
 		JLabel lblCrearNuevaCompetencia = new JLabel("CREAR NUEVA COMPETENCIA DEPORTIVA");
 		lblCrearNuevaCompetencia.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -193,7 +196,7 @@ public class PntCrearCompetencia extends JPanel {
 				//Nombre de la competencia no se repita y que este en mayuscula.
 				//Datos obligatorios.
 				
-				
+				//VentanaAdmin.cambiarPantalla(VentanaAdmin.'nombrePantalla', VentanaAdmin.'pantalla');
 				
 				
 			}
