@@ -31,19 +31,21 @@ import java.awt.Component;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 public class PntCrearCompetencia extends JPanel {
-	private JTextField tf_nombre_comp;
+	
+	
+	public static JTextField tf_nombre_comp;
 	
 	/* public static permite  acceso a metodos y variables de clase sin  necesidad de instanciar un objeto de dicha clase,
 	 *  permitiendo inicializacion de forma comoda y durante la carga de clase
 	 */
 	public static JTable table = new JTable();
-	
 	public static DefaultTableModel dm = new DefaultTableModel(){
 		public boolean isCellEditable(int rowIndex, int columnIndex ) {
 			return false;
@@ -55,6 +57,8 @@ public class PntCrearCompetencia extends JPanel {
 	public static JComboBox cb_modalidad = new JComboBox();
 	public static JComboBox cb_lugar = new JComboBox();
 	public static JComboBox cb_disponibilidad = new JComboBox();
+	
+	public static List<Integer> idLugares = new ArrayList<Integer>(); 
 
 	// Creacion del panel
 	
@@ -144,9 +148,10 @@ public class PntCrearCompetencia extends JPanel {
 				
 				//convierto el item del cb_disponibilidad a String y luego a int
 				int disp= Integer.parseInt(cb_disponibilidad.getSelectedItem().toString()); 
+				int idLugar= idLugares.get(cb_lugar.getSelectedIndex());
 				
 				// Object es la clase padre de todas las clases. fila tiene un atributo String y un int -> declarar fila como Object
-				Object[] fila = {nombreLugar, disp}; 
+				Object[] fila = {nombreLugar, disp, idLugar}; 
 				
 				int nombreRepetido = 0;
 				if (table.getRowCount() == 0) { //si la tabla todavia no tiene ninguna fila agregada, agrega fila nueva
@@ -185,6 +190,12 @@ public class PntCrearCompetencia extends JPanel {
 		Button btn_sig = new Button("Siguiente");
 		btn_sig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//Nombre de la competencia no se repita y que este en mayuscula.
+				//Datos obligatorios.
+				
+				
+				
+				
 			}
 		});
 		btn_sig.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -196,16 +207,36 @@ public class PntCrearCompetencia extends JPanel {
 		lblReglamento.setBounds(346, 160, 221, 14);
 		add(lblReglamento);
 		
+		
 		dm.addColumn("Lugar");
 		dm.addColumn("Disp");
+		dm.addColumn("idLugar");
 		
 		table.setModel(dm); //table tendra las columnas de dm que agregamos aqui arriba
+		
+		table.getColumnModel().getColumn(2).setMaxWidth(0);
+		table.getColumnModel().getColumn(2).setMinWidth(0);
+		table.getColumnModel().getColumn(2).setPreferredWidth(0);
+        table.doLayout();
 		
 		JScrollPane scrollPane_1 = new JScrollPane(table);  //agrego table dentro del ScrollPane
 		scrollPane_1.setBounds(41, 208, 286, 177);
 		add(scrollPane_1);
 		
 		Button btn_menos = new Button("-");
+		btn_menos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (table.getSelectedRow() ==-1) {
+					VentanaAdmin.mensajeError("Seleccione la fila que desea eliminar", "Error");
+				}else {
+					dm.removeRow(table.getSelectedRow());
+				}
+				
+				
+				
+			}
+		});
 		btn_menos.setFont(new Font("Calibri", Font.PLAIN, 15));
 		btn_menos.setBounds(304, 175, 23, 22);
 		add(btn_menos);
@@ -223,6 +254,11 @@ public class PntCrearCompetencia extends JPanel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
+		
 		
 
 	}
@@ -266,12 +302,17 @@ public class PntCrearCompetencia extends JPanel {
 	}
 	
 	public static void llenarCBLugar(int idDeporteSeleccionado) throws Exception {
+		idLugares.clear();
+		
 		List<LugarDeRealizacion> lugares= GestorLugaresDeRealizacion.obtenerLugaresDeporte(idDeporteSeleccionado);
 		int tam= lugares.size();
 		
 		String nombreLugar;
+		int id;
 		for(int i=0; i<tam; i++) {
 			nombreLugar= lugares.get(i).nombre;
+			id= lugares.get(i).idLugar;
+			idLugares.add(id);
 			cb_lugar.addItem(nombreLugar);
 		}
 		
