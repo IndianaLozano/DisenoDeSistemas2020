@@ -7,7 +7,7 @@ import Entidades.Deporte;
 
 public class DeporteDAO {
 	
-	//Método de consulta
+	//Metodo de consulta
 	
 	public static List<Deporte> getAllDeportes() throws Exception{
 		try {
