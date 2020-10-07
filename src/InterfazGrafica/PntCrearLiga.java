@@ -7,23 +7,27 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.Button;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButtonMenuItem;
 
 public class PntCrearLiga extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField tf_puntospg;
+	private JTextField tf_puntope;
+	private JTextField tf_puntospp;
 
 	/**
 	 * Create the panel.
 	 */
 	public PntCrearLiga() {
+		setPreferredSize(new Dimension(730, 460));
 		setLayout(null);
 		
 		Label crearNuevaCompetenciaDeportiva = new Label();
@@ -45,15 +49,15 @@ public class PntCrearLiga extends JPanel {
 		crearNuevaCompetenciaPuntuacionLiga_1_1_2.setBounds(73, 129, 207, 19);
 		add(crearNuevaCompetenciaPuntuacionLiga_1_1_2);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(285, 128, 49, 19);
-		add(textField);
+		tf_puntospg = new JTextField();
+		tf_puntospg.setColumns(10);
+		tf_puntospg.setBounds(285, 128, 49, 19);
+		add(tf_puntospg);
 		
-		JCheckBox rdbtnNewRadioButton = new JCheckBox("EMPATE PERMITIDO");
-		rdbtnNewRadioButton.setFont(new Font("Calibri", Font.PLAIN, 14));
-		rdbtnNewRadioButton.setBounds(73, 197, 157, 23);
-		add(rdbtnNewRadioButton);
+		JCheckBox chb_empatepermitido = new JCheckBox("EMPATE PERMITIDO");
+		chb_empatepermitido.setFont(new Font("Calibri", Font.PLAIN, 14));
+		chb_empatepermitido.setBounds(73, 197, 157, 23);
+		add(chb_empatepermitido);
 		
 		JLabel crearNuevaCompetenciaPuntuacionLiga_1_1 = new JLabel();
 		crearNuevaCompetenciaPuntuacionLiga_1_1.setText(" PUNTOS POR PARTIDO EMPATADO");
@@ -62,10 +66,10 @@ public class PntCrearLiga extends JPanel {
 		crearNuevaCompetenciaPuntuacionLiga_1_1.setBounds(73, 221, 207, 19);
 		add(crearNuevaCompetenciaPuntuacionLiga_1_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(285, 220, 49, 19);
-		add(textField_1);
+		tf_puntope = new JTextField();
+		tf_puntope.setColumns(10);
+		tf_puntope.setBounds(285, 220, 49, 19);
+		add(tf_puntope);
 		
 		JLabel crearNuevaCompetenciaPuntuacionLiga_1_1_1 = new JLabel();
 		crearNuevaCompetenciaPuntuacionLiga_1_1_1.setText(" PUNTOS POR PRESENTARSE(*)");
@@ -74,20 +78,20 @@ public class PntCrearLiga extends JPanel {
 		crearNuevaCompetenciaPuntuacionLiga_1_1_1.setBounds(73, 293, 207, 19);
 		add(crearNuevaCompetenciaPuntuacionLiga_1_1_1);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(254, 292, 49, 19);
-		add(textField_2);
+		tf_puntospp = new JTextField();
+		tf_puntospp.setColumns(10);
+		tf_puntospp.setBounds(254, 292, 49, 19);
+		add(tf_puntospp);
 		
-		Button button = new Button("Atr\u00E1s");
-		button.setFont(new Font("Calibri", Font.PLAIN, 14));
-		button.setBounds(62, 372, 70, 22);
-		add(button);
+		Button btn_atras = new Button("Atr\u00E1s");
+		btn_atras.setFont(new Font("Calibri", Font.PLAIN, 14));
+		btn_atras.setBounds(62, 372, 70, 22);
+		add(btn_atras);
 		
-		Button button_1 = new Button("Siguiente");
-		button_1.setFont(new Font("Calibri", Font.PLAIN, 14));
-		button_1.setBounds(590, 372, 70, 22);
-		add(button_1);
+		Button btn_siguiente = new Button("Siguiente");
+		btn_siguiente.setFont(new Font("Calibri", Font.PLAIN, 14));
+		btn_siguiente.setBounds(590, 372, 70, 22);
+		add(btn_siguiente);
 		
 		JLabel crearNuevaCompetenciaPuntuacionLiga_1 = new JLabel();
 		crearNuevaCompetenciaPuntuacionLiga_1.setText(" FORMA DE PUNTUACI\u00D3N:");
@@ -96,33 +100,40 @@ public class PntCrearLiga extends JPanel {
 		crearNuevaCompetenciaPuntuacionLiga_1.setBounds(402, 128, 287, 19);
 		add(crearNuevaCompetenciaPuntuacionLiga_1);
 		
-		JRadioButton chckbxNewCheckBox_1 = new JRadioButton("SETS");
-		chckbxNewCheckBox_1.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		chckbxNewCheckBox_1.setBounds(413, 150, 62, 23);
-		add(chckbxNewCheckBox_1);
+		JRadioButton rb_sets = new JRadioButton("SETS");
+		rb_sets.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		rb_sets.setBounds(413, 150, 62, 23);
+		add(rb_sets);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Cantidad de sets"}));
-		comboBox_1.setFont(new Font("Calibri", Font.PLAIN, 14));
-		comboBox_1.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		comboBox_1.setAlignmentX(0.0f);
-		comboBox_1.setBounds(481, 151, 139, 20);
-		add(comboBox_1);
+		JComboBox cb_cantidadsets = new JComboBox();
+		cb_cantidadsets.setModel(new DefaultComboBoxModel(new String[] {"Cantidad de sets"}));
+		cb_cantidadsets.setFont(new Font("Calibri", Font.PLAIN, 14));
+		cb_cantidadsets.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		cb_cantidadsets.setAlignmentX(0.0f);
+		cb_cantidadsets.setBounds(481, 151, 139, 20);
+		add(cb_cantidadsets);
 		
-		JRadioButton chckbxPuntuacin_1_1_1 = new JRadioButton("PUNTUACI\u00D3N");
-		chckbxPuntuacin_1_1_1.setBounds(413, 194, 127, 23);
-		add(chckbxPuntuacin_1_1_1);
+		JRadioButton rb_puntuacion = new JRadioButton("PUNTUACI\u00D3N");
+		rb_puntuacion.setBounds(413, 194, 127, 23);
+		add(rb_puntuacion);
 		
-		JComboBox comboBox_1_1_1_1 = new JComboBox();
-		comboBox_1_1_1_1.setModel(new DefaultComboBoxModel(new String[] {"Tantos ganados por ausencia del rival"}));
-		comboBox_1_1_1_1.setFont(new Font("Calibri", Font.PLAIN, 14));
-		comboBox_1_1_1_1.setBounds(413, 218, 247, 19);
-		add(comboBox_1_1_1_1);
+		JComboBox cb_tantosausenciarival = new JComboBox();
+		cb_tantosausenciarival.setModel(new DefaultComboBoxModel(new String[] {"Tantos ganados por ausencia del rival"}));
+		cb_tantosausenciarival.setFont(new Font("Calibri", Font.PLAIN, 14));
+		cb_tantosausenciarival.setBounds(413, 218, 247, 19);
+		add(cb_tantosausenciarival);
 		
-		JRadioButton chckbxNewCheckBox_1_1 = new JRadioButton("RESULTADO FINAL");
-		chckbxNewCheckBox_1_1.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		chckbxNewCheckBox_1_1.setBounds(413, 254, 176, 23);
-		add(chckbxNewCheckBox_1_1);
+		JRadioButton rb_resultado_final = new JRadioButton("RESULTADO FINAL");
+		rb_resultado_final.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		rb_resultado_final.setBounds(413, 254, 176, 23);
+		add(rb_resultado_final);
+		
+		// ButtonGroup para seleccionar solamente un rb a la vez
+				ButtonGroup bg = new ButtonGroup();
+				 bg.add(rb_sets);
+				 bg.add(rb_puntuacion);
+				 bg.add(rb_resultado_final);
+				 bg.setSelected(rb_sets.getModel(), true);
 
 	}
 	public static void mensaje(String error, String titulo) {
