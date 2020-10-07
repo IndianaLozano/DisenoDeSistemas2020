@@ -17,5 +17,7 @@ public class GestorDeCompetencia {
 	public static List<Modalidad> obtenerModalidades() throws Exception {
 		return CompetenciaDAO.getAllModalidades();
 	}
-
+	
+	
+	
 }

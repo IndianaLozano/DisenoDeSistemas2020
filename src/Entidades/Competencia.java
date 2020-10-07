@@ -19,6 +19,7 @@ public class Competencia {
 	public List<Disponibilidad> disponibilidades; 
 	public Usuario usuario;
 	public Fixture fixture;
+	
 	//Constructor sin parametros
 	public Competencia() {}
 	
@@ -34,6 +35,18 @@ public class Competencia {
 		this.cantidadSets=cantidadSets;
 		this.tantosGanadosAusenciaRival=tantosGanadosAusenciaRival;
 	}
+	
+	
+	public Competencia(String datos) {
+		
+		String[] atributo = datos.split("\t");
+		
+		
+		
+	}
+	
+	
+	
 	
 	
 }
