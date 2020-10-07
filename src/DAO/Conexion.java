@@ -11,7 +11,7 @@ import Entidades.ConsultaGenerica;
 public class Conexion {
 	
 	
-	private static String server= "localhost";
+	private static String server= "179.43.126.68";
 	private static String port= "3306";    //Siempre sera este numero para MySQL
 	private static String BDD= "database";
 	private static String user= "dbuser";
@@ -26,7 +26,7 @@ public class Conexion {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			String connectionUrl= "jdbc:mysql://" + server + ":" + port + "/" + BDD + "?useLegacyDatetimeCode=false&serverTimezone=America/Argentina/Buenos_Aires";
+			String connectionUrl= "jdbc:mysql://179.43.126.68:3306/database" + "?useLegacyDatetimeCode=false&serverTimezone=America/Argentina/Buenos_Aires";
 			Connection connect= DriverManager.getConnection(connectionUrl, user, password);
 			
 			System.out.println("Conexión exitosa");

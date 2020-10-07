@@ -1,30 +1,27 @@
 package Entidades;
 
-public class Deporte {
+public class Pais {
 
-	public int idDeporte;
-	public String nombre;
+	public int idPais;
+	public String nombrePais;
 	
 	//Creacion del constructor
-	public Deporte() {
+	public Pais() {
 		
 	}
 	
 	//Creacion del constructor con parametros
-	public Deporte(int idDeporte, String nombre) {
-		this.idDeporte = idDeporte;
-		this.nombre = nombre;
+	public Pais(int idPais, String nombrePais) {
+		this.idPais = idPais;
+		this.nombrePais = nombrePais;
 				
 	}
 	
 	//BDD envia datos todos juntos en un String. Separo y convierto los datos que no son String en su respectivo tipo.
-	public Deporte(String datos) {
+	public Pais(String datos) {
 		String[] atributo = datos.split("\t");
 		//parseInt conversor de String a Int
-		this.idDeporte = Integer.parseInt(atributo[0]);
-		this.nombre= atributo[1];
-		
-		
-		
+		this.idPais = Integer.parseInt(atributo[0]);
+		this.nombrePais = atributo[1];
 	}
 }

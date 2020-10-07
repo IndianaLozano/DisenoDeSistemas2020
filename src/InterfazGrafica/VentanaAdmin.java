@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.Cursor;
@@ -37,7 +38,7 @@ public class VentanaAdmin extends JFrame {
 	public static PntCrearCompetencia pntCrearCompetencia = new PntCrearCompetencia();
 	
 	private static Dimension sizePnt;
-	private static CardLayout cl;
+	private static CardLayout cl= new CardLayout();
 	
 	public static String n_pntCrearCompetencia = "n_pntCrearCompetencia";
 	
@@ -73,7 +74,8 @@ public class VentanaAdmin extends JFrame {
 		sizePnt = contentPane.getSize() ;
 		
 		contentPane.add(n_pntCrearCompetencia, pntCrearCompetencia);
-		this.cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
+		
+		cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
 	
 	}
 	
@@ -83,5 +85,13 @@ public class VentanaAdmin extends JFrame {
 		contentPane.revalidate(); // "limpiar el contenedor o VentanaAdmin"
 		contentPane.repaint(); // "repintar el contenedor"		
 	}
+	//Ventana emergente
+	public static void mensaje(String error, String titulo) {
+		// TODO Auto-generated method stub
+		if (JOptionPane.showConfirmDialog(null, error, titulo, 
+			JOptionPane.PLAIN_MESSAGE, 
+			JOptionPane.ERROR_MESSAGE)==0);
+	}
+	
 	
 }
