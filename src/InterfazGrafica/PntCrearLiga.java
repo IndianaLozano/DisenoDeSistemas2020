@@ -134,6 +134,7 @@ public class PntCrearLiga extends JPanel {
 				 bg.add(rb_puntuacion);
 				 bg.add(rb_resultado_final);
 				 bg.setSelected(rb_sets.getModel(), true);
+				 
 
 	}
 	public static void mensaje(String error, String titulo) {
