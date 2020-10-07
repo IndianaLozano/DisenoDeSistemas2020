@@ -10,13 +10,14 @@ public class Deporte {
 		
 	}
 	
-	//creacion del constructor con parametros
+	//Creacion del constructor con parametros
 	public Deporte(int idDeporte, String nombre) {
-		this.idDeporte= idDeporte;
+		this.idDeporte = idDeporte;
 		this.nombre = nombre;
 				
 	}
 	
+	//BDD envia datos todos juntos en un String. Separo y convierto los datos que no son String en su respectivo tipo.
 	public Deporte(String datos) {
 		String[] atributo = datos.split("\t");
 		//parseInt conversor de String a Int

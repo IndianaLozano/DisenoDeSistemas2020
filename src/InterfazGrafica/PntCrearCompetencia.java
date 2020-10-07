@@ -39,23 +39,25 @@ import java.awt.event.ItemEvent;
 public class PntCrearCompetencia extends JPanel {
 	private JTextField tf_nombre_comp;
 	
-	public static JTable table= new JTable();
-	public static DefaultTableModel dm= new DefaultTableModel(){public boolean isCellEditable(int rowIndex, int columnIndex ) {return false;}};
+	/* public static permite  acceso a metodos y variables de clase sin  necesidad de instanciar un objeto de dicha clase,
+	 *  permitiendo inicializacion de forma comoda y durante la carga de clase
+	 */
+	public static JTable table = new JTable();
+	
+	public static DefaultTableModel dm = new DefaultTableModel(){
+		public boolean isCellEditable(int rowIndex, int columnIndex ) {
+			return false;
+		}
+	};
+	
 	private Button btn_mas;
 	public static JComboBox cb_deporte = new JComboBox();
 	public static JComboBox cb_modalidad = new JComboBox();
 	public static JComboBox cb_lugar = new JComboBox();
 	public static JComboBox cb_disponibilidad = new JComboBox();
 
-
-
+	// Creacion del panel
 	
-
-
-	/**
-	 * Create the panel.
-	 * 
-	 */
 	public PntCrearCompetencia() {
 		setPreferredSize(new Dimension(730, 460));
 		setLayout(null);
@@ -67,10 +69,10 @@ public class PntCrearCompetencia extends JPanel {
 		lblCrearNuevaCompetencia.setBounds(202, 24, 349, 14);
 		add(lblCrearNuevaCompetencia);
 		
-		JLabel lblNombreDeLa = new JLabel("Nombre de la competencia(*)");
-		lblNombreDeLa.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblNombreDeLa.setBounds(42, 80, 221, 14);
-		add(lblNombreDeLa);
+		JLabel lblNombreCompetencia = new JLabel("Nombre de la competencia(*)");
+		lblNombreCompetencia.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblNombreCompetencia.setBounds(42, 80, 221, 14);
+		add(lblNombreCompetencia);
 		
 		tf_nombre_comp = new JTextField();
 		tf_nombre_comp.setColumns(10);
@@ -85,10 +87,10 @@ public class PntCrearCompetencia extends JPanel {
 		
 		cb_deporte.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				//ItemEvent= clase predefinida de java que identifica un evento o un hecho (click, seleccion, etc.)
+				//ItemEvent= clase predefinida de Java que identifica  evento o  hecho (click, seleccion, etc.)
 				if(arg0.getStateChange()==ItemEvent.SELECTED) {
-					int indiceSeleccionado= cb_deporte.getSelectedIndex();
-					int idDeporteSeleccionado= devolverIdDeporte(indiceSeleccionado);
+					int indiceSeleccionado = cb_deporte.getSelectedIndex();
+					int idDeporteSeleccionado = devolverIdDeporte(indiceSeleccionado);
 					try {
 						cb_lugar.removeAllItems();
 						llenarCBLugar(idDeporteSeleccionado);
@@ -97,10 +99,7 @@ public class PntCrearCompetencia extends JPanel {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					
-				}
-				
-				
+				}		
 			}
 		});
 		cb_deporte.setToolTipText("");
@@ -136,13 +135,41 @@ public class PntCrearCompetencia extends JPanel {
 		add(cb_disponibilidad);
 		
 		btn_mas = new Button("+");
+		//Escuchador de accion
 		btn_mas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String nombreLugar= cb_lugar.getSelectedItem().toString();
-				int disp= Integer.parseInt(cb_disponibilidad.getSelectedItem().toString());
-				Object[] fila= {nombreLugar, disp};
-				dm.addRow(fila);
 				
+				//Declaro nombreLugar y disp
+				String nombreLugar= cb_lugar.getSelectedItem().toString(); 
+				
+				//convierto el item del cb_disponibilidad a String y luego a int
+				int disp= Integer.parseInt(cb_disponibilidad.getSelectedItem().toString()); 
+				
+				// Object es la clase padre de todas las clases. fila tiene un atributo String y un int -> declarar fila como Object
+				Object[] fila = {nombreLugar, disp}; 
+				
+				int nombreRepetido = 0;
+				if (table.getRowCount() == 0) { //si la tabla todavia no tiene ninguna fila agregada, agrega fila nueva
+					dm.addRow(fila);
+				}
+				else { 
+
+					int cantRowsInTable = table.getRowCount();
+					
+					for (int i = 0; i < cantRowsInTable; i++) { //recorro todas las filas de la tabla existente
+						//fila[0] == nombreLugar
+						if(fila[0] == table.getValueAt(i, 0)){
+							nombreRepetido++;
+						}
+					}
+					
+					if (nombreRepetido > 0) {
+						return;
+					}
+					else {
+						dm.addRow(fila);
+					}
+				}
 				
 			}
 		});
@@ -172,9 +199,9 @@ public class PntCrearCompetencia extends JPanel {
 		dm.addColumn("Lugar");
 		dm.addColumn("Disp");
 		
-		table.setModel(dm);
+		table.setModel(dm); //table tendra las columnas de dm que agregamos aqui arriba
 		
-		JScrollPane scrollPane_1 = new JScrollPane(table);
+		JScrollPane scrollPane_1 = new JScrollPane(table);  //agrego table dentro del ScrollPane
 		scrollPane_1.setBounds(41, 208, 286, 177);
 		add(scrollPane_1);
 		
@@ -200,6 +227,7 @@ public class PntCrearCompetencia extends JPanel {
 
 	}
 	
+	//llenar combo boxes
 	public static void llenarCB () throws Exception {
 		
 		List<Deporte> deportes = GestorDeCompetencia.obtenerDeportes();
@@ -208,7 +236,7 @@ public class PntCrearCompetencia extends JPanel {
 		String nombres_deportes;
 		
 		for(int i=0; i<tamList; i++) {
-			//se usa el get para listas 
+			//get para listas 
 			id= deportes.get(i).idDeporte;
 			nombres_deportes= deportes.get(i).nombre;
 			

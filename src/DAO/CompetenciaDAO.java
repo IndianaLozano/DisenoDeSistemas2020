@@ -8,7 +8,7 @@ import Entidades.Modalidad;
 public class CompetenciaDAO {
 
 	
-	//métodos de consulta
+	//Metodos de consulta
 	
 	public static List<Modalidad> getAllModalidades() throws Exception{
 		try {
@@ -22,7 +22,7 @@ public class CompetenciaDAO {
 		
 	}
 	
-	//método para ejecuciones
+	//Metodo para ejecuciones
 	
 	public static void altaActividad (String nombre, long idProfesor) throws Exception{
 		String query="" ;

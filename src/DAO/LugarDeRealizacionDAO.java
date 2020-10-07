@@ -9,7 +9,7 @@ import Entidades.LugarDeRealizacion;
 public class LugarDeRealizacionDAO {
 
 	
-	//Métodos de consulta
+	//Metodos de consulta
 	
 	public static List<LugarDeRealizacion> getLugaresDeporte(int idDeporte ) throws Exception{
 		try {

@@ -34,7 +34,7 @@ public class DeporteDAO {
 	}
 	
 	
-	//método para ejecuciones
+	//Metodo para ejecuciones
 	
 	public static void altaActividad (String nombre, long idProfesor) throws Exception{
 		String query="" ;
