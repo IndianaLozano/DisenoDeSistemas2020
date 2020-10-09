@@ -283,20 +283,23 @@ public class PntCrearCompetencia extends JPanel {
 				
 		}
 		
-		List<Modalidad> modalidades = GestorDeCompetencia.obtenerModalidades();
-		int tamList1 = modalidades.size();
+		List<Integer> idModalidades = GestorDeCompetencia.obtenerIdModalidades();
+		int tamList1 = idModalidades.size();
+		
 		int idMod;
 		String nombres_modalidades;
 		
 		for(int i=0; i<tamList1; i++) {
 			//se usa el get para listas 
-			id= modalidades.get(i).idModalidad;
-			nombres_modalidades= modalidades.get(i).modalidad;
+			idMod= idModalidades.get(i);
+			nombres_modalidades= GestorDeCompetencia.obtenerModalidadEnum(idMod).toString();
 			cb_modalidad.addItem(nombres_modalidades);
 				
 		}
 	
 	}
+	
+	
 	
 	
 	public static int devolverIdDeporte(int index) {

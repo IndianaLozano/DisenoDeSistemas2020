@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 
+import Entidades.ConsultaGenerica;
+import Entidades.Disponibilidad;
 import Entidades.Estado;
 import Entidades.Modalidad;
+import Entidades.Participante;
 import Entidades.Puntuacion;
 import javafx.scene.control.RadioButton;
 
@@ -15,15 +18,27 @@ public class CompetenciaDAO {
 	
 	//Metodos de consulta
 	
-	public static List<Modalidad> getAllModalidades() throws Exception{
+	public static List<Integer> getIdModalidades() throws Exception {
+		 
+		List<Integer> idModalidades = new ArrayList<Integer> ();
 		try {
-			String query = "SELECT * FROM database.modalidad";
-			ArrayList<Modalidad> modalidades = (ArrayList<Modalidad>)((Object)Conexion.consultar(query, Modalidad.class));
-			return modalidades;
-		}
-		catch(Exception ex) {
+			List<ConsultaGenerica>ls = (List<ConsultaGenerica>)(Object)Conexion.consultar("SELECT id_modalidad FROM database.modalidad ;", ConsultaGenerica.class);
+			int tam= ls.size();
+			int i=0;
+			while(i<tam) {
+				idModalidades.add(Integer.parseInt(ls.get(i).getValor("id_modalidad")));
+			i++;
+			}
+			
+			
+
+		} catch (Exception ex) {
+			
+			System.out.println("Entro al catch");
 			throw ex;
+			
 		}
+		return idModalidades;
 		
 	}
 	
@@ -56,17 +71,34 @@ public class CompetenciaDAO {
 	}
 	
 	
-	public static List<Estado> getEstado(int idEstado) throws Exception{
+	
+	
+	
+	public static List<Participante> getParticipantesCompetencia(int idCompetencia) throws Exception{
 		try {
-			String query = "SELECT * FROM database.estado WHERE id_estado= " + idEstado + " ;";
-			ArrayList<Estado> estado = (ArrayList<Estado>)((Object)Conexion.consultar(query, Estado.class));
-			return estado;
+			String query = "SELECT * FROM database.participante WHERE id_competencia = " + idCompetencia + " ;"  ;
+			ArrayList<Participante> participantes = (ArrayList<Participante>)((Object)Conexion.consultar(query, Participante.class));
+			return participantes;
 		}
 		catch(Exception ex) {
 			throw ex;
 		}
 		
 	}
+	
+	public static List<Disponibilidad> getDisponibilidadesCompetencia(int idCompetencia) throws Exception{
+		try {
+			String query = "SELECT comp_lug.id_competencia, comp_lug.id_lugar, comp_lug.disponibilidad FROM database.competencia comp JOIN database.competencia_lugar comp_lug ON (comp.id_competencia=comp_lug.id_competencia) WHERE id_competencia = " + idCompetencia + " ;"  ;
+			ArrayList<Disponibilidad> disponibilidades = (ArrayList<Disponibilidad>)((Object)Conexion.consultar(query, Disponibilidad.class));
+			return disponibilidades;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+		
+	}
+	
+	
 	
 	//Metodo para ejecuciones
 	

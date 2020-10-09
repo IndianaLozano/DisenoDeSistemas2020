@@ -1,5 +1,9 @@
 package Entidades;
 
-public class Puntuacion {
+public enum Puntuacion {
+	
+	Puntuacion,
+	ResultadoFinal,
+	Sets
 
 }

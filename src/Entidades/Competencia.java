@@ -8,17 +8,17 @@ public class Competencia {
 
 	public int idCompetencia;
 	public String nombre;
-	public Modalidad modalidad;
-	public Estado estado;
+	public Modalidad modalidad; //*
+	public Estado estado;//*
 	public String reglamento;
-	public Puntuacion puntuacion;
+	public Puntuacion puntuacion;//* 
 	public boolean dadaDeBaja;
 	public int cantidadSets;
 	public int tantosGanadosAusenciaRival;
 	
-	public List<Participante> participantes;
-	public Deporte deporte;
-	public List<Disponibilidad> disponibilidades; 
+	public List<Participante> participantes;//*
+	public Deporte deporte;//*
+	public List<Disponibilidad> disponibilidades; //*
 	public Usuario usuario;
 	public Fixture fixture;
 	
@@ -48,8 +48,13 @@ public class Competencia {
 		this.reglamento= atributo[8];
 		this.tantosGanadosAusenciaRival= Integer.parseInt(atributo[10]);
 		try {
-			this.estado= GestorDeCompetencia.obtenerEstado(Integer.parseInt(atributo[3])).get(0);
-			this.modalidad= GestorDeCompetencia.obtenerModalidad(Integer.parseInt(atributo[2])).get(0);
+			this.estado= GestorDeCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
+			this.modalidad= GestorDeCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));
+			this.participantes= GestorDeCompetencia.obtenerParticipantesCompetencia(Integer.parseInt(atributo[0]));
+			this.deporte= GestorDeCompetencia.obtenerDeporte(Integer.parseInt(atributo[5])).get(0);
+			this.disponibilidades= GestorDeCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0]));
+			this.puntuacion= GestorDeCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
+			
 			
 			} catch (NumberFormatException e) {
 			e.printStackTrace();
