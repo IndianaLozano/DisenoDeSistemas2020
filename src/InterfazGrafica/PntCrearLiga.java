@@ -17,10 +17,16 @@ import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButtonMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class PntCrearLiga extends JPanel {
 	private JTextField tf_puntospg;
-	private JTextField tf_puntope;
+	private JTextField tf_puntospe;
 	private JTextField tf_puntospp;
 
 	/**
@@ -54,10 +60,25 @@ public class PntCrearLiga extends JPanel {
 		tf_puntospg.setBounds(285, 128, 49, 19);
 		add(tf_puntospg);
 		
-		JCheckBox chb_empatepermitido = new JCheckBox("EMPATE PERMITIDO");
-		chb_empatepermitido.setFont(new Font("Calibri", Font.PLAIN, 14));
-		chb_empatepermitido.setBounds(73, 197, 157, 23);
-		add(chb_empatepermitido);
+		tf_puntospe = new JTextField();
+		tf_puntospe.setColumns(10);
+		tf_puntospe.setBounds(285, 220, 49, 19);
+		tf_puntospe.setEnabled(false);
+		add(tf_puntospe);
+		
+		JCheckBox chb_empate_permitido = new JCheckBox("EMPATE PERMITIDO");
+		chb_empate_permitido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(chb_empate_permitido.isSelected()==true) {
+					tf_puntospe.setEnabled(true);
+				}else {
+					tf_puntospe.setEnabled(false);
+				}
+			}
+		});
+		chb_empate_permitido.setFont(new Font("Calibri", Font.PLAIN, 14));
+		chb_empate_permitido.setBounds(73, 197, 157, 23);
+		add(chb_empate_permitido);
 		
 		JLabel crearNuevaCompetenciaPuntuacionLiga_1_1 = new JLabel();
 		crearNuevaCompetenciaPuntuacionLiga_1_1.setText(" PUNTOS POR PARTIDO EMPATADO");
@@ -66,10 +87,6 @@ public class PntCrearLiga extends JPanel {
 		crearNuevaCompetenciaPuntuacionLiga_1_1.setBounds(73, 221, 207, 19);
 		add(crearNuevaCompetenciaPuntuacionLiga_1_1);
 		
-		tf_puntope = new JTextField();
-		tf_puntope.setColumns(10);
-		tf_puntope.setBounds(285, 220, 49, 19);
-		add(tf_puntope);
 		
 		JLabel crearNuevaCompetenciaPuntuacionLiga_1_1_1 = new JLabel();
 		crearNuevaCompetenciaPuntuacionLiga_1_1_1.setText(" PUNTOS POR PRESENTARSE(*)");
@@ -80,7 +97,7 @@ public class PntCrearLiga extends JPanel {
 		
 		tf_puntospp = new JTextField();
 		tf_puntospp.setColumns(10);
-		tf_puntospp.setBounds(254, 292, 49, 19);
+		tf_puntospp.setBounds(285, 292, 49, 19);
 		add(tf_puntospp);
 		
 		Button btn_atras = new Button("Atr\u00E1s");
@@ -100,32 +117,56 @@ public class PntCrearLiga extends JPanel {
 		crearNuevaCompetenciaPuntuacionLiga_1.setBounds(402, 128, 287, 19);
 		add(crearNuevaCompetenciaPuntuacionLiga_1);
 		
+		JComboBox cb_cantidad_sets = new JComboBox();
+		cb_cantidad_sets.setModel(new DefaultComboBoxModel(new String[] {"Cantidad de sets"}));
+		cb_cantidad_sets.setFont(new Font("Calibri", Font.PLAIN, 14));
+		cb_cantidad_sets.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		cb_cantidad_sets.setAlignmentX(0.0f);
+		cb_cantidad_sets.setBounds(477, 151, 143, 20);
+		cb_cantidad_sets.setEnabled(false);
+		cb_cantidad_sets.setModel(new DefaultComboBoxModel(new String[] {"1", "3", "5", "7", "9"}));
+		add(cb_cantidad_sets);
+		
+		JComboBox cb_tantos_ganados_ausencia_rival = new JComboBox();
+		cb_tantos_ganados_ausencia_rival.setModel(new DefaultComboBoxModel(new String[] {"Tantos ganados por ausencia del rival"}));
+		cb_tantos_ganados_ausencia_rival.setFont(new Font("Calibri", Font.PLAIN, 14));
+		cb_tantos_ganados_ausencia_rival.setBounds(529, 197, 91, 19);
+		cb_tantos_ganados_ausencia_rival.setEnabled(false);
+		cb_tantos_ganados_ausencia_rival.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6"}));
+		add(cb_tantos_ganados_ausencia_rival);
+		
+		
 		JRadioButton rb_sets = new JRadioButton("SETS");
+		rb_sets.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cb_cantidad_sets.setEnabled(true);
+				cb_tantos_ganados_ausencia_rival.setEnabled(false);
+			}
+		});
 		rb_sets.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		rb_sets.setBounds(413, 150, 62, 23);
 		add(rb_sets);
 		
-		JComboBox cb_cantidadsets = new JComboBox();
-		cb_cantidadsets.setModel(new DefaultComboBoxModel(new String[] {"Cantidad de sets"}));
-		cb_cantidadsets.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cb_cantidadsets.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		cb_cantidadsets.setAlignmentX(0.0f);
-		cb_cantidadsets.setBounds(481, 151, 139, 20);
-		add(cb_cantidadsets);
-		
 		JRadioButton rb_puntuacion = new JRadioButton("PUNTUACI\u00D3N");
-		rb_puntuacion.setBounds(413, 194, 127, 23);
+		rb_puntuacion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cb_cantidad_sets.setEnabled(false);
+				cb_tantos_ganados_ausencia_rival.setEnabled(true);
+			}
+		});
+		rb_puntuacion.setBounds(413, 194, 110, 23);
 		add(rb_puntuacion);
 		
-		JComboBox cb_tantosausenciarival = new JComboBox();
-		cb_tantosausenciarival.setModel(new DefaultComboBoxModel(new String[] {"Tantos ganados por ausencia del rival"}));
-		cb_tantosausenciarival.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cb_tantosausenciarival.setBounds(413, 218, 247, 19);
-		add(cb_tantosausenciarival);
 		
 		JRadioButton rb_resultado_final = new JRadioButton("RESULTADO FINAL");
+		rb_resultado_final.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cb_cantidad_sets.setEnabled(false);
+				cb_tantos_ganados_ausencia_rival.setEnabled(false);
+			}
+		});
 		rb_resultado_final.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		rb_resultado_final.setBounds(413, 254, 176, 23);
+		rb_resultado_final.setBounds(413, 238, 176, 23);
 		add(rb_resultado_final);
 		
 		// ButtonGroup para seleccionar solamente un rb a la vez
@@ -133,8 +174,7 @@ public class PntCrearLiga extends JPanel {
 				 bg.add(rb_sets);
 				 bg.add(rb_puntuacion);
 				 bg.add(rb_resultado_final);
-				 bg.setSelected(rb_sets.getModel(), true);
-				 
+				 /*bg.setSelected(rb_sets.getModel(), true);*/
 
 	}
 	public static void mensaje(String error, String titulo) {
@@ -145,3 +185,4 @@ public class PntCrearLiga extends JPanel {
 			
 	}
 }
+
