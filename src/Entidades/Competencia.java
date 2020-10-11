@@ -3,6 +3,7 @@ package Entidades;
 import java.util.List;
 
 import Gestores.GestorCompetencia;
+import Gestores.GestorUsuario;
 
 public class Competencia {
 
@@ -54,6 +55,7 @@ public class Competencia {
 			this.deporte= GestorCompetencia.obtenerDeporte(Integer.parseInt(atributo[5])).get(0);
 			this.disponibilidades= GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0]));
 			this.puntuacion= GestorCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
+			this.usuario= GestorUsuario.getUsuario(Integer.parseInt(atributo[1])).get(0);
 			
 			
 			} catch (NumberFormatException e) {

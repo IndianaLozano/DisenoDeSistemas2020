@@ -2,6 +2,9 @@ package Entidades;
 
 import java.util.List;
 
+import Gestores.GestorCompetencia;
+import Gestores.GestorUsuario;
+
 public class Usuario {
 	
 	public int id_usuario;
@@ -39,7 +42,15 @@ public class Usuario {
 		this.nombre=atributo[3];
 		this.apellido=atributo[4];
 		this.documento=Integer.parseInt(atributo[5]);
-		
+		try {
+			this.localidad= GestorUsuario.obtenerLocalidad(Integer.parseInt(atributo[2])).get(0);
+			this.tipoDoc= GestorCompetencia.obtenerTipoDocEnum(Integer.parseInt(atributo[1]));
+			this.competencias= GestorCompetencia.obtenerCompetenciasUsuario(Integer.parseInt(atributo[0]));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		//TODO: LOCALIDAD, tipoDocumento, competencias
 		
 }

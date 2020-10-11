@@ -11,6 +11,7 @@ import Entidades.Estado;
 import Entidades.Modalidad;
 import Entidades.Participante;
 import Entidades.Puntuacion;
+import Entidades.TipoDocumento;
 
 public class GestorCompetencia {
 	
@@ -43,6 +44,29 @@ public class GestorCompetencia {
 		return CompetenciaDAO.getNombresCompetencias();
 	}
 	
+	public static List<Competencia> obtenerCompetenciasUsuario(int idUsuario) throws Exception{
+		return CompetenciaDAO.getCompetenciasUsuario(idUsuario);
+	}
+
+	
+	
+   public static TipoDocumento obtenerTipoDocEnum (int idTipo) {
+		
+		TipoDocumento tipo= null;
+		
+		switch(idTipo) {
+		case 1: tipo= TipoDocumento.DNI;
+		break;
+		case 2: tipo= TipoDocumento.CUIT;
+		break;
+		case 3: tipo= TipoDocumento.CUIL;
+		break;
+		case 4: tipo= TipoDocumento.libretaCivica;
+		break;
+		case 5: tipo= TipoDocumento.Pasaporte;
+		}
+		return tipo;
+	}
 	
 	public static Puntuacion obtenerPuntuacionEnum (int idPuntuacion) {
 		

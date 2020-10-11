@@ -119,6 +119,19 @@ public class CompetenciaDAO {
 		return nombresCompetencias;
 	}
 	
+	public static List<Competencia> getCompetenciasUsuario(int idUsuario) throws Exception{
+		try {
+			String query = "SELECT comp.id_competencia, comp.id_usuario, comp.id_modalidad, comp.id_estado, comp.id_puntuacion, comp.id_deporte, comp.nombre, comp.dada_de_baja, comp.reglamento, comp.cantidad_sets, comp.tantosGanadosAusenciaRival FROM database.competencia comp JOIN database.usuario us ON (comp.id_usuario=us.id_usuario) WHERE id_usuario = " + idUsuario + " ;";
+			ArrayList<Competencia> competencias = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
+			return competencias;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	
+	
 	//Metodo para ejecuciones
 	
 	public static void altaActividad (String nombre, long idProfesor) throws Exception{
