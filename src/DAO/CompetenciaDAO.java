@@ -9,6 +9,7 @@ import Entidades.Competencia;
 import Entidades.ConsultaGenerica;
 import Entidades.Disponibilidad;
 import Entidades.Estado;
+import Entidades.Fixture;
 import Entidades.Modalidad;
 import Entidades.Participante;
 import Entidades.Puntuacion;
@@ -97,6 +98,20 @@ public class CompetenciaDAO {
 			throw ex;
 		}
 	}*/
+	
+	
+	public static List<Fixture> getFixture(int idFixture) throws Exception{
+		try {
+			String query = "SELECT * FROM database.fixture WHERE id_fixture = " + idFixture + " ;";                            
+			ArrayList<Fixture> fixture = (ArrayList<Fixture>)((Object)Conexion.consultar(query, Fixture.class));
+			return fixture;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+		
+	}
+	
 	
 	public static List<String> getNombresCompetencias() throws Exception {
 		 
