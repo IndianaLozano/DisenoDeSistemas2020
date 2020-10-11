@@ -81,8 +81,8 @@ public class VentanaAdmin extends JFrame {
 		contentPane.add(n_pntCrearEliminatoria, pntCrearCompetencia);
 		contentPane.add(n_pntCrearLiga, pntCrearLiga);
 		
-		cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
-		/*cambiarPantalla(pntCrearLiga, n_pntCrearLiga);*/
+		/*cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);*/
+		cambiarPantalla(pntCrearLiga, n_pntCrearLiga);
 	
 	}
 	
