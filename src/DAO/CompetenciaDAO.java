@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 
+import Entidades.Competencia;
 import Entidades.ConsultaGenerica;
 import Entidades.Disponibilidad;
 import Entidades.Estado;
@@ -22,21 +23,17 @@ public class CompetenciaDAO {
 		 
 		List<Integer> idModalidades = new ArrayList<Integer> ();
 		try {
-			List<ConsultaGenerica>ls = (List<ConsultaGenerica>)(Object)Conexion.consultar("SELECT id_modalidad FROM database.modalidad ;", ConsultaGenerica.class);
-			int tam= ls.size();
+			List<ConsultaGenerica> ls = (List<ConsultaGenerica>)(Object)Conexion.consultar("SELECT id_modalidad FROM database.modalidad ;", ConsultaGenerica.class);
+			int tam = ls.size();
 			int i=0;
 			while(i<tam) {
 				idModalidades.add(Integer.parseInt(ls.get(i).getValor("id_modalidad")));
-			i++;
+			    i++;
 			}
-			
-			
 
 		} catch (Exception ex) {
-			
 			System.out.println("Entro al catch");
 			throw ex;
-			
 		}
 		return idModalidades;
 		
@@ -54,10 +51,6 @@ public class CompetenciaDAO {
 		
 	}
 	
-	
-	 
-	
-	
 	public static List<Puntuacion> getPuntuacion(int idPuntuacion) throws Exception{
 		try {
 			String query = "SELECT punt.id_puntuacion, punt.puntuacion FROM database.competencia comp JOIN database.puntuacion punt ON (comp.id_puntuacion = punt.id_puntuacion ) WHERE id_puntuacion = " + idPuntuacion + " ";                            
@@ -69,10 +62,6 @@ public class CompetenciaDAO {
 		}
 		
 	}
-	
-	
-	
-	
 	
 	public static List<Participante> getParticipantesCompetencia(int idCompetencia) throws Exception{
 		try {
@@ -95,10 +84,40 @@ public class CompetenciaDAO {
 		catch(Exception ex) {
 			throw ex;
 		}
-		
 	}
 	
+	/*Metodo para traer todas las Competencias (enteras)
+		public static List<Competencia> getAllCompetencias() throws Exception{
+		try {
+			String query = "SELECT * FROM database.competencia;";
+			ArrayList<Competencia> competencias = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
+			return competencias;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}*/
 	
+	public static List<String> getNombresCompetencias() throws Exception {
+		 
+		List<String> nombresCompetencias = new ArrayList<String> ();
+		try {
+			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar("SELECT nombre FROM database.competencia ;", ConsultaGenerica.class);
+			int tam = ls1.size();
+			int i = 0;
+			while(i<tam) {
+				nombresCompetencias.add(ls1.get(i).getValor("nombre"));
+			    i++;
+			}
+
+		} catch (Exception ex) {
+			
+			System.out.println("Entro al catch");
+			throw ex;
+			
+		}
+		return nombresCompetencias;
+	}
 	
 	//Metodo para ejecuciones
 	

@@ -2,7 +2,7 @@ package Entidades;
 
 import java.util.List;
 
-import Gestores.GestorDeCompetencia;
+import Gestores.GestorCompetencia;
 
 public class Competencia {
 
@@ -48,12 +48,12 @@ public class Competencia {
 		this.reglamento= atributo[8];
 		this.tantosGanadosAusenciaRival= Integer.parseInt(atributo[10]);
 		try {
-			this.estado= GestorDeCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
-			this.modalidad= GestorDeCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));
-			this.participantes= GestorDeCompetencia.obtenerParticipantesCompetencia(Integer.parseInt(atributo[0]));
-			this.deporte= GestorDeCompetencia.obtenerDeporte(Integer.parseInt(atributo[5])).get(0);
-			this.disponibilidades= GestorDeCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0]));
-			this.puntuacion= GestorDeCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
+			this.estado= GestorCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
+			this.modalidad= GestorCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));
+			this.participantes= GestorCompetencia.obtenerParticipantesCompetencia(Integer.parseInt(atributo[0]));
+			this.deporte= GestorCompetencia.obtenerDeporte(Integer.parseInt(atributo[5])).get(0);
+			this.disponibilidades= GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0]));
+			this.puntuacion= GestorCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
 			
 			
 			} catch (NumberFormatException e) {

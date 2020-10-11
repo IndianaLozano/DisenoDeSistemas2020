@@ -19,10 +19,12 @@ import javax.swing.JTable;
 import java.awt.Rectangle;
 import javax.swing.table.DefaultTableModel;
 
+import Entidades.Competencia;
 import Entidades.Deporte;
 import Entidades.LugarDeRealizacion;
 import Entidades.Modalidad;
-import Gestores.GestorDeCompetencia;
+import Gestores.GestorCompetencia;
+import Gestores.GestorCompetencia;
 import Gestores.GestorLugaresDeRealizacion;
 import javafx.scene.control.RadioButton;
 
@@ -193,12 +195,32 @@ public class PntCrearCompetencia extends JPanel {
 		Button btn_sig = new Button("Siguiente");
 		btn_sig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Nombre de la competencia no se repita y que este en mayuscula.
-				//Datos obligatorios.
+				//Nombre de la competencia no se repita y que se ingrese en mayusculas.
+				
+				/*Obtener listado de nombres de competencias existentes.
+				try {
+					List<String> nombresCompetencias = GestorCompetencia.obtenerNombresCompetencias();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//int tamList = competencias.size();
+				int nombreRepetido = 0;
+				do {
+					int contador = 0;
+					competencias.get(contador).nombre;
+					
+				}
+				while(nombreRepetido == 0);
+				
+				/*int nombreRepetido = 0;
+				Comparar nombre de competencia actual con cada nombre de cada competencia existente. Si son iguales, nombreRepetido ++;
+				
+				Datos obligatorios.
 				
 				//VentanaAdmin.cambiarPantalla(VentanaAdmin.'nombrePantalla', VentanaAdmin.'pantalla');
 				
-				
+				*/
 			}
 		});
 		btn_sig.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -235,9 +257,6 @@ public class PntCrearCompetencia extends JPanel {
 				}else {
 					dm.removeRow(table.getSelectedRow());
 				}
-				
-				
-				
 			}
 		});
 		btn_menos.setFont(new Font("Calibri", Font.PLAIN, 15));
@@ -269,7 +288,7 @@ public class PntCrearCompetencia extends JPanel {
 	//llenar combo boxes
 	public static void llenarCB () throws Exception {
 		
-		List<Deporte> deportes = GestorDeCompetencia.obtenerDeportes();
+		List<Deporte> deportes = GestorCompetencia.obtenerDeportes();
 		int tamList = deportes.size();
 		int id;
 		String nombres_deportes;
@@ -283,7 +302,7 @@ public class PntCrearCompetencia extends JPanel {
 				
 		}
 		
-		List<Integer> idModalidades = GestorDeCompetencia.obtenerIdModalidades();
+		List<Integer> idModalidades = GestorCompetencia.obtenerIdModalidades();
 		int tamList1 = idModalidades.size();
 		
 		int idMod;
@@ -292,7 +311,7 @@ public class PntCrearCompetencia extends JPanel {
 		for(int i=0; i<tamList1; i++) {
 			//se usa el get para listas 
 			idMod= idModalidades.get(i);
-			nombres_modalidades= GestorDeCompetencia.obtenerModalidadEnum(idMod).toString();
+			nombres_modalidades= GestorCompetencia.obtenerModalidadEnum(idMod).toString();
 			cb_modalidad.addItem(nombres_modalidades);
 				
 		}

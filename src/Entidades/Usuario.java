@@ -14,7 +14,6 @@ public class Usuario {
 	public List<Competencia> competencias;
 	public Localidad localidad;
 	
-
 	
 	public Usuario() {
 		
