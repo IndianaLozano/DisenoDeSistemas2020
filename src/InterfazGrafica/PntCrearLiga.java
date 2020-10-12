@@ -30,10 +30,13 @@ public class PntCrearLiga extends JPanel {
 	public static JTextField tf_puntospg;
 	public static JTextField tf_puntospe;
 	public static JTextField tf_puntospp;
-	public static JCheckBox chb_empate_permitido;
+	public static JCheckBox chb_empate_permitido = new JCheckBox("EMPATE PERMITIDO");
+
 	public static JRadioButton rb_sets;
 	public static JRadioButton rb_resultado_final;
 	public static JRadioButton rb_puntuacion;
+	public static ButtonGroup bg = new ButtonGroup();
+
 
 	/**
 	 * Create the panel.
@@ -90,7 +93,6 @@ public class PntCrearLiga extends JPanel {
 		tf_puntospe.setEnabled(false);
 		add(tf_puntospe);
 		
-		JCheckBox chb_empate_permitido = new JCheckBox("EMPATE PERMITIDO");
 		chb_empate_permitido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(chb_empate_permitido.isSelected()==true) {
@@ -208,11 +210,10 @@ public class PntCrearLiga extends JPanel {
 		add(rb_resultado_final);
 		
 		// ButtonGroup para seleccionar solamente un rb a la vez
-		ButtonGroup bg = new ButtonGroup();
 		bg.add(rb_sets);
 		bg.add(rb_puntuacion);
 		bg.add(rb_resultado_final);
-		/*bg.setSelected(rb_sets.getModel(), true);*/
+		bg.setSelected(rb_sets.getModel(), true);
 				 
 		Button btn_siguiente = new Button("Siguiente");
 		btn_siguiente.addActionListener(new ActionListener() {
@@ -276,22 +277,26 @@ public class PntCrearLiga extends JPanel {
 	}
 	
 	public static boolean validarCamposVacios() {
+		boolean retorno = false;
+		
 		//if (tf_puntospg.getText().length()==0) {
 		//	VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
 		//} else {
 		//	if (tf_puntospp.getText().length()==0) {
 		//		VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
 		//	} else {
-				if ((chb_empate_permitido.isSelected()==true) && (tf_puntospe.getText().length()==0)) {
+		
+		
+				if ((chb_empate_permitido.isSelected() == true) && (tf_puntospe.getText().length()==0)) {
 					VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
-				} else {
-					if ((rb_sets.isSelected()==false) && (rb_resultado_final.isSelected()==false) && (rb_puntuacion.isSelected()==false)){
-						VentanaAdmin.mensajeError("Seleccione la forma de puntuacion", "ERROR");
-					}
-				}
+				}else {
+					retorno= true;
+				} 
 			//}
 		//}
-		return true;
+				
+				return retorno;
+		
 	}
 
 }
