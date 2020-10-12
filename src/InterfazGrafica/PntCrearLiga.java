@@ -36,6 +36,9 @@ public class PntCrearLiga extends JPanel {
 	public static JRadioButton rb_resultado_final;
 	public static JRadioButton rb_puntuacion;
 	public static ButtonGroup bg = new ButtonGroup();
+	
+	public static int ptospg;
+	public static int ptospp;
 
 
 	/**
@@ -163,7 +166,7 @@ public class PntCrearLiga extends JPanel {
 		cb_cantidad_sets.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		cb_cantidad_sets.setAlignmentX(0.0f);
 		cb_cantidad_sets.setBounds(477, 151, 143, 20);
-		cb_cantidad_sets.setEnabled(false);
+		cb_cantidad_sets.setEnabled(true);
 		cb_cantidad_sets.setModel(new DefaultComboBoxModel(new String[] {"1", "3", "5", "7", "9"}));
 		add(cb_cantidad_sets);
 		
@@ -220,49 +223,17 @@ public class PntCrearLiga extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 							
 				if (validarCamposVacios()==true) {
-					//if(validarPtosPGPtosPE()==true) {
-						//	if(validarPtosPGPtosPP()==true) {
-										
-						//	}
-					//}
+					if(validarPtosPGPtosPE()==true) {
+							if(validarPtosPGPtosPP()==true) {
+								//ACA FALTA GUARDAR LOS DATOS RECIBIDOS EN LA BASE DE DATOS
+								VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+								VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);		
+							}
+					}
 				}
 							
-			
-				//int ptospe=Integer.parseInt(tf_puntospe.getText());
-			
-							
-			/*	if (tf_puntospg.getText().isEmpty()) {
-					VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
-				} else {
-					int ptospg=Integer.parseInt(tf_puntospg.getText());
-					if (tf_puntospp.getText().isEmpty()) {
-						VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
-					} else {
-						int ptospp=Integer.parseInt(tf_puntospp.getText());
-						if ((chb_empate_permitido.isSelected()==true) && (tf_puntospe.getText().isEmpty())) {
-							VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
-						} else {
-							if ((rb_sets.isSelected()==false) && (rb_resultado_final.isSelected()==false) && (rb_puntuacion.isSelected()==false)){
-								VentanaAdmin.mensajeError("Seleccione la forma de puntuacion", "ERROR");
-							} else {
-								if ((chb_empate_permitido.isSelected()==true)&&(ptospg<Integer.parseInt(tf_puntospe.getText()))){
-									VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por partido empatado'", "ERROR");
-								} else {
-									if ((ptospg<ptospp)||(ptospg==ptospp)){
-										VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por presentarse'", "ERROR");
-									} else {
-										//ACA FALTA GUARDAR LOS DATOS RECIBIDOS EN LA BASE DE DATOS
-										VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
-										VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
-											}
-										}
-									}
-								}
-							}
-						}*/
-							
-					}
-				});
+			}
+		});
 		btn_siguiente.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btn_siguiente.setBounds(590, 372, 70, 22);
 		add(btn_siguiente);
@@ -279,24 +250,46 @@ public class PntCrearLiga extends JPanel {
 	public static boolean validarCamposVacios() {
 		boolean retorno = false;
 		
-		//if (tf_puntospg.getText().length()==0) {
-		//	VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
-		//} else {
-		//	if (tf_puntospp.getText().length()==0) {
-		//		VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
-		//	} else {
-		
-		
-				if ((chb_empate_permitido.isSelected() == true) && (tf_puntospe.getText().length()==0)) {
+		if (tf_puntospg.getText().isEmpty()) {
+			VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
+		} else {
+			ptospg=Integer.parseInt(tf_puntospg.getText());
+			if (tf_puntospp.getText().isEmpty()) {
+				VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+			} else {
+				ptospp=Integer.parseInt(tf_puntospp.getText());
+				if ((chb_empate_permitido.isSelected()==true) && (tf_puntospe.getText().isEmpty())) {
 					VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
-				}else {
+				} else {
 					retorno= true;
 				} 
-			//}
-		//}
-				
-				return retorno;
+			}
+		}		
+		return retorno;
+	}
+	
+	
+	public static boolean validarPtosPGPtosPE() {
+		boolean retorno = false;
 		
+		if ((chb_empate_permitido.isSelected()==true)&&(ptospg<Integer.parseInt(tf_puntospe.getText()))){
+			VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por partido empatado'", "ERROR");
+	} else {
+		retorno= true;
+			}
+		return retorno;
+	}
+	
+	
+	public static boolean validarPtosPGPtosPP() {
+		boolean retorno = false;
+		
+		if ((ptospg<ptospp)||(ptospg==ptospp)){
+			VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por presentarse'", "ERROR");
+		} else {
+			retorno= true;
+		}
+		return retorno;
 	}
 
 }
