@@ -38,6 +38,7 @@ public class VentanaAdmin extends JFrame {
 	public static PntCrearCompetencia pntCrearCompetencia = new PntCrearCompetencia();
 	public static PntCrearEliminatoria pntCrearEliminatoria= new PntCrearEliminatoria();
 	public static PntCrearLiga pntCrearLiga= new PntCrearLiga();
+	public static PntListarParticipantes pntListarParticipantes= new PntListarParticipantes();
 	
 	private static Dimension sizePnt;
 	private static CardLayout cl= new CardLayout();
@@ -45,6 +46,7 @@ public class VentanaAdmin extends JFrame {
 	public static String n_pntCrearCompetencia = "n_pntCrearCompetencia";
 	public static String n_pntCrearEliminatoria= "n_pntCrearEliminatoria";
 	public static String n_pntCrearLiga= "n_pntCrearLiga";
+	public static String n_pntListarParticipantes= "n_pntListarParticipantes";
 	
 	/**
 	 * Launch the application.
@@ -78,8 +80,9 @@ public class VentanaAdmin extends JFrame {
 		sizePnt = contentPane.getSize() ;
 		
 		contentPane.add(n_pntCrearCompetencia, pntCrearCompetencia);
-		contentPane.add(n_pntCrearEliminatoria, pntCrearCompetencia);
+		contentPane.add(n_pntCrearEliminatoria, pntCrearEliminatoria);
 		contentPane.add(n_pntCrearLiga, pntCrearLiga);
+		contentPane.add(n_pntListarParticipantes, pntListarParticipantes);
 		
 		/*cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);*/
 		cambiarPantalla(pntCrearLiga, n_pntCrearLiga);
@@ -94,12 +97,27 @@ public class VentanaAdmin extends JFrame {
 	}
 	
 	
-	//Ventana emergente
+	//Ventana emergente de error
 	public static void mensajeError(String error, String titulo) {
 		// TODO Auto-generated method stub
 		if (JOptionPane.showConfirmDialog(null, error, titulo, 
 			JOptionPane.PLAIN_MESSAGE, 
 			JOptionPane.ERROR_MESSAGE)==0);
+	}
+	
+	//Ventana emergente de consulta
+	public static int mensajeConsulta(String[] args, String titulo, String mensaje) {
+        int seleccion = JOptionPane.showConfirmDialog(null,
+                mensaje, titulo,JOptionPane.YES_NO_OPTION);
+	// 0=yes, 1=no
+	System.out.println(seleccion);
+	return seleccion;
+    }
+	
+	//Ventana emergente de confirmacion
+	public static void mensajeExito(String texto, String titulo) {
+		if (JOptionPane.showConfirmDialog(null, texto, titulo, JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE)==0);
+		
 	}
 	
 	

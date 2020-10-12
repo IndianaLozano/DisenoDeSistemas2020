@@ -19,6 +19,8 @@ import javax.swing.JTable;
 import java.awt.Rectangle;
 import javax.swing.table.DefaultTableModel;
 
+import DTO.CompetenciaDTO;
+import DTO.DisponibilidadDTO;
 import Entidades.Competencia;
 import Entidades.Deporte;
 import Entidades.LugarDeRealizacion;
@@ -40,6 +42,8 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PntCrearCompetencia extends JPanel {
 	
@@ -62,8 +66,11 @@ public class PntCrearCompetencia extends JPanel {
 	public static JComboBox cb_lugar = new JComboBox();
 	public static JComboBox cb_disponibilidad = new JComboBox();
 	
-	public static List<Integer> idLugares = new ArrayList<Integer>(); 
-
+	public static List<Integer> idLugares = new ArrayList<Integer>();
+	
+	public static CompetenciaDTO competenciaDTO = new CompetenciaDTO();
+	
+	public static JTextArea ta_reglamento = new JTextArea();
 	// Creacion del panel
 	
 	public PntCrearCompetencia() {
@@ -84,11 +91,16 @@ public class PntCrearCompetencia extends JPanel {
 		add(lblNombreCompetencia);
 		
 		tf_nombre_comp = new JTextField();
+		tf_nombre_comp.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				tf_nombre_comp.setText(tf_nombre_comp.getText().toUpperCase());
+			}
+		});
 		tf_nombre_comp.setColumns(10);
 		tf_nombre_comp.setBounds(42, 97, 221, 24);
 		add(tf_nombre_comp);
 		
-		JTextArea ta_reglamento = new JTextArea();
 		ta_reglamento.setBorder(new LineBorder(new Color(0, 0, 0)));
 		ta_reglamento.setBounds(346, 176, 339, 209);
 		add(ta_reglamento);
@@ -151,7 +163,7 @@ public class PntCrearCompetencia extends JPanel {
 				//Declaro nombreLugar y disp
 				String nombreLugar= cb_lugar.getSelectedItem().toString(); 
 				
-				//convierto el item del cb_disponibilidad a String y luego a int
+				//Convierto el item del cb_disponibilidad a String y luego a int
 				int disp= Integer.parseInt(cb_disponibilidad.getSelectedItem().toString()); 
 				int idLugar= idLugares.get(cb_lugar.getSelectedIndex());
 				
@@ -195,33 +207,46 @@ public class PntCrearCompetencia extends JPanel {
 		Button btn_sig = new Button("Siguiente");
 		btn_sig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Nombre de la competencia no se repita y que se ingrese en mayusculas.
 				
-				/*Obtener listado de nombres de competencias existentes.
+				//VALIDAR NOMBRE
+				boolean validarNombre = false;
 				try {
-					List<String> nombresCompetencias = GestorCompetencia.obtenerNombresCompetencias();
+					validarNombre = GestorCompetencia.validarNombre(tf_nombre_comp.getText());
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//int tamList = competencias.size();
-				int nombreRepetido = 0;
-				do {
-					int contador = 0;
-					competencias.get(contador).nombre;
+				if (validarNombre == true && table.getRowCount() > 0) { 
+					
+					//SETEAR NOMBRE EN CompetenciaDTO
+					competenciaDTO.setNombre(tf_nombre_comp.getText());
+					
+					
+					if (cb_modalidad.getSelectedItem().toString() == "SistemaDeLiga") {
+						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearLiga, VentanaAdmin.n_pntCrearLiga);
+					}
+					else {
+						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearEliminatoria, VentanaAdmin.n_pntCrearEliminatoria);
+					}
+					
 					
 				}
-				while(nombreRepetido == 0);
+				else {
+					if(validarNombre == false) {
+					VentanaAdmin.mensajeError("El nombre de competencia ingresado ya existe.\nIngrese otro nombre." , "ERROR");
+					}
+					if (table.getRowCount() == 0) {
+						VentanaAdmin.mensajeError("Debe seleccionar al menos un lugar de realización." , "ERROR");
+					}
+				}		
 				
-				/*int nombreRepetido = 0;
-				Comparar nombre de competencia actual con cada nombre de cada competencia existente. Si son iguales, nombreRepetido ++;
 				
-				Datos obligatorios.
 				
-				//VentanaAdmin.cambiarPantalla(VentanaAdmin.'nombrePantalla', VentanaAdmin.'pantalla');
+			
 				
-				*/
 			}
+			
 		});
 		btn_sig.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btn_sig.setBounds(591, 391, 94, 22);
@@ -277,12 +302,6 @@ public class PntCrearCompetencia extends JPanel {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
-		
-		
-
 	}
 	
 	//llenar combo boxes
@@ -318,12 +337,9 @@ public class PntCrearCompetencia extends JPanel {
 	
 	}
 	
-	
-	
-	
+
 	public static int devolverIdDeporte(int index) {
 		return (index +1);
-		
 	}
 	
 	public static void llenarCBLugar(int idDeporteSeleccionado) throws Exception {
@@ -349,7 +365,44 @@ public class PntCrearCompetencia extends JPanel {
 	       }
 	}
 	
-	
+	public static void llenarCompetenciaDTO() {
+		competenciaDTO.setNombre(tf_nombre_comp.getText());
+		competenciaDTO.setIdDeporte(devolverIdDeporte(cb_deporte.getSelectedIndex()));
+		if (cb_modalidad.getSelectedItem().toString() == "SistemaDeLiga") {
+			competenciaDTO.setModalidad(Modalidad.SistemaDeLiga);
+		}
+		else if (cb_modalidad.getSelectedItem().toString() == "SistemaDeEliminatoriaSimple") {
+			competenciaDTO.setModalidad(Modalidad.SistemaDeEliminatoriaSimple);
+		}
+		else {
+			competenciaDTO.setModalidad(Modalidad.SistemaDeEliminatoriaDoble);
+		}
+		
+		int disponibilidad;
+		int idLugarRealizacion;
+		List<DisponibilidadDTO> disponibilidadesDTO = new ArrayList<DisponibilidadDTO>();
+		
+		int i = 0;
+		while (i < table.getRowCount()) {
+			DisponibilidadDTO disponibilidadDTO = new DisponibilidadDTO();
+			disponibilidad =  Integer.parseInt(table.getValueAt(i, 1).toString());
+			idLugarRealizacion = Integer.parseInt(table.getValueAt(i, 2).toString());
+			disponibilidadDTO.setDisponibilidad(disponibilidad);
+			disponibilidadDTO.setIdLugarDeRealizacion(idLugarRealizacion);
+			disponibilidadesDTO.add(disponibilidadDTO);
+			i++;
+		}
+		
+		competenciaDTO.setDisponibilidadesDTO(disponibilidadesDTO);
+		
+		if (ta_reglamento.getText().length() == 0) {
+			competenciaDTO.setReglamento("-");
+		}
+		else {
+			competenciaDTO.setReglamento(ta_reglamento.getText());
+		}
+		
+	}
 	
 	
 	

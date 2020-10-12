@@ -23,11 +23,17 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PntCrearLiga extends JPanel {
-	private JTextField tf_puntospg;
-	private JTextField tf_puntospe;
-	private JTextField tf_puntospp;
+	public static JTextField tf_puntospg;
+	public static JTextField tf_puntospe;
+	public static JTextField tf_puntospp;
+	public static JCheckBox chb_empate_permitido;
+	public static JRadioButton rb_sets;
+	public static JRadioButton rb_resultado_final;
+	public static JRadioButton rb_puntuacion;
 
 	/**
 	 * Create the panel.
@@ -56,11 +62,29 @@ public class PntCrearLiga extends JPanel {
 		add(crearNuevaCompetenciaPuntuacionLiga_1_1_2);
 		
 		tf_puntospg = new JTextField();
+		tf_puntospg.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char val= arg0.getKeyChar();
+				if(val<'0' || val>'9') {
+					arg0.consume();
+				}
+			}
+		});
 		tf_puntospg.setColumns(10);
 		tf_puntospg.setBounds(285, 128, 49, 19);
 		add(tf_puntospg);
 		
 		tf_puntospe = new JTextField();
+		tf_puntospe.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char val= arg0.getKeyChar();
+				if(val<'0' || val>'9') {
+					arg0.consume();
+				}
+			}
+		});
 		tf_puntospe.setColumns(10);
 		tf_puntospe.setBounds(285, 220, 49, 19);
 		tf_puntospe.setEnabled(false);
@@ -96,19 +120,33 @@ public class PntCrearLiga extends JPanel {
 		add(crearNuevaCompetenciaPuntuacionLiga_1_1_1);
 		
 		tf_puntospp = new JTextField();
+		tf_puntospp.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char val= arg0.getKeyChar();
+				if(val<'0' || val>'9') {
+					arg0.consume();
+				}
+			}
+		});
 		tf_puntospp.setColumns(10);
 		tf_puntospp.setBounds(285, 292, 49, 19);
 		add(tf_puntospp);
 		
 		Button btn_atras = new Button("Atr\u00E1s");
+		btn_atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int respuesta = VentanaAdmin.mensajeConsulta(null, "ATENCION!", "¿Desea cancelar la carga de datos?\nSe perderá toda la información cargada.");
+					if(respuesta==JOptionPane.YES_OPTION) {
+					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia, VentanaAdmin.n_pntCrearCompetencia);				
+					}
+			}
+		});
 		btn_atras.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btn_atras.setBounds(62, 372, 70, 22);
 		add(btn_atras);
 		
-		Button btn_siguiente = new Button("Siguiente");
-		btn_siguiente.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btn_siguiente.setBounds(590, 372, 70, 22);
-		add(btn_siguiente);
+		
 		
 		JLabel crearNuevaCompetenciaPuntuacionLiga_1 = new JLabel();
 		crearNuevaCompetenciaPuntuacionLiga_1.setText(" FORMA DE PUNTUACI\u00D3N:");
@@ -170,19 +208,90 @@ public class PntCrearLiga extends JPanel {
 		add(rb_resultado_final);
 		
 		// ButtonGroup para seleccionar solamente un rb a la vez
-				ButtonGroup bg = new ButtonGroup();
-				 bg.add(rb_sets);
-				 bg.add(rb_puntuacion);
-				 bg.add(rb_resultado_final);
-				 /*bg.setSelected(rb_sets.getModel(), true);*/
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rb_sets);
+		bg.add(rb_puntuacion);
+		bg.add(rb_resultado_final);
+		/*bg.setSelected(rb_sets.getModel(), true);*/
+				 
+		Button btn_siguiente = new Button("Siguiente");
+		btn_siguiente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+							
+				if (validarCamposVacios()==true) {
+					//if(validarPtosPGPtosPE()==true) {
+						//	if(validarPtosPGPtosPP()==true) {
+										
+						//	}
+					//}
+				}
+							
+			
+				//int ptospe=Integer.parseInt(tf_puntospe.getText());
+			
+							
+			/*	if (tf_puntospg.getText().isEmpty()) {
+					VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
+				} else {
+					int ptospg=Integer.parseInt(tf_puntospg.getText());
+					if (tf_puntospp.getText().isEmpty()) {
+						VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+					} else {
+						int ptospp=Integer.parseInt(tf_puntospp.getText());
+						if ((chb_empate_permitido.isSelected()==true) && (tf_puntospe.getText().isEmpty())) {
+							VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
+						} else {
+							if ((rb_sets.isSelected()==false) && (rb_resultado_final.isSelected()==false) && (rb_puntuacion.isSelected()==false)){
+								VentanaAdmin.mensajeError("Seleccione la forma de puntuacion", "ERROR");
+							} else {
+								if ((chb_empate_permitido.isSelected()==true)&&(ptospg<Integer.parseInt(tf_puntospe.getText()))){
+									VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por partido empatado'", "ERROR");
+								} else {
+									if ((ptospg<ptospp)||(ptospg==ptospp)){
+										VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por presentarse'", "ERROR");
+									} else {
+										//ACA FALTA GUARDAR LOS DATOS RECIBIDOS EN LA BASE DE DATOS
+										VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+										VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
+											}
+										}
+									}
+								}
+							}
+						}*/
+							
+					}
+				});
+		btn_siguiente.setFont(new Font("Calibri", Font.PLAIN, 14));
+		btn_siguiente.setBounds(590, 372, 70, 22);
+		add(btn_siguiente);
 
 	}
+	
 	public static void mensaje(String error, String titulo) {
 		// TODO Auto-generated method stub
 		if (JOptionPane.showConfirmDialog(null, error, titulo, 
 			JOptionPane.PLAIN_MESSAGE, 
 			JOptionPane.ERROR_MESSAGE)==0);
-			
 	}
-}
+	
+	public static boolean validarCamposVacios() {
+		//if (tf_puntospg.getText().length()==0) {
+		//	VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
+		//} else {
+		//	if (tf_puntospp.getText().length()==0) {
+		//		VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+		//	} else {
+				if ((chb_empate_permitido.isSelected()==true) && (tf_puntospe.getText().length()==0)) {
+					VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
+				} else {
+					if ((rb_sets.isSelected()==false) && (rb_resultado_final.isSelected()==false) && (rb_puntuacion.isSelected()==false)){
+						VentanaAdmin.mensajeError("Seleccione la forma de puntuacion", "ERROR");
+					}
+				}
+			//}
+		//}
+		return true;
+	}
 
+}

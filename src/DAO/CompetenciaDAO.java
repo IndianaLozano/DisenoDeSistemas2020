@@ -1,6 +1,7 @@
 package DAO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -17,7 +18,6 @@ import javafx.scene.control.RadioButton;
 
 public class CompetenciaDAO {
 
-	
 	//Metodos de consulta
 	
 	public static List<Integer> getIdModalidades() throws Exception {
@@ -112,9 +112,9 @@ public class CompetenciaDAO {
 		
 	}
 	
-	
+	/* Este metodo retorna a una lista de nombres de todas las competencias existentes */
 	public static List<String> getNombresCompetencias() throws Exception {
-		 
+		
 		List<String> nombresCompetencias = new ArrayList<String> ();
 		try {
 			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar("SELECT nombre FROM database.competencia ;", ConsultaGenerica.class);
@@ -124,27 +124,25 @@ public class CompetenciaDAO {
 				nombresCompetencias.add(ls1.get(i).getValor("nombre"));
 			    i++;
 			}
-
 		} catch (Exception ex) {
-			
 			System.out.println("Entro al catch");
 			throw ex;
-			
 		}
 		return nombresCompetencias;
 	}
 	
+	
 	public static List<Competencia> getCompetenciasUsuario(int idUsuario) throws Exception{
 		try {
-			String query = "SELECT comp.id_competencia, comp.id_usuario, comp.id_modalidad, comp.id_estado, comp.id_puntuacion, comp.id_deporte, comp.nombre, comp.dada_de_baja, comp.reglamento, comp.cantidad_sets, comp.tantosGanadosAusenciaRival FROM database.competencia comp JOIN database.usuario us ON (comp.id_usuario=us.id_usuario) WHERE id_usuario = " + idUsuario + " ;";
-			ArrayList<Competencia> competencias = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
-			return competencias;
+			String query = "SELECT comp.id_competencia, comp.id_usuario, comp.id_modalidad, comp.id_estado, comp.id_puntuacion, comp.id_deporte, comp.nombre, comp.dada_de_baja, comp.reglamento, comp.cantidad_sets, comp.tantosGanadosAusenciaRival FROM database.competencia comp JOIN database.usuario us ON (comp.id_usuario = us.id_usuario) WHERE id_usuario = " + idUsuario + "  ;";                            
+			ArrayList<Competencia> competenciasUsuario = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
+			return competenciasUsuario;
 		}
 		catch(Exception ex) {
 			throw ex;
 		}
+		
 	}
-	
 	
 	
 	//Metodo para ejecuciones
