@@ -179,12 +179,13 @@ public class PntCrearLiga extends JPanel {
 		cb_cantidad_sets.setEnabled(true);
 		cb_cantidad_sets.setModel(new DefaultComboBoxModel(new String[] {"1", "3", "5", "7", "9"}));
 		add(cb_cantidad_sets);
+		cb_tantos_ganados_ausencia_rival.setMaximumRowCount(9);
 		
 		cb_tantos_ganados_ausencia_rival.setModel(new DefaultComboBoxModel(new String[] {"Tantos ganados por ausencia del rival"}));
 		cb_tantos_ganados_ausencia_rival.setFont(new Font("Calibri", Font.PLAIN, 14));
 		cb_tantos_ganados_ausencia_rival.setBounds(529, 197, 91, 19);
 		cb_tantos_ganados_ausencia_rival.setEnabled(false);
-		cb_tantos_ganados_ausencia_rival.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6"}));
+		cb_tantos_ganados_ausencia_rival.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9"}));
 		add(cb_tantos_ganados_ausencia_rival);
 		
 		
