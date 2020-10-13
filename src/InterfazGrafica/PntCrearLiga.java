@@ -20,6 +20,10 @@ import javax.swing.JRadioButtonMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
+
+import DTO.LigaDTO;
+import Entidades.Puntuacion;
+
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
@@ -39,6 +43,13 @@ public class PntCrearLiga extends JPanel {
 	
 	public static int ptospg;
 	public static int ptospp;
+	
+	public static LigaDTO ligaDTO= new LigaDTO();
+	
+	public static JComboBox cb_cantidad_sets = new JComboBox();
+	public static JComboBox cb_tantos_ganados_ausencia_rival = new JComboBox();
+
+
 
 
 	/**
@@ -160,7 +171,6 @@ public class PntCrearLiga extends JPanel {
 		crearNuevaCompetenciaPuntuacionLiga_1.setBounds(402, 128, 287, 19);
 		add(crearNuevaCompetenciaPuntuacionLiga_1);
 		
-		JComboBox cb_cantidad_sets = new JComboBox();
 		cb_cantidad_sets.setModel(new DefaultComboBoxModel(new String[] {"Cantidad de sets"}));
 		cb_cantidad_sets.setFont(new Font("Calibri", Font.PLAIN, 14));
 		cb_cantidad_sets.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -170,7 +180,6 @@ public class PntCrearLiga extends JPanel {
 		cb_cantidad_sets.setModel(new DefaultComboBoxModel(new String[] {"1", "3", "5", "7", "9"}));
 		add(cb_cantidad_sets);
 		
-		JComboBox cb_tantos_ganados_ausencia_rival = new JComboBox();
 		cb_tantos_ganados_ausencia_rival.setModel(new DefaultComboBoxModel(new String[] {"Tantos ganados por ausencia del rival"}));
 		cb_tantos_ganados_ausencia_rival.setFont(new Font("Calibri", Font.PLAIN, 14));
 		cb_tantos_ganados_ausencia_rival.setBounds(529, 197, 91, 19);
@@ -290,6 +299,41 @@ public class PntCrearLiga extends JPanel {
 			retorno= true;
 		}
 		return retorno;
+	}
+	
+	
+	public static void llenarLigaDTO() {
+		
+		ligaDTO.setPtos_pg(ptospg);
+		ligaDTO.setPtos_pp(ptospp);
+		
+		if (chb_empate_permitido.isSelected()==true) {
+			ligaDTO.setPtos_pe(Integer.parseInt(tf_puntospe.getText()));
+			ligaDTO.setEmpatePermitido(true);
+		}else {
+			ligaDTO.setPtos_pe(-1);
+			ligaDTO.setEmpatePermitido(false);
+		}
+		
+		
+		if(rb_sets.isSelected()) {
+			ligaDTO.setPuntuacion(Puntuacion.Sets);
+			ligaDTO.setCantidadSets(Integer.parseInt(cb_cantidad_sets.getSelectedItem().toString()));
+			ligaDTO.setTantosGanadosAusRival(-1);
+		}else if(rb_puntuacion.isSelected()) {
+			ligaDTO.setPuntuacion(Puntuacion.Puntuacion);
+			ligaDTO.setCantidadSets(-1);
+			ligaDTO.setTantosGanadosAusRival(Integer.parseInt(cb_tantos_ganados_ausencia_rival.getSelectedItem().toString()));
+		}else {
+			ligaDTO.setPuntuacion(Puntuacion.ResultadoFinal);
+			ligaDTO.setCantidadSets(-1);
+			ligaDTO.setTantosGanadosAusRival(-1);
+		} 
+			
+		
+		
+		
+		
 	}
 
 }

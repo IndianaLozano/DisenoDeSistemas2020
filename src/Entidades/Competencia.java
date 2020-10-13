@@ -21,13 +21,12 @@ public class Competencia {
 	public static Deporte deporte;//*
 	public static List<Disponibilidad> disponibilidades; //*
 	public static Usuario usuario;
-	public static Fixture fixture;
 	
 	//Constructor sin parametros
 	public Competencia() {}
 	
 	//Constructor con parametros
-	public Competencia(int id, String nombre, Modalidad modalidad, Estado estado, String reglamento, Puntuacion puntuacion, boolean baja, int cantidadSets, int tantosGanadosAusenciaRival) {
+	public Competencia(int id, String nombre, Modalidad modalidad, Estado estado, String reglamento, Puntuacion puntuacion, boolean baja, int cantidadSets, int tantosGanadosAusenciaRival, List<Participante> participantes, Deporte deporte, List<Disponibilidad> disponibilidades, Usuario usuario) {
 		this.idCompetencia = id;
 		this.nombre = nombre;
 		this.modalidad = modalidad;
@@ -37,6 +36,10 @@ public class Competencia {
 		this.dadaDeBaja = baja;
 		this.cantidadSets = cantidadSets;
 		this.tantosGanadosAusenciaRival = tantosGanadosAusenciaRival;
+		this.deporte=deporte;
+		this.participantes=participantes;
+		this.disponibilidades= disponibilidades;
+		this.usuario=usuario;
 	}
 	
 	
@@ -48,6 +51,14 @@ public class Competencia {
 		this.cantidadSets = Integer.parseInt(atributo[9]);
 		this.reglamento = atributo[8];
 		this.tantosGanadosAusenciaRival = Integer.parseInt(atributo[10]);
+		
+		if (Integer.parseInt(atributo[7]) == 0) {
+			dadaDeBaja= false;
+		}else {
+			dadaDeBaja=true;
+		}
+		
+		
 		try {
 			this.estado = GestorCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
 			this.modalidad = GestorCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));

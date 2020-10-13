@@ -3,11 +3,15 @@ package Entidades;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-public class Fixture {
+public class Fixture{
 
 	public int idFixture;
 	public Date fecha;
+	public Competencia competencia;
+	public List<Fase> fases;
+	
 	
 	//Creacion del constructor
 	public Fixture() {
