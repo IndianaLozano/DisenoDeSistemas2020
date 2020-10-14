@@ -14,6 +14,7 @@ public class CompetenciaDTO implements Serializable {
 	private Modalidad modalidad;
     private List<DisponibilidadDTO> disponibilidadesDTO; // chequear si esta bien esto
     private String reglamento;
+    private int idUsuario=1;
     
     
     /* gets para obtener datos ingresados por pantalla y
@@ -65,6 +66,9 @@ public class CompetenciaDTO implements Serializable {
 		
 	}
 
+	public int getIdUsuario() {
+		return idUsuario;
+	}
 	
 	//Constructor con parametros
 	public CompetenciaDTO(String nombre, int idDeporte, Modalidad modalidad,
@@ -76,6 +80,10 @@ public class CompetenciaDTO implements Serializable {
 		this.disponibilidadesDTO = disponibilidadesDTO;
 		this.reglamento = reglamento;
 	}
+	
+	
+	
+	
 
 	
 	

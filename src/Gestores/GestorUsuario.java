@@ -13,7 +13,7 @@ public class GestorUsuario {
 		return LocalidadDAO.getLocalidad(idLocalidad);
 	}
 
-	public static List<Usuario> getUsuario(int idUsuario) throws Exception{
+	public static List<Usuario> obtenerUsuario(int idUsuario) throws Exception{
 		return UsuarioDAO.getUsuario(idUsuario);
 	}
 

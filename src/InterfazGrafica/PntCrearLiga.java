@@ -21,8 +21,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 
+import DTO.CompetenciaDTO;
 import DTO.LigaDTO;
 import Entidades.Puntuacion;
+import Gestores.GestorCompetencia;
 
 import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -36,7 +38,6 @@ public class PntCrearLiga extends JPanel {
 	public static JTextField tf_puntospp;
 	public static JCheckBox chb_empate_permitido = new JCheckBox("EMPATE PERMITIDO");
 
-	public static JRadioButton rb_sets;
 	public static JRadioButton rb_resultado_final;
 	public static JRadioButton rb_puntuacion;
 	public static ButtonGroup bg = new ButtonGroup();
@@ -45,9 +46,12 @@ public class PntCrearLiga extends JPanel {
 	public static int ptospp;
 	
 	public static LigaDTO ligaDTO= new LigaDTO();
+	public static CompetenciaDTO competenciaDTO;
 	
 	public static JComboBox cb_cantidad_sets = new JComboBox();
 	public static JComboBox cb_tantos_ganados_ausencia_rival = new JComboBox();
+	public static JRadioButton rb_sets = new JRadioButton("SETS");
+
 
 
 
@@ -189,7 +193,6 @@ public class PntCrearLiga extends JPanel {
 		add(cb_tantos_ganados_ausencia_rival);
 		
 		
-		JRadioButton rb_sets = new JRadioButton("SETS");
 		rb_sets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cb_cantidad_sets.setEnabled(true);
@@ -236,8 +239,15 @@ public class PntCrearLiga extends JPanel {
 					if(validarPtosPGPtosPE()==true) {
 							if(validarPtosPGPtosPP()==true) {
 								//ACA FALTA GUARDAR LOS DATOS RECIBIDOS EN LA BASE DE DATOS
-								VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
-								VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);		
+								try {
+									llenarLigaDTO();
+									GestorCompetencia.crearLiga(competenciaDTO, ligaDTO);
+									VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);		
+
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								
 							}
 					}
 				}
@@ -317,7 +327,7 @@ public class PntCrearLiga extends JPanel {
 		}
 		
 		
-		if(rb_sets.isSelected()) {
+		if(bg.getSelection()== rb_sets.getModel()) {
 			ligaDTO.setPuntuacion(Puntuacion.Sets);
 			ligaDTO.setCantidadSets(Integer.parseInt(cb_cantidad_sets.getSelectedItem().toString()));
 			ligaDTO.setTantosGanadosAusRival(-1);

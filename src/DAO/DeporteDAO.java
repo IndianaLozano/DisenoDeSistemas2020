@@ -36,7 +36,7 @@ public class DeporteDAO {
 	public static List<Deporte> getDeporte(int idDeporte) throws Exception{
 		//Obtiene UN deporte
 		try {
-			String query = "SELECT * FROM database.deporte WHERE deporte.id_deporte= " + idDeporte + " ;";
+			String query = "SELECT * FROM database.deporte WHERE id_deporte = " + idDeporte + " ;";
 			ArrayList<Deporte> deportes = (ArrayList<Deporte>)((Object)Conexion.consultar(query, Deporte.class));
 			return deportes;
 		}

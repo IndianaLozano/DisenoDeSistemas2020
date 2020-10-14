@@ -8,25 +8,25 @@ import Gestores.GestorUsuario;
 public class Competencia {
 
 	public int idCompetencia;
-	public static String nombre;
-	public static Modalidad modalidad; //*
-	public static Estado estado;//*
-	public static String reglamento;
-	public static Puntuacion puntuacion;//* 
-	public static boolean dadaDeBaja;
-	public static int cantidadSets;
-	public static int tantosGanadosAusenciaRival;
+	public  String nombre;
+	public  Modalidad modalidad; //*
+	public  Estado estado;//*
+	public  String reglamento;
+	public  Puntuacion puntuacion;//* 
+	public  boolean dadaDeBaja;
+	public  int cantidadSets;
+	public  int tantosGanadosAusenciaRival;
 	
-	public static List<Participante> participantes;//*
-	public static Deporte deporte;//*
-	public static List<Disponibilidad> disponibilidades; //*
-	public static Usuario usuario;
+	public  List<Participante> participantes;//*
+	public  Deporte deporte;//*
+	public  List<Disponibilidad> disponibilidades; //*
+	
 	
 	//Constructor sin parametros
 	public Competencia() {}
 	
 	//Constructor con parametros
-	public Competencia(int id, String nombre, Modalidad modalidad, Estado estado, String reglamento, Puntuacion puntuacion, boolean baja, int cantidadSets, int tantosGanadosAusenciaRival, List<Participante> participantes, Deporte deporte, List<Disponibilidad> disponibilidades, Usuario usuario) {
+	public Competencia(int id, String nombre, Modalidad modalidad, Estado estado, String reglamento, Puntuacion puntuacion, boolean baja, int cantidadSets, int tantosGanadosAusenciaRival, List<Participante> participantes, Deporte deporte, List<Disponibilidad> disponibilidades) {
 		this.idCompetencia = id;
 		this.nombre = nombre;
 		this.modalidad = modalidad;
@@ -39,7 +39,7 @@ public class Competencia {
 		this.deporte=deporte;
 		this.participantes=participantes;
 		this.disponibilidades= disponibilidades;
-		this.usuario=usuario;
+		
 	}
 	
 	
@@ -62,11 +62,16 @@ public class Competencia {
 		try {
 			this.estado = GestorCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
 			this.modalidad = GestorCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));
+			
 			this.participantes = GestorCompetencia.obtenerParticipantesCompetencia(Integer.parseInt(atributo[0]));
 			this.deporte = GestorCompetencia.obtenerDeporte(Integer.parseInt(atributo[5])).get(0);
+			
+			if (GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0])).size()>0) {
 			this.disponibilidades = GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0]));
+			}else {
+				System.out.println("No hay nada");
+			}
 			this.puntuacion = GestorCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
-			this.usuario = GestorUsuario.getUsuario(Integer.parseInt(atributo[1])).get(0);
 			} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

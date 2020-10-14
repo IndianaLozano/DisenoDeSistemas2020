@@ -11,9 +11,11 @@ import Entidades.ConsultaGenerica;
 import Entidades.Disponibilidad;
 import Entidades.Estado;
 import Entidades.Fixture;
+import Entidades.Liga;
 import Entidades.Modalidad;
 import Entidades.Participante;
 import Entidades.Puntuacion;
+import Gestores.GestorCompetencia;
 import javafx.scene.control.RadioButton;
 
 public class CompetenciaDAO {
@@ -78,7 +80,8 @@ public class CompetenciaDAO {
 	
 	public static List<Disponibilidad> getDisponibilidadesCompetencia(int idCompetencia) throws Exception{
 		try {
-			String query = "SELECT comp_lug.id_competencia, comp_lug.id_lugar, comp_lug.disponibilidad FROM database.competencia comp JOIN database.competencia_lugar comp_lug ON (comp.id_competencia=comp_lug.id_competencia) WHERE id_competencia = " + idCompetencia + " ;"  ;
+			//String query = "SELECT comp_lug.id_competencia, comp_lug.id_lugar, comp_lug.disponibilidad FROM database.competencia comp JOIN database.competencia_lugar comp_lug ON (comp.id_competencia=comp_lug.id_competencia) WHERE id_competencia = " + idCompetencia + " ;"  ;
+			String query= "SELECT * FROM database.competencia_lugar WHERE id_competencia= " + idCompetencia + " ;";
 			ArrayList<Disponibilidad> disponibilidades = (ArrayList<Disponibilidad>)((Object)Conexion.consultar(query, Disponibilidad.class));
 			return disponibilidades;
 		}
@@ -147,12 +150,68 @@ public class CompetenciaDAO {
 	
 	//Metodo para ejecuciones
 	
-	public static void altaActividad (String nombre, long idProfesor) throws Exception{
-		String query="" ;
+	
+	public static void newCompetencia (String nombre, int idUsuario, int idModalidad, int idEstado, int idPuntuacion, int idDeporte, int dadaDeBaja, String reglamento, int cantSets, int tantosGanadosAusRival ) {
+		String query= "INSERT INTO database.competencia (id_usuario, id_modalidad, id_estado, id_puntuacion, id_deporte, nombre, dada_de_baja, reglamento, cantidad_sets, tantos_ganados_ausencia_rival) VALUES ( " + idUsuario + ", " + idModalidad + ", " + idEstado + ", " + idPuntuacion + ", " + idDeporte + ", '" + nombre + "', " + dadaDeBaja + ", '" + reglamento + "', " + cantSets + ", " + tantosGanadosAusRival + " );"  ;
 		try {
-			Conexion.ejecutar(query);	
+			Conexion.ejecutar(query);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	
+	}
+	
+	public static void newLiga(Liga liga ) {
+		
+		int ep=0;
+		if(liga.empatePermitido==true) {
+			ep=1;
+		}else {
+			ep=0;
+		}
+		
+		String query= "INSERT INTO database.liga ( id_competencia, empate_permitido, puntos_pe, puntos_pg, puntos_por_presentarse) VALUES (" + liga.idCompetencia + ", " + ep + ", " + liga.puntosPE + ", " + liga.puntosPG + ", " + liga.puntosPorPresentarse + " );"  ;
+		try {
+			Conexion.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+	public static void newCompetencia_lugar(int idCompetencia, int idlugar, int disp) {
+		String query = "INSERT INTO database.competencia_lugar (id_lugar, id_competencia, disponibilidad) VALUES ( " + idlugar + ", " + idCompetencia + ", " + disp + " );";
+		try {
+			Conexion.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	public static List<Competencia> getUltimaCompetencia() throws Exception{
+		try {
+			String query = "SELECT * FROM database.competencia ORDER BY id_competencia DESC LIMIT 1;";                            
+			ArrayList<Competencia> competencia = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
+			return competencia;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public static List<Competencia> getCompetencia(int idCompetencia) throws Exception{
+		try {
+			String query = "SELECT * FROM database.competencia WHERE competencia.id_competencia= " + idCompetencia + " ;";                            
+			ArrayList<Competencia> competencia = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
+			return competencia;
+		}
+		catch(Exception ex) {
+			throw ex;
 		}
 	}
 

@@ -221,10 +221,13 @@ public class PntCrearCompetencia extends JPanel {
 					
 					//SETEAR NOMBRE EN CompetenciaDTO
 					competenciaDTO.setNombre(tf_nombre_comp.getText());
+					llenarCompetenciaDTO();
 					
 					
 					if (cb_modalidad.getSelectedItem().toString() == "SistemaDeLiga") {
+						PntCrearLiga.competenciaDTO=competenciaDTO;
 						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearLiga, VentanaAdmin.n_pntCrearLiga);
+						
 					}
 					else {
 						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearEliminatoria, VentanaAdmin.n_pntCrearEliminatoria);
@@ -339,7 +342,7 @@ public class PntCrearCompetencia extends JPanel {
 	
 
 	public static int devolverIdDeporte(int index) {
-		return (index +1);
+		return (index + 1);
 	}
 	
 	public static void llenarCBLugar(int idDeporteSeleccionado) throws Exception {
@@ -367,6 +370,7 @@ public class PntCrearCompetencia extends JPanel {
 	
 	public static void llenarCompetenciaDTO() {
 		competenciaDTO.setNombre(tf_nombre_comp.getText());
+		int b=cb_deporte.getSelectedIndex();
 		competenciaDTO.setIdDeporte(devolverIdDeporte(cb_deporte.getSelectedIndex()));
 		if (cb_modalidad.getSelectedItem().toString() == "SistemaDeLiga") {
 			competenciaDTO.setModalidad(Modalidad.SistemaDeLiga);
