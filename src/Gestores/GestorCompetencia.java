@@ -235,6 +235,7 @@ public class GestorCompetencia {
 		//id_usuario = 1 hasta q ingresemos usuarios
 		CompetenciaDAO.newCompetencia(liga.nombre, 2, idModalidad, idEstado, idPuntuacion, liga.deporte.idDeporte, 0, liga.reglamento, liga.cantidadSets, liga.tantosGanadosAusenciaRival );
 		int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
+		liga.idCompetencia=idCompetencia;
 		
 		
 		List<DisponibilidadDTO> disponibilidadesDTO= compDTO.getDisponibilidadesDTO();
