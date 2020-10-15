@@ -68,9 +68,8 @@ public class Competencia {
 			
 			if (GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0])).size()>0) {
 			this.disponibilidades = GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0]));
-			}else {
-				System.out.println("No hay nada");
 			}
+			//puede llegar a haber un else aca
 			this.puntuacion = GestorCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
 			} catch (NumberFormatException e) {
 			e.printStackTrace();

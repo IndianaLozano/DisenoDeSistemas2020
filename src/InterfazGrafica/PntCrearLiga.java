@@ -53,7 +53,7 @@ public class PntCrearLiga extends JPanel {
 	public static JRadioButton rb_puntuacion = new JRadioButton("PUNTUACI\u00D3N");
 
 
-
+	
 
 
 	/**
@@ -234,10 +234,10 @@ public class PntCrearLiga extends JPanel {
 		btn_siguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 							
-				if (validarCamposVacios()==true) {
-					if(validarPtosPGPtosPE()==true) {
-							if(validarPtosPGPtosPP()==true) {
-								//ACA FALTA GUARDAR LOS DATOS RECIBIDOS EN LA BASE DE DATOS
+				if (GestorCompetencia.validarCamposVacios()==true) {
+					if(GestorCompetencia.validarPtosPGPtosPE()==true) {
+							if(GestorCompetencia.validarPtosPGPtosPP()==true) {
+								
 								try {
 									llenarLigaDTO();
 									GestorCompetencia.crearLiga(competenciaDTO, ligaDTO);
@@ -266,50 +266,7 @@ public class PntCrearLiga extends JPanel {
 			JOptionPane.ERROR_MESSAGE)==0);
 	}
 	
-	public static boolean validarCamposVacios() {
-		boolean retorno = false;
-		
-		if (tf_puntospg.getText().isEmpty()) {
-			VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
-		} else {
-			ptospg=Integer.parseInt(tf_puntospg.getText());
-			if (tf_puntospp.getText().isEmpty()) {
-				VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
-			} else {
-				ptospp=Integer.parseInt(tf_puntospp.getText());
-				if ((chb_empate_permitido.isSelected()==true) && (tf_puntospe.getText().isEmpty())) {
-					VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
-				} else {
-					retorno= true;
-				} 
-			}
-		}		
-		return retorno;
-	}
 	
-	
-	public static boolean validarPtosPGPtosPE() {
-		boolean retorno = false;
-		
-		if ((chb_empate_permitido.isSelected()==true)&&(ptospg<Integer.parseInt(tf_puntospe.getText()))){
-			VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por partido empatado'", "ERROR");
-	} else {
-		retorno= true;
-			}
-		return retorno;
-	}
-	
-	
-	public static boolean validarPtosPGPtosPP() {
-		boolean retorno = false;
-		
-		if ((ptospg<ptospp)||(ptospg==ptospp)){
-			VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por presentarse'", "ERROR");
-		} else {
-			retorno= true;
-		}
-		return retorno;
-	}
 	
 	
 	public static void llenarLigaDTO() {

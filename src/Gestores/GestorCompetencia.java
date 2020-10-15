@@ -19,6 +19,7 @@ import Entidades.Modalidad;
 import Entidades.Participante;
 import Entidades.Puntuacion;
 import Entidades.TipoDocumento;
+import InterfazGrafica.PntCrearLiga;
 import InterfazGrafica.VentanaAdmin;
 
 public class GestorCompetencia {
@@ -192,10 +193,11 @@ public class GestorCompetencia {
 		int tamList = nombres.size();
 		int nombreRepetido = 0;
 		int i = 0;
-		
+		String nombre1 = " ";
 		// while se ejecuta siempre que no encuentre que el nombre ingresado sea igual al nombre de otra competencia existente
 		while (nombreRepetido == 0 && i<tamList) {
-			if (nombres.get(i) == nombre) {
+			nombre1= nombres.get(i);
+			if (nombres.get(i).equals(nombre)) {
 				nombreRepetido++;
 			}
 			else {
@@ -329,7 +331,50 @@ public class GestorCompetencia {
 	
 
 	
+	public static boolean validarCamposVacios() {
+		boolean retorno = false;
+		
+		if (PntCrearLiga.tf_puntospg.getText().isEmpty()) {
+			VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
+		} else {
+			PntCrearLiga.ptospg=Integer.parseInt(PntCrearLiga.tf_puntospg.getText());
+			if (PntCrearLiga.tf_puntospp.getText().isEmpty()) {
+				VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+			} else {
+				PntCrearLiga.ptospp=Integer.parseInt(PntCrearLiga.tf_puntospp.getText());
+				if ((PntCrearLiga.chb_empate_permitido.isSelected()==true) && (PntCrearLiga.tf_puntospe.getText().isEmpty())) {
+					VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
+				} else {
+					retorno= true;
+				} 
+			}
+		}		
+		return retorno;
+	}
 	
+	
+	public static boolean validarPtosPGPtosPE() {
+		boolean retorno = false;
+		
+		if ((PntCrearLiga.chb_empate_permitido.isSelected()==true)&&(PntCrearLiga.ptospg<Integer.parseInt(PntCrearLiga.tf_puntospe.getText()))){
+			VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por partido empatado'", "ERROR");
+	} else {
+		retorno= true;
+			}
+		return retorno;
+	}
+	
+	
+	public static boolean validarPtosPGPtosPP() {
+		boolean retorno = false;
+		
+		if ((PntCrearLiga.ptospg<PntCrearLiga.ptospp)||(PntCrearLiga.ptospg==PntCrearLiga.ptospp)){
+			VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por presentarse'", "ERROR");
+		} else {
+			retorno= true;
+		}
+		return retorno;
+	}
 	
 		
 		
