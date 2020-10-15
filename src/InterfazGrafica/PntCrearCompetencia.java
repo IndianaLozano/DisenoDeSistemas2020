@@ -230,6 +230,13 @@ public class PntCrearCompetencia extends JPanel {
 						
 					}
 					else {
+						
+						if(cb_modalidad.getSelectedItem().toString() == "SistemaDeEliminatoriaSimple") {
+							PntCrearEliminatoria.eliminatoriaDTO.setEsDoble(false);
+						} else {
+							PntCrearEliminatoria.eliminatoriaDTO.setEsDoble(true);
+						}
+						PntCrearEliminatoria.competenciaDTO=competenciaDTO;
 						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearEliminatoria, VentanaAdmin.n_pntCrearEliminatoria);
 					}
 					

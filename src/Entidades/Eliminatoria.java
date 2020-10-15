@@ -2,31 +2,20 @@ package Entidades;
 
 import Gestores.GestorCompetencia;
 
-public class Liga extends Competencia {
-
+public class Eliminatoria extends Competencia {
 	
+	public static boolean esDoble;
 	
-	public boolean empatePermitido;
-	public int puntosPE;
-	public int puntosPG;
-	public int puntosPorPresentarse;
-	public TablaDePosiciones tablaDePosiciones;
-	
-	public Liga() {
+	public Eliminatoria () {
 		
 	}
 	
-    public Liga( boolean empatePer, int ptosPE, int ptosPG, int ptosPP, TablaDePosiciones tabla ) {
+	public Eliminatoria (boolean esDoble) {
+		this.esDoble=esDoble;
 		
-		this.empatePermitido=empatePer;
-		this.puntosPE=ptosPE;
-		this.puntosPG=ptosPG;
-		this.puntosPorPresentarse=ptosPP;
-		this.tablaDePosiciones=tabla;
 	}
 	
-	
-     public Liga(String datos) {
+	public Eliminatoria (String datos) {
  		String[] atributo = datos.split("\t");
  		try {
 			Competencia competencia = GestorCompetencia.obtenerCompetencia(Integer.parseInt(atributo[0])).get(0);
@@ -52,15 +41,11 @@ public class Liga extends Competencia {
 
  		
  		if (Integer.parseInt(atributo[1]) == 0) {
-			this.empatePermitido= false;
+			this.esDoble= false;
 		}else {
-			this.empatePermitido=true;
+			this.esDoble=true;
 		}
- 		
- 		this.puntosPE= Integer.parseInt(atributo[2]);
- 		this.puntosPG= Integer.parseInt(atributo[3]);
- 		this.puntosPorPresentarse=Integer.parseInt(atributo[4]);
+	
  		
 	}
-	
 }

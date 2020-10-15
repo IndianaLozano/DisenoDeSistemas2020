@@ -12,6 +12,7 @@ import DTO.LigaDTO;
 import Entidades.Competencia;
 import Entidades.Deporte;
 import Entidades.Disponibilidad;
+import Entidades.Eliminatoria;
 import Entidades.Estado;
 import Entidades.Liga;
 import Entidades.Modalidad;
@@ -265,6 +266,61 @@ public class GestorCompetencia {
 		liga.disponibilidades=disponibilidades;
 		CompetenciaDAO.newLiga(liga);
 		VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+		
+		
+	}
+	
+	public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception {
+		
+		
+		Eliminatoria eliminatoria = new Eliminatoria();
+		eliminatoria.nombre= compDTO.getNombre();
+		eliminatoria.modalidad= compDTO.getModalidad();
+		eliminatoria.estado=Estado.Creada;
+		eliminatoria.reglamento=compDTO.getReglamento();
+		eliminatoria.puntuacion= eliminatoriaDTO.getPuntuacion();
+		eliminatoria.dadaDeBaja= false;
+		eliminatoria.cantidadSets= eliminatoriaDTO.getCantidadSets();
+		eliminatoria.tantosGanadosAusenciaRival= eliminatoriaDTO.getTantosGanadosAusRival();
+		eliminatoria.deporte= obtenerDeporte(compDTO.getIdDeporte()).get(0);
+	
+		eliminatoria.esDoble=eliminatoriaDTO.isEsDoble();
+				
+		
+		int idModalidad= GestorCompetencia.obtenerIdModalidad(eliminatoria.modalidad);
+		int idEstado= GestorCompetencia.obtenerIdEstado(eliminatoria.estado);
+		int idPuntuacion= GestorCompetencia.obtenerIdPuntuacion(eliminatoria.puntuacion);
+		
+		//id_usuario = 1 hasta q ingresemos usuarios
+		CompetenciaDAO.newCompetencia(eliminatoria.nombre, 2, idModalidad, idEstado, idPuntuacion, eliminatoria.deporte.idDeporte, 0, eliminatoria.reglamento, eliminatoria.cantidadSets, eliminatoria.tantosGanadosAusenciaRival );
+		int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
+		eliminatoria.idCompetencia=idCompetencia;
+		
+		
+		List<DisponibilidadDTO> disponibilidadesDTO= compDTO.getDisponibilidadesDTO();
+		List<Disponibilidad> disponibilidades= new ArrayList();
+		int disp;
+		int idLugar;
+		for(int i=0; i<disponibilidadesDTO.size() ; i++) {
+			disp= disponibilidadesDTO.get(i).getDisponibilidad();
+			idLugar=disponibilidadesDTO.get(i).getIdLugarDeRealizacion();
+			
+			Disponibilidad disponibilidad= new Disponibilidad();
+			disponibilidad.disponibilidad=disp;
+			disponibilidad.id_competencia= idCompetencia;
+			disponibilidad.id_lugar= idLugar;
+			
+			CompetenciaDAO.newCompetencia_lugar(idCompetencia, idLugar, disp);
+			disponibilidades.add(disponibilidad);
+			
+		}
+		
+		eliminatoria.disponibilidades=disponibilidades;
+		CompetenciaDAO.newEliminatoria(eliminatoria);
+		VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+		
+		
+		
 		
 		
 	}

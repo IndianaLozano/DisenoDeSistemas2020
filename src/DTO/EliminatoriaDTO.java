@@ -9,8 +9,15 @@ public class EliminatoriaDTO implements Serializable{
 	public int cantidadSets;
 	public int tantosGanadosAusRival;
 	public Puntuacion puntuacion;
+	public static boolean esDoble;
 	
 	
+	public boolean isEsDoble() {
+		return esDoble;
+	}
+	public void setEsDoble(boolean esDoble) {
+		this.esDoble = esDoble;
+	}
 	public int getCantidadSets() {
 		return cantidadSets;
 	}

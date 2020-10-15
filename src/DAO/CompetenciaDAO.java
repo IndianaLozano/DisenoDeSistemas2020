@@ -9,6 +9,7 @@ import javax.swing.ButtonGroup;
 import Entidades.Competencia;
 import Entidades.ConsultaGenerica;
 import Entidades.Disponibilidad;
+import Entidades.Eliminatoria;
 import Entidades.Estado;
 import Entidades.Fixture;
 import Entidades.Liga;
@@ -178,6 +179,26 @@ public class CompetenciaDAO {
 		}
 	
 	}
+	
+	public static void newEliminatoria(Eliminatoria eliminatoria ) {
+		
+		int ed=0;
+		if(eliminatoria.esDoble==true) {
+			ed=1;
+		}else {
+			ed=0;
+		}
+		
+		String query= "INSERT INTO database.eliminatoria (id_competencia, es_doble) VALUES (" + eliminatoria.idCompetencia + ", " + ed + "); " ;
+		try {
+			Conexion.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
 	
 	public static void newCompetencia_lugar(int idCompetencia, int idlugar, int disp) {
 		String query = "INSERT INTO database.competencia_lugar (id_lugar, id_competencia, disponibilidad) VALUES ( " + idlugar + ", " + idCompetencia + ", " + disp + " );";

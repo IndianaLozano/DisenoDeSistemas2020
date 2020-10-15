@@ -17,8 +17,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 
+import DTO.CompetenciaDTO;
 import DTO.EliminatoriaDTO;
 import Entidades.Puntuacion;
+import Gestores.GestorCompetencia;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
@@ -31,8 +34,9 @@ public class PntCrearEliminatoria extends JPanel {
 	public static JRadioButton rb_puntuacion = new JRadioButton("PUNTUACI\u00D3N");
 	public static JRadioButton rb_sets = new JRadioButton("SETS");
 	public static JRadioButton rb_resultado_final = new JRadioButton("RESULTADO FINAL");
-
-
+	public static CompetenciaDTO competenciaDTO= new CompetenciaDTO();
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -68,8 +72,13 @@ public class PntCrearEliminatoria extends JPanel {
 		Button btn_sig = new Button("Siguiente");
 		btn_sig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ACA FALTA GUARDAR LOS DATOS RECIBIDOS EN LA BASE DE DATOS
-				VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+				try {
+					llenarEliminatoriaDTO();
+					GestorCompetencia.crearEliminatoria(competenciaDTO, eliminatoriaDTO);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
 			}
 		});
@@ -144,7 +153,7 @@ public class PntCrearEliminatoria extends JPanel {
 			
 	}
 	
-	public static void LlenarEliminatoriaDTO() {
+	public static void llenarEliminatoriaDTO() {
 		
 		
 		if(rb_sets.isSelected()) {
