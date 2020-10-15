@@ -38,8 +38,6 @@ public class PntCrearLiga extends JPanel {
 	public static JTextField tf_puntospp;
 	public static JCheckBox chb_empate_permitido = new JCheckBox("EMPATE PERMITIDO");
 
-	public static JRadioButton rb_resultado_final;
-	public static JRadioButton rb_puntuacion;
 	public static ButtonGroup bg = new ButtonGroup();
 	
 	public static int ptospg;
@@ -51,6 +49,8 @@ public class PntCrearLiga extends JPanel {
 	public static JComboBox cb_cantidad_sets = new JComboBox();
 	public static JComboBox cb_tantos_ganados_ausencia_rival = new JComboBox();
 	public static JRadioButton rb_sets = new JRadioButton("SETS");
+	public static JRadioButton rb_resultado_final = new JRadioButton("RESULTADO FINAL");
+	public static JRadioButton rb_puntuacion = new JRadioButton("PUNTUACI\u00D3N");
 
 
 
@@ -203,7 +203,6 @@ public class PntCrearLiga extends JPanel {
 		rb_sets.setBounds(413, 150, 62, 23);
 		add(rb_sets);
 		
-		JRadioButton rb_puntuacion = new JRadioButton("PUNTUACI\u00D3N");
 		rb_puntuacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cb_cantidad_sets.setEnabled(false);
@@ -214,7 +213,7 @@ public class PntCrearLiga extends JPanel {
 		add(rb_puntuacion);
 		
 		
-		JRadioButton rb_resultado_final = new JRadioButton("RESULTADO FINAL");
+		
 		rb_resultado_final.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cb_cantidad_sets.setEnabled(false);
@@ -331,20 +330,21 @@ public class PntCrearLiga extends JPanel {
 			ligaDTO.setPuntuacion(Puntuacion.Sets);
 			ligaDTO.setCantidadSets(Integer.parseInt(cb_cantidad_sets.getSelectedItem().toString()));
 			ligaDTO.setTantosGanadosAusRival(-1);
-		}else if(rb_puntuacion.isSelected()) {
-			ligaDTO.setPuntuacion(Puntuacion.Puntuacion);
-			ligaDTO.setCantidadSets(-1);
-			ligaDTO.setTantosGanadosAusRival(Integer.parseInt(cb_tantos_ganados_ausencia_rival.getSelectedItem().toString()));
 		}else {
-			ligaDTO.setPuntuacion(Puntuacion.ResultadoFinal);
-			ligaDTO.setCantidadSets(-1);
-			ligaDTO.setTantosGanadosAusRival(-1);
-		} 
+			if(bg.getSelection() == rb_puntuacion.getModel()) {
+				ligaDTO.setPuntuacion(Puntuacion.Puntuacion);
+				ligaDTO.setCantidadSets(-1);
+				ligaDTO.setTantosGanadosAusRival(Integer.parseInt(cb_tantos_ganados_ausencia_rival.getSelectedItem().toString()));
+			}
+				else {
+					ligaDTO.setPuntuacion(Puntuacion.ResultadoFinal);
+					ligaDTO.setCantidadSets(-1);
+					ligaDTO.setTantosGanadosAusRival(-1);
+				
+				}
 			
-		
-		
-		
-		
+		}
+			
 	}
 
 }

@@ -227,6 +227,12 @@ public class GestorCompetencia {
 		liga.tantosGanadosAusenciaRival= ligaDTO.getTantosGanadosAusRival();
 		liga.deporte= obtenerDeporte(compDTO.getIdDeporte()).get(0);
 		
+
+		liga.puntosPE=ligaDTO.getPtos_pe();
+		liga.puntosPG=ligaDTO.getPtos_pg();
+		liga.puntosPorPresentarse =ligaDTO.getPtos_pp();
+		liga.empatePermitido = ligaDTO.isEmpatePermitido();
+				
 		
 		int idModalidad= GestorCompetencia.obtenerIdModalidad(liga.modalidad);
 		int idEstado= GestorCompetencia.obtenerIdEstado(liga.estado);

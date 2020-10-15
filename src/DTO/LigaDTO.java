@@ -32,7 +32,7 @@ public class LigaDTO implements Serializable{
 	public int getPtos_pe() {
 		return ptos_pe;
 	}
-	public void setPtos_pe(int ptos_pe) {
+		public void setPtos_pe(int ptos_pe) {
 		this.ptos_pe = ptos_pe;
 	}
 	
