@@ -208,8 +208,11 @@ public class PntCrearCompetencia extends JPanel {
 		btn_sig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				
 				//VALIDAR NOMBRE
 				boolean validarNombre = false;
+				if (validarNombreCompVacio() == true) {
+					
 				try {
 					validarNombre = GestorCompetencia.validarNombre(tf_nombre_comp.getText());
 					
@@ -253,7 +256,7 @@ public class PntCrearCompetencia extends JPanel {
 				
 				
 				
-			
+				}
 				
 			}
 			
@@ -414,6 +417,22 @@ public class PntCrearCompetencia extends JPanel {
 		}
 		
 	}
+	
+	private static boolean validarNombreCompVacio() {
+		boolean retorno = false;
+		
+		if (tf_nombre_comp.getText().isEmpty()) {
+			VentanaAdmin.mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
+		} else {
+			retorno= true;
+				} 
+			
+			
+		return retorno;
+	}
+	
+	
+	
 	
 	
 	

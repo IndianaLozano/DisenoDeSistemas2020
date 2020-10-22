@@ -326,10 +326,9 @@ public class GestorCompetencia {
 		
 		
 	}
+	/*
 	
-	
-	
-
+	SE COMENTAN ESTOS METODOS PARA USARLOS COMO VALIDACIONES DEL GESTOR
 	
 	public static boolean validarCamposVacios() {
 		boolean retorno = false;
@@ -350,8 +349,10 @@ public class GestorCompetencia {
 			}
 		}		
 		return retorno;
-	}
+	}*/
+
 	
+	/*
 	
 	public static boolean validarPtosPGPtosPE() {
 		boolean retorno = false;
@@ -376,7 +377,9 @@ public class GestorCompetencia {
 		return retorno;
 	}
 	
-		
+	
+	
+		*/
 		
 		
 
