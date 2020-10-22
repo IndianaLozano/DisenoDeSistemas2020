@@ -9,12 +9,12 @@ public class CompetenciaDTO implements Serializable {
 	
 	//Declaro atributos del DTO
 	
-	private static String nombre;
-	private int idDeporte;
-	private Modalidad modalidad;
-    private List<DisponibilidadDTO> disponibilidadesDTO; // chequear si esta bien esto
-    private String reglamento;
-    private int idUsuario=1;
+	public static String nombre;
+	public int idDeporte;
+	public Modalidad modalidad;
+	public List<DisponibilidadDTO> disponibilidadesDTO; // chequear si esta bien esto
+	public String reglamento;
+	public int idUsuario=1;
     
     
     /* gets para obtener datos ingresados por pantalla y

@@ -266,8 +266,11 @@ public class GestorCompetencia {
 		}
 		
 		liga.disponibilidades=disponibilidades;
-		CompetenciaDAO.newLiga(liga);
-		VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+		//aca va el metodo de hacer de nuevo las mismas validaciones que en la pantalla
+		if(validarCamposLigaDTO(compDTO, ligaDTO)) {
+			CompetenciaDAO.newLiga(liga);
+			VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+		}
 		
 		
 	}
@@ -318,72 +321,76 @@ public class GestorCompetencia {
 		}
 		
 		eliminatoria.disponibilidades=disponibilidades;
-		CompetenciaDAO.newEliminatoria(eliminatoria);
-		VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+		
+		
+		if(validarCamposEliminatoriaDTO(compDTO)) {
+			CompetenciaDAO.newEliminatoria(eliminatoria);
+			VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+		}
+		
 		
 		
 		
 		
 		
 	}
-	/*
 	
-	SE COMENTAN ESTOS METODOS PARA USARLOS COMO VALIDACIONES DEL GESTOR
-	
-	public static boolean validarCamposVacios() {
+	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO){
 		boolean retorno = false;
 		
-		if (PntCrearLiga.tf_puntospg.getText().isEmpty()) {
-			VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
+		if (competDTO.nombre.length()== 0) {
+			VentanaAdmin.mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
+			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+			//Si la validacion es verdadera muestra el mensaje de error y vuelve a la pantalla crearCompetencia
 		} else {
-			PntCrearLiga.ptospg=Integer.parseInt(PntCrearLiga.tf_puntospg.getText());
-			if (PntCrearLiga.tf_puntospp.getText().isEmpty()) {
-				VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+			if (competDTO.disponibilidadesDTO.isEmpty()) {
+				VentanaAdmin.mensajeError("No existen disponibilidades cargadas", "ERROR");
+				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
 			} else {
-				PntCrearLiga.ptospp=Integer.parseInt(PntCrearLiga.tf_puntospp.getText());
-				if ((PntCrearLiga.chb_empate_permitido.isSelected()==true) && (PntCrearLiga.tf_puntospe.getText().isEmpty())) {
-					VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
+				retorno = true;
+				/*
+				 Falta validar que los campos (que son del tipo int) no sean vacios
+				if (ligaDTO.ptos_pg) {
+					VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
 				} else {
-					retorno= true;
-				} 
+					if (ligaDTO.ptos_pp) {
+						VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+					} else {
+						if ((ligaDTO.empatePermitido == true) && (ligaDTO.ptos_pe)) {
+							VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
+						} else {
+							retorno= true;
+						} 
+					}
+				}*/
+				
 			}
 		}		
 		return retorno;
-	}*/
-
-	
-	/*
-	
-	public static boolean validarPtosPGPtosPE() {
-		boolean retorno = false;
-		
-		if ((PntCrearLiga.chb_empate_permitido.isSelected()==true)&&(PntCrearLiga.ptospg<Integer.parseInt(PntCrearLiga.tf_puntospe.getText()))){
-			VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por partido empatado'", "ERROR");
-	} else {
-		retorno= true;
-			}
-		return retorno;
 	}
-	
-	
-	public static boolean validarPtosPGPtosPP() {
+
+	private static boolean validarCamposEliminatoriaDTO(CompetenciaDTO competDTO) {
 		boolean retorno = false;
 		
-		if ((PntCrearLiga.ptospg<PntCrearLiga.ptospp)||(PntCrearLiga.ptospg==PntCrearLiga.ptospp)){
-			VentanaAdmin.mensajeError("'Puntos por partido ganado' debe ser mayor a 'Puntos por presentarse'", "ERROR");
+		if (competDTO.nombre.length()== 0) {
+			VentanaAdmin.mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
+			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+			//Si la validacion es verdadera muestra el mensaje de error y vuelve a la pantalla crearCompetencia
 		} else {
-			retorno= true;
+			if (competDTO.disponibilidadesDTO.isEmpty()) {
+				VentanaAdmin.mensajeError("No existen disponibilidades cargadas", "ERROR");
+				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+			} else {
+				retorno = true;
+			}
 		}
 		return retorno;
 	}
 	
 	
 	
-		*/
-		
-		
-
-	
 
 }
+
+
 
