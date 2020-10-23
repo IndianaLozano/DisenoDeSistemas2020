@@ -39,6 +39,7 @@ public class Liga extends Competencia {
 			this.dadaDeBaja=competencia.dadaDeBaja;
 			this.cantidadSets=competencia.cantidadSets;
 			this.tantosGanadosAusenciaRival= competencia.tantosGanadosAusenciaRival;
+			this.id_usuario=2;
 			this.participantes= competencia.participantes;
 			this.disponibilidades=competencia.disponibilidades;
 			this.deporte= competencia.deporte;

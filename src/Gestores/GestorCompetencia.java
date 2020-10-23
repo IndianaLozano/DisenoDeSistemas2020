@@ -231,7 +231,7 @@ public class GestorCompetencia {
 		int idPuntuacion= GestorCompetencia.obtenerIdPuntuacion(liga.puntuacion);
 		
 		//id_usuario = 1 hasta q ingresemos usuarios
-		CompetenciaDAO.newCompetencia(liga.nombre, 2, idModalidad, idEstado, idPuntuacion, liga.deporte.idDeporte, 0, liga.reglamento, liga.cantidadSets, liga.tantosGanadosAusenciaRival );
+		CompetenciaDAO.newCompetencia(liga.nombre, liga.id_usuario, idModalidad, idEstado, idPuntuacion, liga.deporte.idDeporte, 0, liga.reglamento, liga.cantidadSets, liga.tantosGanadosAusenciaRival );
 		int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
 		liga.idCompetencia=idCompetencia;
 		
@@ -286,7 +286,7 @@ public class GestorCompetencia {
 		int idPuntuacion= GestorCompetencia.obtenerIdPuntuacion(eliminatoria.puntuacion);
 		
 		//id_usuario = 2 hasta q ingresemos usuarios
-		CompetenciaDAO.newCompetencia(eliminatoria.nombre, 2, idModalidad, idEstado, idPuntuacion, eliminatoria.deporte.idDeporte, 0, eliminatoria.reglamento, eliminatoria.cantidadSets, eliminatoria.tantosGanadosAusenciaRival );
+		CompetenciaDAO.newCompetencia(eliminatoria.nombre, eliminatoria.id_usuario, idModalidad, idEstado, idPuntuacion, eliminatoria.deporte.idDeporte, 0, eliminatoria.reglamento, eliminatoria.cantidadSets, eliminatoria.tantosGanadosAusenciaRival );
 		int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
 		eliminatoria.idCompetencia=idCompetencia;
 		
