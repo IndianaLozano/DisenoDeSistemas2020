@@ -236,12 +236,6 @@ public class GestorCompetencia {
 		int idEstado= GestorCompetencia.obtenerIdEstado(liga.estado);
 		int idPuntuacion= GestorCompetencia.obtenerIdPuntuacion(liga.puntuacion);
 		
-		//id_usuario = 1 hasta q ingresemos usuarios
-		CompetenciaDAO.newCompetencia(liga.nombre, 2, idModalidad, idEstado, idPuntuacion, liga.deporte.idDeporte, 0, liga.reglamento, liga.cantidadSets, liga.tantosGanadosAusenciaRival );
-		int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
-		liga.idCompetencia=idCompetencia;
-		
-		
 		List<DisponibilidadDTO> disponibilidadesDTO= compDTO.getDisponibilidadesDTO();
 		List<Disponibilidad> disponibilidades= new ArrayList();
 		int disp;
@@ -252,25 +246,24 @@ public class GestorCompetencia {
 			
 			Disponibilidad disponibilidad= new Disponibilidad();
 			disponibilidad.disponibilidad=disp;
-			disponibilidad.id_competencia= idCompetencia;
 			disponibilidad.lugarDeRealizacion = obtenerLugarDeRealizacion(idLugar).get(0);
 			
-			CompetenciaDAO.newCompetencia_lugar(idCompetencia, idLugar, disp);
 			disponibilidades.add(disponibilidad);
 			
-		}
+		} 
 		
 		liga.disponibilidades=disponibilidades;
+			
 		
 		if(validarCamposLigaDTO(compDTO, ligaDTO)) {
-			CompetenciaDAO.newLiga(liga);
+			CompetenciaDAO.newCompetenciaLiga(liga);
 			
 		}
 		
 		
 	}
 	
-	public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception {
+	/*public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception {
 		
 		
 		Eliminatoria eliminatoria = new Eliminatoria();
@@ -328,7 +321,7 @@ public class GestorCompetencia {
 		
 		
 		
-	}
+	}*/
 	
 	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO){
 		boolean retorno = false;

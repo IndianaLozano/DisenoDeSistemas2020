@@ -3,6 +3,7 @@ package DAO;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entidades.ConsultaGenerica;
 import Entidades.Deporte;
 
 public class DeporteDAO {
@@ -47,14 +48,28 @@ public class DeporteDAO {
 	}
 	
 	
-	//Metodo para ejecuciones
 	
-	public static void altaActividad (String nombre, long idProfesor) throws Exception{
-		String query="" ;
+	
+public static int getIdDeporte(String deporte) throws Exception {
+		
 		try {
-			Conexion.ejecutar(query);	
-		} catch (Exception e) {
-			e.printStackTrace();
+			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar("SELECT id_deporte FROM database.deporte WHERE nombre = '"+ deporte +"' ;", ConsultaGenerica.class);
+			return Integer.parseInt(ls1.get(0).getValor("id_deporte"));
+		} catch (Exception ex) {
+			
+			throw ex;
 		}
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

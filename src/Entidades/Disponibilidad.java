@@ -4,7 +4,7 @@ import Gestores.GestorCompetencia;
 
 public class Disponibilidad {
 
-	public int id_competencia;
+	//public int id_competencia;
 	public LugarDeRealizacion lugarDeRealizacion;
 	public int disponibilidad;
 	
@@ -12,15 +12,15 @@ public class Disponibilidad {
 		
 	}
 	
-	public Disponibilidad(int idComp, LugarDeRealizacion lugarDeRealizacion, int disp) {
-		this.id_competencia=idComp;
+	public Disponibilidad(/*int idComp,*/ LugarDeRealizacion lugarDeRealizacion, int disp) {
+		//this.id_competencia=idComp;
 		this.lugarDeRealizacion=lugarDeRealizacion;
 		this.disponibilidad=disp;
 	}
 
 	public Disponibilidad(String datos) {
 		String[] atributo = datos.split("\t");
-		this.id_competencia= Integer.parseInt(atributo[0]);
+		/*this.id_competencia= Integer.parseInt(atributo[0]);*/
 		this.disponibilidad=Integer.parseInt(atributo[2]);
 		
 		
