@@ -235,5 +235,23 @@ public class CompetenciaDAO {
 			throw ex;
 		}
 	}
+	
+	
+	public static List<Competencia> getCompetenciaByNombre(String nombre, int id_usuario) throws Exception{
+		
+		
+		try {
+			String query = "SELECT * FROM database.competencia WHERE nombre = " + nombre + " AND id_usuario = " + id_usuario +" ;" ;
+			ArrayList<Competencia> competencias = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
+			return competencias;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+		
+	}
+		
+		
+	
 
 }

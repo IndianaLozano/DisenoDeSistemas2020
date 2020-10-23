@@ -188,6 +188,24 @@ public class GestorCompetencia {
 	//validarNombre retorna true si el nombre ingresado no es igual al nombre de otra competencia existente
 	public static boolean validarNombre (String nombre) throws Exception {
 		
+		/*
+		List<Competencia> competencia = CompetenciaDAO.getCompetenciaByNombre(nombre, id_usuario);
+		
+		int tamList = competencia.size();
+		
+		if(tamList > 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+		
+		*/
+		
+		
+		
+		
+		
 		List<String> nombres = CompetenciaDAO.getNombresCompetencias();
 		
 		int tamList = nombres.size();
