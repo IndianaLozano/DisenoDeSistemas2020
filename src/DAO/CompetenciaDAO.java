@@ -241,7 +241,7 @@ public class CompetenciaDAO {
 		
 		
 		try {
-			String query = "SELECT * FROM database.competencia WHERE nombre = " + nombre + " AND id_usuario = " + id_usuario +" ;" ;
+			String query = "SELECT * FROM database.competencia WHERE (nombre = " + nombre + ") AND (id_usuario = " + id_usuario +") ;" ;
 			ArrayList<Competencia> competencias = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
 			return competencias;
 		}
