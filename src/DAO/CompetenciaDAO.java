@@ -17,6 +17,7 @@ import Entidades.Modalidad;
 import Entidades.Participante;
 import Entidades.Puntuacion;
 import Gestores.GestorCompetencia;
+import InterfazGrafica.VentanaAdmin;
 import javafx.scene.control.RadioButton;
 
 public class CompetenciaDAO {
@@ -174,6 +175,7 @@ public class CompetenciaDAO {
 		String query= "INSERT INTO database.liga (id_competencia, empate_permitido, puntos_pe, puntos_pg, puntos_por_presentarse) VALUES (" + liga.idCompetencia + ", " + ep + ", " + liga.puntosPE + ", " + liga.puntosPG + ", " + liga.puntosPorPresentarse + " );"  ;
 		try {
 			Conexion.ejecutar(query);
+			VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -192,9 +194,11 @@ public class CompetenciaDAO {
 		String query= "INSERT INTO database.eliminatoria (id_competencia, es_doble) VALUES (" + eliminatoria.idCompetencia + ", " + ed + "); " ;
 		try {
 			Conexion.ejecutar(query);
+			VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	
 	}
 	

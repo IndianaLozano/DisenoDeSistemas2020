@@ -58,7 +58,7 @@ public class Competencia {
 			dadaDeBaja=true;
 		}
 		
-		
+	
 		try {
 			this.estado = GestorCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
 			this.modalidad = GestorCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));

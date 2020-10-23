@@ -1,26 +1,38 @@
 package Entidades;
 
+import Gestores.GestorCompetencia;
+
 public class Disponibilidad {
 
 	public int id_competencia;
-	public int id_lugar;
+	public LugarDeRealizacion lugarDeRealizacion;
 	public int disponibilidad;
 	
 	public Disponibilidad() {
 		
 	}
 	
-	public Disponibilidad(int idComp, int idLugar, int disp) {
+	public Disponibilidad(int idComp, LugarDeRealizacion lugarDeRealizacion, int disp) {
 		this.id_competencia=idComp;
-		this.id_lugar=idLugar;
+		this.lugarDeRealizacion=lugarDeRealizacion;
 		this.disponibilidad=disp;
 	}
 
 	public Disponibilidad(String datos) {
 		String[] atributo = datos.split("\t");
 		this.id_competencia= Integer.parseInt(atributo[0]);
-		this.id_lugar=Integer.parseInt(atributo[1]);
 		this.disponibilidad=Integer.parseInt(atributo[2]);
+		
+		
+		try {
+			this.lugarDeRealizacion = GestorCompetencia.obtenerLugarDeRealizacion(Integer.parseInt(atributo[0])).get(0);
+			
+			} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 
 	}
 	

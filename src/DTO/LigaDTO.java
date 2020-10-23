@@ -6,14 +6,13 @@ import Entidades.Puntuacion;
 
 public class LigaDTO implements Serializable{
 
-	public int ptos_pg;
-	public int ptos_pp;
-	public int ptos_pe;
-	public int cantidadSets;
-	public int tantosGanadosAusRival;
-	public Puntuacion puntuacion;
-	public boolean empatePermitido;
-	
+	private int ptos_pg;
+	private int ptos_pp;
+	private int ptos_pe;
+	private int cantidadSets;
+	private int tantosGanadosAusRival;
+	private Puntuacion puntuacion;
+	private boolean empatePermitido;
 	
 	
 	

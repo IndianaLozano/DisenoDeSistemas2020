@@ -5,6 +5,7 @@ import java.util.List;
 
 import DAO.CompetenciaDAO;
 import DAO.DeporteDAO;
+import DAO.LugarDeRealizacionDAO;
 import DTO.CompetenciaDTO;
 import DTO.DisponibilidadDTO;
 import DTO.EliminatoriaDTO;
@@ -15,6 +16,7 @@ import Entidades.Disponibilidad;
 import Entidades.Eliminatoria;
 import Entidades.Estado;
 import Entidades.Liga;
+import Entidades.LugarDeRealizacion;
 import Entidades.Modalidad;
 import Entidades.Participante;
 import Entidades.Puntuacion;
@@ -31,6 +33,10 @@ public class GestorCompetencia {
 	
 	public static List<Deporte> obtenerDeportes() throws Exception{	
 		return DeporteDAO.getAllDeportes();
+	}
+	
+	public static List<LugarDeRealizacion> obtenerLugarDeRealizacion(int idLugar) throws Exception{
+		return LugarDeRealizacionDAO.getLugarById(idLugar);
 	}
 	
 	public static List<Integer> obtenerIdModalidades() throws Exception {
@@ -247,7 +253,7 @@ public class GestorCompetencia {
 			Disponibilidad disponibilidad= new Disponibilidad();
 			disponibilidad.disponibilidad=disp;
 			disponibilidad.id_competencia= idCompetencia;
-			disponibilidad.id_lugar= idLugar;
+			disponibilidad.lugarDeRealizacion = obtenerLugarDeRealizacion(idLugar).get(0);
 			
 			CompetenciaDAO.newCompetencia_lugar(idCompetencia, idLugar, disp);
 			disponibilidades.add(disponibilidad);
@@ -255,10 +261,10 @@ public class GestorCompetencia {
 		}
 		
 		liga.disponibilidades=disponibilidades;
-		//aca va el metodo de hacer de nuevo las mismas validaciones que en la pantalla
+		
 		if(validarCamposLigaDTO(compDTO, ligaDTO)) {
 			CompetenciaDAO.newLiga(liga);
-			VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+			
 		}
 		
 		
@@ -277,7 +283,7 @@ public class GestorCompetencia {
 		eliminatoria.cantidadSets= eliminatoriaDTO.getCantidadSets();
 		eliminatoria.tantosGanadosAusenciaRival= eliminatoriaDTO.getTantosGanadosAusRival();
 		eliminatoria.deporte= obtenerDeporte(compDTO.getIdDeporte()).get(0);
-	
+		
 		eliminatoria.esDoble=eliminatoriaDTO.isEsDoble();
 				
 		
@@ -294,17 +300,17 @@ public class GestorCompetencia {
 		List<DisponibilidadDTO> disponibilidadesDTO= compDTO.getDisponibilidadesDTO();
 		List<Disponibilidad> disponibilidades= new ArrayList();
 		int disp;
-		int idLugar;
+		int idLug;
+		
 		for(int i=0; i<disponibilidadesDTO.size() ; i++) {
 			disp= disponibilidadesDTO.get(i).getDisponibilidad();
-			idLugar=disponibilidadesDTO.get(i).getIdLugarDeRealizacion();
-			
+			idLug = disponibilidadesDTO.get(i).getIdLugarDeRealizacion();
 			Disponibilidad disponibilidad= new Disponibilidad();
 			disponibilidad.disponibilidad=disp;
 			disponibilidad.id_competencia= idCompetencia;
-			disponibilidad.id_lugar= idLugar;
+			disponibilidad.lugarDeRealizacion= obtenerLugarDeRealizacion(idLug).get(0);
 			
-			CompetenciaDAO.newCompetencia_lugar(idCompetencia, idLugar, disp);
+			CompetenciaDAO.newCompetencia_lugar(idCompetencia, idLug, disp);
 			disponibilidades.add(disponibilidad);
 			
 		}
@@ -314,7 +320,7 @@ public class GestorCompetencia {
 		
 		if(validarCamposEliminatoriaDTO(compDTO)) {
 			CompetenciaDAO.newEliminatoria(eliminatoria);
-			VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+			
 		}
 		
 		
@@ -327,7 +333,7 @@ public class GestorCompetencia {
 	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO){
 		boolean retorno = false;
 		
-		if (competDTO.nombre.length()== 0) {
+		if (competDTO.getNombre().length()== 0) {
 			VentanaAdmin.mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
 			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
 			//Si la validacion es verdadera muestra el mensaje de error y vuelve a la pantalla crearCompetencia
@@ -337,36 +343,40 @@ public class GestorCompetencia {
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
 			} else {
 				retorno = true;
-				/*
-				 Falta validar que los campos (que son del tipo int) no sean vacios
-				if (ligaDTO.ptos_pg) {
+				
+				Integer ptos_pg= new Integer (ligaDTO.getPtos_pg());
+				Integer ptos_pp = new Integer (ligaDTO.getPtos_pp());
+				Integer ptos_pe = new Integer (ligaDTO.getPtos_pe());
+				
+				if (ptos_pg == null){
 					VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
 				} else {
-					if (ligaDTO.ptos_pp) {
+					if (ptos_pp == null){
 						VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
 					} else {
-						if ((ligaDTO.empatePermitido == true) && (ligaDTO.ptos_pe)) {
+						if ((ligaDTO.isEmpatePermitido() == true) && (ptos_pe == null)) {
 							VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
 						} else {
 							retorno= true;
 						} 
 					}
-				}*/
+				}
 				
 			}
 		}		
 		return retorno;
 	}
+	
 
 	private static boolean validarCamposEliminatoriaDTO(CompetenciaDTO competDTO) {
 		boolean retorno = false;
 		
-		if (competDTO.nombre.length()== 0) {
+		if (competDTO.getNombre().length()== 0) {
 			VentanaAdmin.mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
 			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
 			//Si la validacion es verdadera muestra el mensaje de error y vuelve a la pantalla crearCompetencia
 		} else {
-			if (competDTO.disponibilidadesDTO.isEmpty()) {
+			if (competDTO.getDisponibilidadesDTO().isEmpty()) {
 				VentanaAdmin.mensajeError("No existen disponibilidades cargadas", "ERROR");
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
 			} else {

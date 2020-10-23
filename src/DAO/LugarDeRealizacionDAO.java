@@ -23,5 +23,19 @@ public class LugarDeRealizacionDAO {
 		}
 		
 	}
+	
+	public static List<LugarDeRealizacion> getLugarById(int idLugar ) throws Exception{
+		try {
+			String query = "SELECT * FROM database.lugar_de_realizacion WHERE id_lugar = " + idLugar +" ;" ;
+		
+			ArrayList<LugarDeRealizacion> lugar = (ArrayList<LugarDeRealizacion>)((Object)Conexion.consultar(query, LugarDeRealizacion.class));
+			return lugar;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+		
+	}
+	
 
 }

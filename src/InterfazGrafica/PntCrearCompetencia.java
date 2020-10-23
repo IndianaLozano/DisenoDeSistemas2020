@@ -214,7 +214,7 @@ public class PntCrearCompetencia extends JPanel {
 				if (validarNombreCompVacio() == true) {
 					
 				try {
-					validarNombre = GestorCompetencia.validarNombre(tf_nombre_comp.getText(),2); //reemplazar el 2 por id_usuario
+					validarNombre = GestorCompetencia.validarNombre(tf_nombre_comp.getText(),2); //TODO reemplazar el 2 por id_usuario
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
