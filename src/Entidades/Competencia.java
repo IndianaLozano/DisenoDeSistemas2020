@@ -8,7 +8,6 @@ import Gestores.GestorUsuario;
 public class Competencia {
 
 	public int idCompetencia;
-	public int id_usuario;
 	public  String nombre;
 	public  Modalidad modalidad; //*
 	public  Estado estado;//*
@@ -27,7 +26,7 @@ public class Competencia {
 	public Competencia() {}
 	
 	//Constructor con parametros
-	public Competencia(int id, int id_usuario, String nombre, Modalidad modalidad, Estado estado, String reglamento, Puntuacion puntuacion, boolean baja, int cantidadSets, int tantosGanadosAusenciaRival, List<Participante> participantes, Deporte deporte, List<Disponibilidad> disponibilidades) {
+	public Competencia(int id, String nombre, Modalidad modalidad, Estado estado, String reglamento, Puntuacion puntuacion, boolean baja, int cantidadSets, int tantosGanadosAusenciaRival, List<Participante> participantes, Deporte deporte, List<Disponibilidad> disponibilidades) {
 		this.idCompetencia = id;
 		this.nombre = nombre;
 		this.modalidad = modalidad;
@@ -37,7 +36,6 @@ public class Competencia {
 		this.dadaDeBaja = baja;
 		this.cantidadSets = cantidadSets;
 		this.tantosGanadosAusenciaRival = tantosGanadosAusenciaRival;
-		this.id_usuario=id_usuario;
 		this.deporte=deporte;
 		this.participantes=participantes;
 		this.disponibilidades= disponibilidades;
