@@ -214,14 +214,13 @@ public class PntCrearCompetencia extends JPanel {
 				if (validarNombreCompVacio() == true) {
 					
 				try {
-					validarNombre = GestorCompetencia.validarNombre(tf_nombre_comp.getText());
+					validarNombre = GestorCompetencia.validarNombre(tf_nombre_comp.getText(),2);
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				if (validarNombre == true && table.getRowCount() > 0) { 
-					
 					//SETEAR NOMBRE EN CompetenciaDTO
 					competenciaDTO.setNombre(tf_nombre_comp.getText());
 					llenarCompetenciaDTO();

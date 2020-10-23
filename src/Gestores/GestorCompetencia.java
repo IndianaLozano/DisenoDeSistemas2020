@@ -186,9 +186,9 @@ public class GestorCompetencia {
 	
 	
 	//validarNombre retorna true si el nombre ingresado no es igual al nombre de otra competencia existente
-	public static boolean validarNombre (String nombre) throws Exception {
+	public static boolean validarNombre (String nombre, int id_usuario) throws Exception {
 		
-		/*
+		
 		List<Competencia> competencia = CompetenciaDAO.getCompetenciaByNombre(nombre, id_usuario);
 		
 		int tamList = competencia.size();
@@ -200,35 +200,6 @@ public class GestorCompetencia {
 			return true;
 		}
 		
-		*/
-		
-		
-		
-		
-		
-		List<String> nombres = CompetenciaDAO.getNombresCompetencias();
-		
-		int tamList = nombres.size();
-		int nombreRepetido = 0;
-		int i = 0;
-		String nombre1 = " ";
-		// while se ejecuta siempre que no encuentre que el nombre ingresado sea igual al nombre de otra competencia existente
-		while (nombreRepetido == 0 && i<tamList) {
-			nombre1= nombres.get(i);
-			if (nombres.get(i).equals(nombre)) {
-				nombreRepetido++;
-			}
-			else {
-				i++;
-			}
-		}
-		
-		if (nombreRepetido > 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
 	}
 	
 	
@@ -314,7 +285,7 @@ public class GestorCompetencia {
 		int idEstado= GestorCompetencia.obtenerIdEstado(eliminatoria.estado);
 		int idPuntuacion= GestorCompetencia.obtenerIdPuntuacion(eliminatoria.puntuacion);
 		
-		//id_usuario = 1 hasta q ingresemos usuarios
+		//id_usuario = 2 hasta q ingresemos usuarios
 		CompetenciaDAO.newCompetencia(eliminatoria.nombre, 2, idModalidad, idEstado, idPuntuacion, eliminatoria.deporte.idDeporte, 0, eliminatoria.reglamento, eliminatoria.cantidadSets, eliminatoria.tantosGanadosAusenciaRival );
 		int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
 		eliminatoria.idCompetencia=idCompetencia;
