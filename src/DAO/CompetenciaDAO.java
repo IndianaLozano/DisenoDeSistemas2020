@@ -37,7 +37,7 @@ public class CompetenciaDAO {
 			}
 
 		} catch (Exception ex) {
-			System.out.println("Entro al catch");
+			
 			throw ex;
 		}
 		return idModalidades;
@@ -82,7 +82,7 @@ public class CompetenciaDAO {
 	
 	public static List<Disponibilidad> getDisponibilidadesCompetencia(int idCompetencia) throws Exception{
 		try {
-			//String query = "SELECT comp_lug.id_competencia, comp_lug.id_lugar, comp_lug.disponibilidad FROM database.competencia comp JOIN database.competencia_lugar comp_lug ON (comp.id_competencia=comp_lug.id_competencia) WHERE id_competencia = " + idCompetencia + " ;"  ;
+			
 			String query= "SELECT * FROM database.competencia_lugar WHERE id_competencia= " + idCompetencia + " ;";
 			ArrayList<Disponibilidad> disponibilidades = (ArrayList<Disponibilidad>)((Object)Conexion.consultar(query, Disponibilidad.class));
 			return disponibilidades;
@@ -130,7 +130,7 @@ public class CompetenciaDAO {
 			    i++;
 			}
 		} catch (Exception ex) {
-			System.out.println("Entro al catch");
+			
 			throw ex;
 		}
 		return nombresCompetencias;
