@@ -168,6 +168,8 @@ public class CompetenciaDAO {
 			comp.idCompetencia=idCompetencia;
 			int idLugar;
 			int disp;
+			
+			comenzarTransaccion();
 			for(int i=0; i< comp.disponibilidades.size(); i++) {
 				idLugar = comp.disponibilidades.get(i).lugarDeRealizacion.idLugar;
 				disp = comp.disponibilidades.get(i).disponibilidad;
@@ -175,6 +177,7 @@ public class CompetenciaDAO {
 				newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
 				// ver transaccion 
 			}
+			finalizarTransaccion();
 
 			int ep=0;
 			if(comp.empatePermitido==true) {
@@ -212,6 +215,8 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 			comp.idCompetencia=idCompetencia;
 			int idLugar;
 			int disp;
+			
+			comenzarTransaccion();
 			for(int i=0; i< comp.disponibilidades.size(); i++) {
 				idLugar = comp.disponibilidades.get(i).lugarDeRealizacion.idLugar;
 				disp = comp.disponibilidades.get(i).disponibilidad;
@@ -219,6 +224,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 				newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
 				// ver transaccion 
 			}
+			finalizarTransaccion();
 
 			int ed=0;
 			if(comp.esDoble==true) {
@@ -236,6 +242,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 			}
 			
 		} catch (Exception e) {
+			errorTransaccion();
 			e.printStackTrace();
 		}
 	
@@ -269,6 +276,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		try {
 			Conexion.ejecutar(query);
 		} catch (Exception e) {
+			errorTransaccion();
 			e.printStackTrace();
 		}
 	}
@@ -314,6 +322,33 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 			throw ex;
 		}
 		
+	}
+	
+	public static void comenzarTransaccion() {
+		String query = "START TRANSACTION;";
+		try {
+			Conexion.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void finalizarTransaccion() {
+		String query = "COMMIT;";
+		try {
+			Conexion.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void errorTransaccion() {
+		String query = "ROLLBACK;";
+		try {
+			Conexion.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 		
 		
