@@ -263,10 +263,11 @@ public class GestorCompetencia {
 		
 	}
 	
-	/*public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception {
+	public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception {
 		
 		
 		Eliminatoria eliminatoria = new Eliminatoria();
+		
 		eliminatoria.nombre= compDTO.getNombre();
 		eliminatoria.modalidad= compDTO.getModalidad();
 		eliminatoria.estado=Estado.Creada;
@@ -279,16 +280,9 @@ public class GestorCompetencia {
 		
 		eliminatoria.esDoble=eliminatoriaDTO.isEsDoble();
 				
-		
 		int idModalidad= GestorCompetencia.obtenerIdModalidad(eliminatoria.modalidad);
 		int idEstado= GestorCompetencia.obtenerIdEstado(eliminatoria.estado);
 		int idPuntuacion= GestorCompetencia.obtenerIdPuntuacion(eliminatoria.puntuacion);
-		
-		//id_usuario = 2 hasta q ingresemos usuarios
-		CompetenciaDAO.newCompetencia(eliminatoria.nombre, 2, idModalidad, idEstado, idPuntuacion, eliminatoria.deporte.idDeporte, 0, eliminatoria.reglamento, eliminatoria.cantidadSets, eliminatoria.tantosGanadosAusenciaRival );
-		int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
-		eliminatoria.idCompetencia=idCompetencia;
-		
 		
 		List<DisponibilidadDTO> disponibilidadesDTO= compDTO.getDisponibilidadesDTO();
 		List<Disponibilidad> disponibilidades= new ArrayList();
@@ -300,19 +294,16 @@ public class GestorCompetencia {
 			idLug = disponibilidadesDTO.get(i).getIdLugarDeRealizacion();
 			Disponibilidad disponibilidad= new Disponibilidad();
 			disponibilidad.disponibilidad=disp;
-			disponibilidad.id_competencia= idCompetencia;
 			disponibilidad.lugarDeRealizacion= obtenerLugarDeRealizacion(idLug).get(0);
 			
-			CompetenciaDAO.newCompetencia_lugar(idCompetencia, idLug, disp);
 			disponibilidades.add(disponibilidad);
 			
 		}
 		
 		eliminatoria.disponibilidades=disponibilidades;
 		
-		
 		if(validarCamposEliminatoriaDTO(compDTO)) {
-			CompetenciaDAO.newEliminatoria(eliminatoria);
+			CompetenciaDAO.newCompetenciaEliminatoria(eliminatoria);
 			
 		}
 		
@@ -321,7 +312,7 @@ public class GestorCompetencia {
 		
 		
 		
-	}*/
+	}
 	
 	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO){
 		boolean retorno = false;

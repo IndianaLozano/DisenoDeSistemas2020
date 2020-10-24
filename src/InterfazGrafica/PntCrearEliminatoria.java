@@ -74,7 +74,7 @@ public class PntCrearEliminatoria extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					llenarEliminatoriaDTO();
-					/*GestorCompetencia.crearEliminatoria(competenciaDTO, eliminatoriaDTO);*/
+					GestorCompetencia.crearEliminatoria(competenciaDTO, eliminatoriaDTO);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
