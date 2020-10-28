@@ -3,6 +3,8 @@ package Gestores;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import DAO.CompetenciaDAO;
 import DAO.DeporteDAO;
 import DAO.LugarDeRealizacionDAO;
@@ -333,28 +335,31 @@ public class GestorCompetencia {
 				Integer ptos_pe = new Integer (ligaDTO.getPtos_pe());
 				
 				if (ptos_pg == null){
-					VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
-					
+					//VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
 					try
 					{
-
 					} catch (Exception e)
 					{
-					       JOptionPane.showMessageDialog(null, e.toString(), "Error",
-					                                       JOptionPane.ERROR_MESSAGE);
+					       JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido ganado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
 					}
-					
-					
-					JOptionPane.showConfirmDialog(null, error, titulo, 
-							JOptionPane.PLAIN_MESSAGE, 
-							JOptionPane.ERROR_MESSAGE)==0);
-					
 				} else {
 					if (ptos_pp == null){
-						VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+						try
+						{
+						} catch (Exception e)
+						{
+						       JOptionPane.showMessageDialog(null, "Campo 'Puntos por presentarse' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
+						}						
+						//VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
 					} else {
 						if ((ligaDTO.isEmpatePermitido() == true) && (ptos_pe == null)) {
-							VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
+							try
+							{
+							} catch (Exception e)
+							{
+							       JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido empatado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
+							}
+							//VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
 						} else {
 							retorno= true;
 						} 

@@ -234,9 +234,9 @@ public class PntCrearLiga extends JPanel {
 		btn_siguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 							
-				if (validarCamposVacios()==true) {
-					if(validarPtosPGPtosPE()==true) {
-							if(validarPtosPGPtosPP()==true) {
+			//	if (validarCamposVacios()==true) {
+					//if(validarPtosPGPtosPE()==true) {
+							//if(validarPtosPGPtosPP()==true) {
 								
 								try {
 									llenarLigaDTO();
@@ -247,9 +247,9 @@ public class PntCrearLiga extends JPanel {
 									e.printStackTrace();
 								}
 								
-							}
-					}
-				}
+							//}
+				//	}
+				//}
 							
 			}
 		});
