@@ -334,6 +334,21 @@ public class GestorCompetencia {
 				
 				if (ptos_pg == null){
 					VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
+					
+					try
+					{
+
+					} catch (Exception e)
+					{
+					       JOptionPane.showMessageDialog(null, e.toString(), "Error",
+					                                       JOptionPane.ERROR_MESSAGE);
+					}
+					
+					
+					JOptionPane.showConfirmDialog(null, error, titulo, 
+							JOptionPane.PLAIN_MESSAGE, 
+							JOptionPane.ERROR_MESSAGE)==0);
+					
 				} else {
 					if (ptos_pp == null){
 						VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
