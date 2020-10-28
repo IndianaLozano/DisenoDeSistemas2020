@@ -319,6 +319,7 @@ public class GestorCompetencia {
 	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO){
 		boolean retorno = false;
 		
+			
 		if (competDTO.getNombre().length()== 0) {
 			VentanaAdmin.mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
 			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
@@ -328,37 +329,36 @@ public class GestorCompetencia {
 				VentanaAdmin.mensajeError("No existen disponibilidades cargadas", "ERROR");
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
 			} else {
-				retorno = true;
 				
 				Integer ptos_pg= new Integer (ligaDTO.getPtos_pg());
 				Integer ptos_pp = new Integer (ligaDTO.getPtos_pp());
 				Integer ptos_pe = new Integer (ligaDTO.getPtos_pe());
 				
-				if (ptos_pg == null){
+				if (ptos_pg == 0){
 					//VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
 					try
 					{
-						
+						  JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido ganado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
 					} catch (Exception e)
 					{
-					       JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido ganado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
+						
 					}
 				} else {
-					if (ptos_pp == null){
+					if (ptos_pp == 0){
 						try
 						{
+						       JOptionPane.showMessageDialog(null, "Campo 'Puntos por presentarse' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
 						} catch (Exception e)
 						{
-						       JOptionPane.showMessageDialog(null, "Campo 'Puntos por presentarse' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
 						}						
 						//VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
 					} else {
-						if ((ligaDTO.isEmpatePermitido() == true) && (ptos_pe == null)) {
+						if ((ligaDTO.isEmpatePermitido() == true) && (ptos_pe == 0)) {
 							try
 							{
+							       JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido empatado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
 							} catch (Exception e)
 							{
-							       JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido empatado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
 							}
 							//VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
 						} else {
