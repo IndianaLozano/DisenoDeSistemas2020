@@ -19,6 +19,7 @@ import Entidades.Eliminatoria;
 import Entidades.Estado;
 import Entidades.Liga;
 import Entidades.LugarDeRealizacion;
+import Entidades.MiExcepcion;
 import Entidades.Modalidad;
 import Entidades.Participante;
 import Entidades.Puntuacion;
@@ -213,7 +214,7 @@ public class GestorCompetencia {
 	
 //_----------------------------------------------------------------------------------------------------------------------------------
 	
-	public static void crearLiga(CompetenciaDTO compDTO, LigaDTO ligaDTO) throws Exception {
+	public static void crearLiga(CompetenciaDTO compDTO, LigaDTO ligaDTO) throws Exception, MiExcepcion {
 		
 		Liga liga= new Liga();
 		
@@ -265,7 +266,7 @@ public class GestorCompetencia {
 		
 	}
 	
-	public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception {
+	public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception, MiExcepcion {
 		
 		
 		Eliminatoria eliminatoria = new Eliminatoria();
@@ -316,18 +317,22 @@ public class GestorCompetencia {
 		
 	}
 	
-	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO){
+	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO) throws MiExcepcion{
 		boolean retorno = false;
 		
 			
 		if (competDTO.getNombre().length()== 0) {
-			VentanaAdmin.mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
-			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+			
+			MiExcepcion e1= new MiExcepcion("1");
+			throw e1;
+			
 			//Si la validacion es verdadera muestra el mensaje de error y vuelve a la pantalla crearCompetencia
 		} else {
 			if (competDTO.disponibilidadesDTO.isEmpty()) {
-				VentanaAdmin.mensajeError("No existen disponibilidades cargadas", "ERROR");
-				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+				MiExcepcion e2= new MiExcepcion("2");
+				throw e2;
+				
+				
 			} else {
 				
 				Integer ptos_pg= new Integer (ligaDTO.getPtos_pg());
@@ -335,32 +340,20 @@ public class GestorCompetencia {
 				Integer ptos_pe = new Integer (ligaDTO.getPtos_pe());
 				
 				if (ptos_pg == 0){
-					//VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
-					try
-					{
-						  JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido ganado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
-					} catch (Exception e)
-					{
-						
-					}
+					MiExcepcion e3= new MiExcepcion("3");
+					throw e3;
+					
+					
 				} else {
 					if (ptos_pp == 0){
-						try
-						{
-						       JOptionPane.showMessageDialog(null, "Campo 'Puntos por presentarse' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
-						} catch (Exception e)
-						{
-						}						
-						//VentanaAdmin.mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+						MiExcepcion e4= new MiExcepcion("4");
+						throw e4;					
 					} else {
 						if ((ligaDTO.isEmpatePermitido() == true) && (ptos_pe == 0)) {
-							try
-							{
-							       JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido empatado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);
-							} catch (Exception e)
-							{
-							}
-							//VentanaAdmin.mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
+							MiExcepcion e5= new MiExcepcion("5");
+							throw e5;
+							
+							
 						} else {
 							retorno= true;
 						} 
@@ -373,17 +366,17 @@ public class GestorCompetencia {
 	}
 	
 
-	private static boolean validarCamposEliminatoriaDTO(CompetenciaDTO competDTO) {
+	private static boolean validarCamposEliminatoriaDTO(CompetenciaDTO competDTO) throws MiExcepcion {
 		boolean retorno = false;
 		
 		if (competDTO.getNombre().length()== 0) {
-			VentanaAdmin.mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
-			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+			MiExcepcion e1= new MiExcepcion("1");
+			throw e1;
 			//Si la validacion es verdadera muestra el mensaje de error y vuelve a la pantalla crearCompetencia
 		} else {
 			if (competDTO.getDisponibilidadesDTO().isEmpty()) {
-				VentanaAdmin.mensajeError("No existen disponibilidades cargadas", "ERROR");
-				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+				MiExcepcion e2= new MiExcepcion("2");
+				throw e2;
 			} else {
 				retorno = true;
 			}

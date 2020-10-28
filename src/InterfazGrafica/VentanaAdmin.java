@@ -122,4 +122,41 @@ public class VentanaAdmin extends JFrame {
 	}
 	
 	
+	public static void adminstrarExcepcion (String msj) {
+		
+		int error= Integer.parseInt(msj);
+		
+		switch (error) {
+		
+		case 1: 
+			mensajeError("Campo 'Nombre Competencia' vacio", "ERROR");
+			cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+		break;
+		
+		case 2: 
+			mensajeError("No existen disponibilidades cargadas", "ERROR");
+			cambiarPantalla(VentanaAdmin.pntCrearCompetencia,VentanaAdmin.n_pntCrearCompetencia);
+		break;
+		
+		case 3: 
+			mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
+		break;
+		
+		case 4: 
+			 mensajeError("Campo 'Puntos por presentarse' vacío", "ERROR");
+		break;
+		
+		case 5:
+			mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
+			
+		break;
+		
+		
+
+
+		}
+		
+	}
+	
+	
 }

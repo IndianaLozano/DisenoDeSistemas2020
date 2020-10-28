@@ -23,6 +23,7 @@ import javax.swing.event.ChangeListener;
 
 import DTO.CompetenciaDTO;
 import DTO.LigaDTO;
+import Entidades.MiExcepcion;
 import Entidades.Puntuacion;
 import Gestores.GestorCompetencia;
 
@@ -245,6 +246,8 @@ public class PntCrearLiga extends JPanel {
 
 								} catch (Exception e) {
 									e.printStackTrace();
+									String msje= e.getMessage();
+									VentanaAdmin.adminstrarExcepcion(msje);
 								}
 								
 							}

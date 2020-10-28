@@ -77,6 +77,8 @@ public class PntCrearEliminatoria extends JPanel {
 					GestorCompetencia.crearEliminatoria(competenciaDTO, eliminatoriaDTO);
 				} catch (Exception e1) {
 					e1.printStackTrace();
+					String msj= e1.getMessage();
+					VentanaAdmin.adminstrarExcepcion(msj);
 				}
 				
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
