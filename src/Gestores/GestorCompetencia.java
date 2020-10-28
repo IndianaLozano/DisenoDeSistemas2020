@@ -338,6 +338,7 @@ public class GestorCompetencia {
 					//VentanaAdmin.mensajeError("Campo 'Puntos por partido ganado' vacío", "ERROR");
 					try
 					{
+						
 					} catch (Exception e)
 					{
 					       JOptionPane.showMessageDialog(null, "Campo 'Puntos por partido ganado' vacío", "ERROR",JOptionPane.ERROR_MESSAGE);

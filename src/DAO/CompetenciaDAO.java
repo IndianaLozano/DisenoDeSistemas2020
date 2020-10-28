@@ -163,13 +163,14 @@ public class CompetenciaDAO {
 		String query= "INSERT INTO database.competencia (id_usuario, id_modalidad, id_estado, id_puntuacion, id_deporte, nombre, dada_de_baja, reglamento, cantidad_sets, tantos_ganados_ausencia_rival) VALUES ( " + 2 + ", " + mod + ", " + estado + ", " + puntuacion + ", " + deporte + ", '" + comp.nombre + "', " + 0 + ", '" + comp.reglamento + "', " + comp.cantidadSets + ", " + comp.tantosGanadosAusenciaRival + " );"  ;
 		
 		try {
+			comenzarTransaccion();
 			Conexion.ejecutar(query);
 			int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
 			comp.idCompetencia=idCompetencia;
 			int idLugar;
 			int disp;
 			
-			comenzarTransaccion();
+			
 			for(int i=0; i< comp.disponibilidades.size(); i++) {
 				idLugar = comp.disponibilidades.get(i).lugarDeRealizacion.idLugar;
 				disp = comp.disponibilidades.get(i).disponibilidad;
@@ -177,7 +178,7 @@ public class CompetenciaDAO {
 				newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
 				// ver transaccion 
 			}
-			finalizarTransaccion();
+			
 
 			int ep=0;
 			if(comp.empatePermitido==true) {
@@ -189,6 +190,7 @@ public class CompetenciaDAO {
 			String query2= "INSERT INTO database.liga (id_competencia, empate_permitido, puntos_pe, puntos_pg, puntos_por_presentarse) VALUES (" + comp.idCompetencia + ", " + ep + ", " + comp.puntosPE + ", " + comp.puntosPG + ", " + comp.puntosPorPresentarse + " );"  ;
 			try {
 				Conexion.ejecutar(query2);
+				finalizarTransaccion();
 				VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -210,13 +212,14 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		String query= "INSERT INTO database.competencia (id_usuario, id_modalidad, id_estado, id_puntuacion, id_deporte, nombre, dada_de_baja, reglamento, cantidad_sets, tantos_ganados_ausencia_rival) VALUES ( " + 2 + ", " + mod + ", " + estado + ", " + puntuacion + ", " + deporte + ", '" + comp.nombre + "', " + 0 + ", '" + comp.reglamento + "', " + comp.cantidadSets + ", " + comp.tantosGanadosAusenciaRival + " );"  ;
 		
 		try {
+			comenzarTransaccion();
 			Conexion.ejecutar(query);
 			int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
 			comp.idCompetencia=idCompetencia;
 			int idLugar;
 			int disp;
 			
-			comenzarTransaccion();
+			
 			for(int i=0; i< comp.disponibilidades.size(); i++) {
 				idLugar = comp.disponibilidades.get(i).lugarDeRealizacion.idLugar;
 				disp = comp.disponibilidades.get(i).disponibilidad;
@@ -224,7 +227,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 				newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
 				// ver transaccion 
 			}
-			finalizarTransaccion();
+			
 
 			int ed=0;
 			if(comp.esDoble==true) {
@@ -236,6 +239,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 			String query2= "INSERT INTO database.eliminatoria (id_competencia, es_doble) VALUES (" + comp.idCompetencia + ", " + ed + "); " ;
 			try {
 				Conexion.ejecutar(query2);
+				finalizarTransaccion();
 				VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
 			} catch (Exception e) {
 				e.printStackTrace();
