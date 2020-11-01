@@ -242,6 +242,7 @@ public class PntCrearLiga extends JPanel {
 								try {
 									llenarLigaDTO();
 									GestorCompetencia.crearLiga(competenciaDTO, ligaDTO);
+									VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
 									VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);		
 
 								} catch (Exception e) {

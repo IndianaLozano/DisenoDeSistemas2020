@@ -75,6 +75,7 @@ public class PntCrearEliminatoria extends JPanel {
 				try {
 					llenarEliminatoriaDTO();
 					GestorCompetencia.crearEliminatoria(competenciaDTO, eliminatoriaDTO);
+					VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
 				} catch (Exception e1) {
 					e1.printStackTrace();
 					String msj= e1.getMessage();

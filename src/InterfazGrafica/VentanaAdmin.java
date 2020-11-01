@@ -151,6 +151,10 @@ public class VentanaAdmin extends JFrame {
 			
 		break;
 		
+		case 6: 
+			mensajeExito("Competencia creada correctamente", "EXITO");
+		break;
+		
 		
 
 

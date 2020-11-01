@@ -13,6 +13,7 @@ import Entidades.Eliminatoria;
 import Entidades.Estado;
 import Entidades.Fixture;
 import Entidades.Liga;
+import Entidades.MiExcepcion;
 import Entidades.Modalidad;
 import Entidades.Participante;
 import Entidades.Puntuacion;
@@ -153,7 +154,7 @@ public class CompetenciaDAO {
 	//Metodo para ejecuciones
 	
 	
-	public static void newCompetenciaLiga (Liga comp) throws Exception {
+	public static void newCompetenciaLiga (Liga comp) throws Exception, MiExcepcion {
 		
 		int mod = GestorCompetencia.obtenerIdModalidad(comp.modalidad);  //obtiene el id de la modalidad
 		int estado = GestorCompetencia.obtenerIdEstado(comp.estado);
@@ -191,7 +192,9 @@ public class CompetenciaDAO {
 			try {
 				Conexion.ejecutar(query2);
 				finalizarTransaccion();
-				VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+
+				MiExcepcion exep = new MiExcepcion("6");
+				throw exep;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -202,7 +205,7 @@ public class CompetenciaDAO {
 	
 	}
 	
-public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Exception {
+public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Exception, MiExcepcion {
 		
 		int mod = GestorCompetencia.obtenerIdModalidad(comp.modalidad);  //obtiene el id de la modalidad
 		int estado = GestorCompetencia.obtenerIdEstado(comp.estado);
@@ -240,7 +243,8 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 			try {
 				Conexion.ejecutar(query2);
 				finalizarTransaccion();
-				VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+				MiExcepcion exep = new MiExcepcion("6");
+				throw exep;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
