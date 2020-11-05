@@ -116,6 +116,7 @@ public class CompetenciaDAO {
 			throw ex;
 		}
 		
+		
 	}
 	
 	/* Este metodo retorna a una lista de nombres de todas las competencias existentes */
