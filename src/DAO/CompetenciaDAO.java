@@ -177,7 +177,7 @@ public class CompetenciaDAO {
 				disp = comp.disponibilidades.get(i).disponibilidad;
 				
 				newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
-				// ver transaccion 
+				//ver transaccion 
 			}
 			
 
