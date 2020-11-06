@@ -79,6 +79,17 @@ public class Conexion {
 	// Método que ejecuta una acción en la BDD (insertar, eliminar etc.)
 	
 	public static void ejecutar(String query) throws Exception{
+		Connection con = Conexion.conectarBDD();
+        try {
+            con.createStatement().executeUpdate(query);
+        } catch (Exception ex) {
+            throw ex;
+        }
+        }
+    }
+	
+/*	MÉTODO SIN MODIFICACIONES, EL ANTERIOR
+ 	public static void ejecutar(String query) throws Exception{
         Connection con = null;
         try {
             con = Conexion.conectarBDD();
@@ -91,8 +102,7 @@ public class Conexion {
                 con.close();
             }
         }
-    }
-	
+    } */
 
 
-}
+
