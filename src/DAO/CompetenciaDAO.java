@@ -170,7 +170,7 @@ public class CompetenciaDAO {
 		try {
 			//Obtenemos conexion a la base de datos
 			con.setAutoCommit(false);
-			System.out.println("commit DSADSADSADSA");
+			System.out.println("commit");
 			con.createStatement().executeUpdate(query);
 			//Conexion.ejecutar(query);
 			System.out.println("comp");
