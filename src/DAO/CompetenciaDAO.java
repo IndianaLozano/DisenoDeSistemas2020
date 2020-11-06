@@ -1,5 +1,8 @@
 package DAO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -116,6 +119,7 @@ public class CompetenciaDAO {
 			throw ex;
 		}
 		
+		
 	}
 	
 	/* Este metodo retorna a una lista de nombres de todas las competencias existentes */
@@ -162,25 +166,28 @@ public class CompetenciaDAO {
 		int deporte = DeporteDAO.getIdDeporte(comp.deporte.nombre);
 		
 		String query= "INSERT INTO database.competencia (id_usuario, id_modalidad, id_estado, id_puntuacion, id_deporte, nombre, dada_de_baja, reglamento, cantidad_sets, tantos_ganados_ausencia_rival) VALUES ( " + 2 + ", " + mod + ", " + estado + ", " + puntuacion + ", " + deporte + ", '" + comp.nombre + "', " + 0 + ", '" + comp.reglamento + "', " + comp.cantidadSets + ", " + comp.tantosGanadosAusenciaRival + " );"  ;
-		
+		Connection con = Conexion.conectarBDD();
 		try {
-			comenzarTransaccion();
-			Conexion.ejecutar(query);
-			int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
+			//Obtenemos conexion a la base de datos
+			con.setAutoCommit(false);
+			System.out.println("commit DSADSADSADSA");
+			con.createStatement().executeUpdate(query);
+			//Conexion.ejecutar(query);
+			System.out.println("comp");
+			int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia + 1;
 			comp.idCompetencia=idCompetencia;
 			int idLugar;
 			int disp;
-			
-			
+			int j=0;
 			for(int i=0; i< comp.disponibilidades.size(); i++) {
-				idLugar = comp.disponibilidades.get(i).lugarDeRealizacion.idLugar;
-				disp = comp.disponibilidades.get(i).disponibilidad;
+				idLugar = comp.disponibilidades.get(j).lugarDeRealizacion.idLugar;
+				disp = comp.disponibilidades.get(j).disponibilidad;
 				
-				newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
-				//ver transaccion 
+				String query3 = "INSERT INTO database.competencia_lugar (id_lugar, id_competencia, disponibilidad) VALUES ( " + idLugar + ", " + idCompetencia + ", " + disp + " );";
+				con.createStatement().executeUpdate(query3);
+				j++;
 			}
 			
-
 			int ep=0;
 			if(comp.empatePermitido==true) {
 				ep=1;
@@ -188,22 +195,27 @@ public class CompetenciaDAO {
 				ep=0;
 			}
 			
-			String query2= "INSERT INTO database.liga (id_competencia, empate_permitido, puntos_pe, puntos_pg, puntos_por_presentarse) VALUES (" + comp.idCompetencia + ", " + ep + ", " + comp.puntosPE + ", " + comp.puntosPG + ", " + comp.puntosPorPresentarse + " );"  ;
-			try {
-				Conexion.ejecutar(query2);
-				finalizarTransaccion();
-
-				MiExcepcion exep = new MiExcepcion("6");
-				throw exep;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			System.out.println("disp");
+			String query2 = "INSERT INTO database.liga (id_competencia, empate_permitido, puntos_pe, puntos_pg, puntos_por_presentarse) VALUES (" + comp.idCompetencia + ", " + ep + ", " + comp.puntosPE + ", " + comp.puntosPG + ", " + comp.puntosPorPresentarse + " );"  ;
+			con.createStatement().executeUpdate(query2);
+			System.out.println("liga");
+			con.commit();
 			
-		} catch (Exception e) {
+			MiExcepcion exep = new MiExcepcion("6");
+			throw exep;
+			
+			} 
+		catch (Exception e) {
 			e.printStackTrace();
+			System.err.println("ERROR: " + e.getMessage());
+			try {
+				//deshace todos los cambios realizados en los datos
+				con.rollback();
+				} catch (SQLException ex1) {
+					System.err.println( "No se pudo deshacer" + ex1.getMessage() );    
+					}
+			}     
 		}
-	
-	}
 	
 public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Exception, MiExcepcion {
 		
@@ -227,7 +239,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 				idLugar = comp.disponibilidades.get(i).lugarDeRealizacion.idLugar;
 				disp = comp.disponibilidades.get(i).disponibilidad;
 				
-				newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
+				//newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
 				// ver transaccion 
 			}
 			
@@ -279,17 +291,19 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 	
 	
 	
-	public static void newCompetencia_lugar(int idCompetencia, int idlugar, int disp) {
+/*	public static void newCompetencia_lugar(int idCompetencia, int idlugar, int disp) {
 		String query = "INSERT INTO database.competencia_lugar (id_lugar, id_competencia, disponibilidad) VALUES ( " + idlugar + ", " + idCompetencia + ", " + disp + " );";
 		try {
-			Conexion.ejecutar(query);
+			Connection con = Conexion.conectarBDD();
+			con.createStatement().executeQuery(query);
+			//Conexion.ejecutar(query);
 		} catch (Exception e) {
 			errorTransaccion();
 			e.printStackTrace();
 		}
 	}
 	
-	
+	*/
 	
 	
 	
