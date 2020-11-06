@@ -193,7 +193,7 @@ public class CompetenciaDAO {
 			}else {
 				ep=0;
 			}
-			
+			 
 			System.out.println("disp");
 			String query2 = "INSERT INTO database.liga (id_competencia, empate_permitido, puntos_pe, puntos_pg, puntos_por_presentarse) VALUES (" + comp.idCompetencia + ", " + ep + ", " + comp.puntosPE + ", " + comp.puntosPG + ", " + comp.puntosPorPresentarse + " );"  ;
 			con.createStatement().executeUpdate(query2);
