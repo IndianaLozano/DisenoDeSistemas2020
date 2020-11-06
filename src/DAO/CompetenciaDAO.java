@@ -168,24 +168,23 @@ public class CompetenciaDAO {
 		String query= "INSERT INTO database.competencia (id_usuario, id_modalidad, id_estado, id_puntuacion, id_deporte, nombre, dada_de_baja, reglamento, cantidad_sets, tantos_ganados_ausencia_rival) VALUES ( " + 2 + ", " + mod + ", " + estado + ", " + puntuacion + ", " + deporte + ", '" + comp.nombre + "', " + 0 + ", '" + comp.reglamento + "', " + comp.cantidadSets + ", " + comp.tantosGanadosAusenciaRival + " );"  ;
 		Connection con = Conexion.conectarBDD();
 		try {
-			//Obtenemos conexion a la base de datos
 			con.setAutoCommit(false);
 			System.out.println("commit");
 			con.createStatement().executeUpdate(query);
-			//Conexion.ejecutar(query);
 			System.out.println("comp");
-			int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia + 1;
-			comp.idCompetencia=idCompetencia;
+			int idCompetencia= (CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia) + 1;
+			System.out.println("idcomp =" + idCompetencia);
+			comp.idCompetencia = idCompetencia;
 			int idLugar;
 			int disp;
-			int j=0;
+
 			for(int i=0; i< comp.disponibilidades.size(); i++) {
-				idLugar = comp.disponibilidades.get(j).lugarDeRealizacion.idLugar;
-				disp = comp.disponibilidades.get(j).disponibilidad;
+				idLugar = comp.disponibilidades.get(i).lugarDeRealizacion.idLugar;
+				disp = comp.disponibilidades.get(i).disponibilidad;
 				
 				String query3 = "INSERT INTO database.competencia_lugar (id_lugar, id_competencia, disponibilidad) VALUES ( " + idLugar + ", " + idCompetencia + ", " + disp + " );";
 				con.createStatement().executeUpdate(query3);
-				j++;
+				
 			}
 			
 			int ep=0;
@@ -225,25 +224,23 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		int deporte = DeporteDAO.getIdDeporte(comp.deporte.nombre);
 		
 		String query= "INSERT INTO database.competencia (id_usuario, id_modalidad, id_estado, id_puntuacion, id_deporte, nombre, dada_de_baja, reglamento, cantidad_sets, tantos_ganados_ausencia_rival) VALUES ( " + 2 + ", " + mod + ", " + estado + ", " + puntuacion + ", " + deporte + ", '" + comp.nombre + "', " + 0 + ", '" + comp.reglamento + "', " + comp.cantidadSets + ", " + comp.tantosGanadosAusenciaRival + " );"  ;
-		
+		Connection con = Conexion.conectarBDD();
 		try {
-			comenzarTransaccion();
-			Conexion.ejecutar(query);
-			int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia;
+			con.setAutoCommit(false);
+			System.out.println("commit");
+			con.createStatement().executeUpdate(query);
+			System.out.println("comp");
+			int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia + 1;
 			comp.idCompetencia=idCompetencia;
 			int idLugar;
 			int disp;
-			
-			
 			for(int i=0; i< comp.disponibilidades.size(); i++) {
 				idLugar = comp.disponibilidades.get(i).lugarDeRealizacion.idLugar;
 				disp = comp.disponibilidades.get(i).disponibilidad;
 				
-				//newCompetencia_lugar(comp.idCompetencia, idLugar, disp);
-				// ver transaccion 
+				String query3 = "INSERT INTO database.competencia_lugar (id_lugar, id_competencia, disponibilidad) VALUES ( " + idLugar + ", " + idCompetencia + ", " + disp + " );";
+				con.createStatement().executeUpdate(query3);
 			}
-			
-
 			int ed=0;
 			if(comp.esDoble==true) {
 				ed=1;
@@ -252,21 +249,24 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 			}
 			
 			String query2= "INSERT INTO database.eliminatoria (id_competencia, es_doble) VALUES (" + comp.idCompetencia + ", " + ed + "); " ;
-			try {
-				Conexion.ejecutar(query2);
-				finalizarTransaccion();
-				MiExcepcion exep = new MiExcepcion("6");
-				throw exep;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			con.createStatement().executeUpdate(query2);
+			System.out.println("liga");
+			con.commit();
 			
-		} catch (Exception e) {
-			errorTransaccion();
-			e.printStackTrace();
+			MiExcepcion exep = new MiExcepcion("6");
+			throw exep;
 		}
-	
-	}
+		catch (Exception e) {
+		e.printStackTrace();
+		System.err.println("ERROR: " + e.getMessage());
+		try {
+			//deshace todos los cambios realizados en los datos
+			con.rollback();
+			} catch (SQLException ex1) {
+				System.err.println( "No se pudo deshacer" + ex1.getMessage() );    
+				}
+		}
+}
 	
 	
 	/*public static void newEliminatoria(Eliminatoria eliminatoria ) {
