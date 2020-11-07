@@ -29,43 +29,51 @@ import InterfazGrafica.VentanaAdmin;
 
 public class GestorCompetencia {
 	
+	//Retorna competencia segun el idCompetencia pasado como parametro
 	public static List<Competencia> obtenerCompetencia(int idCompetencia) throws Exception{
 		return CompetenciaDAO.getCompetencia(idCompetencia);
 	}
 
-	
+	//Retorna todas las instancias existentes de Deporte
 	public static List<Deporte> obtenerDeportes() throws Exception{	
 		return DeporteDAO.getAllDeportes();
 	}
 	
+	//Retorna lugarDeRealizacion segun el idLugar pasado como parametro
 	public static List<LugarDeRealizacion> obtenerLugarDeRealizacion(int idLugar) throws Exception{
 		return LugarDeRealizacionDAO.getLugarById(idLugar);
 	}
 	
+	//Retorna todas las instancias existentes de Modalidad
 	public static List<Integer> obtenerIdModalidades() throws Exception {
 		return CompetenciaDAO.getIdModalidades();
 	}
 	
+	//Retorna todas las instancias de Participantes pertenecientes a una Competencia segun el idCompetencia pasado como parametro
 	public static List<Participante> obtenerParticipantesCompetencia(int idCompetencia) throws Exception{
 		return CompetenciaDAO.getParticipantesCompetencia(idCompetencia);
 	}
 	
+	//Retorna deporte segun el idDeporte pasado como parametro
 	public static List<Deporte> obtenerDeporte(int idDeporte) throws Exception{
 		return DeporteDAO.getDeporte(idDeporte);
 	}
 	
+	//Retorna todas las instancias de Disponibilidad pertenecientes a una Competencia segun el idCompetencia pasado como parametro
 	public static List<Disponibilidad> obtenerDisponibilidadesCompetencia(int idCompetencia) throws Exception{
 		return CompetenciaDAO.getDisponibilidadesCompetencia(idCompetencia);
 	}
 	 
+	//Retorna lista de nombres de todas las Competencias existentes
 	 public static List<String> obtenerNombresCompetencias() throws Exception {
 		return CompetenciaDAO.getNombresCompetencias();
 	}
-
 	
+	//Retorna lista de nombres de todas las Competencias existentes de un usuario segun el idUsuario pasado como parametro
 	public static List<Competencia> obtenerCompetenciasUsuario(int idUsuario) throws Exception{
 		return CompetenciaDAO.getCompetenciasUsuario(idUsuario);
 	}
+	
 	
    public static TipoDocumento obtenerTipoDocEnum (int idTipo) {
 	   
@@ -191,12 +199,8 @@ public class GestorCompetencia {
 		return idRetorno;
 	}
 	
-	
-	
-	
 	//validarNombre retorna true si el nombre ingresado no es igual al nombre de otra competencia existente
 	public static boolean validarNombre (String nombre, int id_usuario) throws Exception {
-		
 		
 		List<Competencia> competencia = CompetenciaDAO.getCompetenciaByNombre(nombre, id_usuario);
 		
@@ -239,13 +243,13 @@ public class GestorCompetencia {
 		int idEstado= GestorCompetencia.obtenerIdEstado(liga.estado);
 		int idPuntuacion= GestorCompetencia.obtenerIdPuntuacion(liga.puntuacion);
 		
-		List<DisponibilidadDTO> disponibilidadesDTO= compDTO.getDisponibilidadesDTO();
-		List<Disponibilidad> disponibilidades= new ArrayList();
+		List<DisponibilidadDTO> disponibilidadesDTO = compDTO.getDisponibilidadesDTO();
+		List<Disponibilidad> disponibilidades = new ArrayList();
 		int disp;
 		int idLugar;
 		for(int i=0; i<disponibilidadesDTO.size() ; i++) {
-			disp= disponibilidadesDTO.get(i).getDisponibilidad();
-			idLugar=disponibilidadesDTO.get(i).getIdLugarDeRealizacion();
+			disp = disponibilidadesDTO.get(i).getDisponibilidad();
+			idLugar = disponibilidadesDTO.get(i).getIdLugarDeRealizacion();
 			
 			Disponibilidad disponibilidad= new Disponibilidad();
 			disponibilidad.disponibilidad=disp;
@@ -256,7 +260,6 @@ public class GestorCompetencia {
 		} 
 		
 		liga.disponibilidades=disponibilidades;
-			
 		
 		if(validarCamposLigaDTO(compDTO, ligaDTO)) {
 			CompetenciaDAO.newCompetenciaLiga(liga);
@@ -267,7 +270,6 @@ public class GestorCompetencia {
 	}
 	
 	public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception, MiExcepcion {
-		
 		
 		Eliminatoria eliminatoria = new Eliminatoria();
 		
@@ -300,7 +302,6 @@ public class GestorCompetencia {
 			disponibilidad.lugarDeRealizacion= obtenerLugarDeRealizacion(idLug).get(0);
 			
 			disponibilidades.add(disponibilidad);
-			
 		}
 		
 		eliminatoria.disponibilidades=disponibilidades;
@@ -309,18 +310,12 @@ public class GestorCompetencia {
 			CompetenciaDAO.newCompetenciaEliminatoria(eliminatoria);
 			
 		}
-		
-		
-		
-		
-		
-		
+				
 	}
 	
 	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO) throws MiExcepcion{
 		boolean retorno = false;
-		
-			
+					
 		if (competDTO.getNombre().length()== 0) {
 			
 			MiExcepcion e1= new MiExcepcion("1");
@@ -383,9 +378,6 @@ public class GestorCompetencia {
 		}
 		return retorno;
 	}
-	
-	
-	
 
 }
 

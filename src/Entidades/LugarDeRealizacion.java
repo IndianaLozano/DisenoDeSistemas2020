@@ -17,7 +17,6 @@ public class LugarDeRealizacion {
 		
 	}
 	
-	
 	public LugarDeRealizacion (int idLugar, int codigo, String nombre, String descripcion, List<Deporte> deportes) {
 		this.idLugar=idLugar;
 		this.codigo=codigo;
@@ -25,7 +24,6 @@ public class LugarDeRealizacion {
 		this.descripcion=descripcion;
 		this.deportes=deportes;
 	}
-	
 	
 	public LugarDeRealizacion (String datos) {
 		String[] atributo = datos.split("\t");

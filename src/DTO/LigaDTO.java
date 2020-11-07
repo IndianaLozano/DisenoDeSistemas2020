@@ -14,8 +14,6 @@ public class LigaDTO implements Serializable{
 	private Puntuacion puntuacion;
 	private boolean empatePermitido;
 	
-	
-	
 	public int getPtos_pg() {
 		return ptos_pg;
 	}

@@ -8,7 +8,6 @@ import Entidades.LugarDeRealizacion;
 
 public class LocalidadDAO {
 	
-	
 	public static List<Localidad> getLocalidad(int idLocalidad ) throws Exception{
 		try {
 			String query = "SELECT * FROM database.Localidad WHERE localidad.id_localidad= " + idLocalidad + " ;";

@@ -60,14 +60,13 @@ public class CompetenciaDTO implements Serializable {
 		this.reglamento = reglamento;
 	}
 
+	public int getIdUsuario() {
+		return idUsuario;
+	}
 	
 	//Constructor sin parametros
 	public CompetenciaDTO() {
 		
-	}
-
-	public int getIdUsuario() {
-		return idUsuario;
 	}
 	
 	//Constructor con parametros
@@ -80,15 +79,7 @@ public class CompetenciaDTO implements Serializable {
 		this.disponibilidadesDTO = disponibilidadesDTO;
 		this.reglamento = reglamento;
 	}
-	
-	
-	
-	
-
-	
-	
-	
-	
+		
 	
 	
 }

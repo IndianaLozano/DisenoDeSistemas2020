@@ -8,9 +8,7 @@ import java.sql.SQLException;
 
 import Entidades.ConsultaGenerica;
 
-
 public class Conexion {
-	
 	
 	private static String server= "179.43.126.68";
 	private static String port= "3306";    //Siempre sera este numero para MySQL
@@ -20,21 +18,17 @@ public class Conexion {
 	
 	//METODOS-------------------------------------------------------------
 	
-	
 	//Método que crea una conexion con la BDD.
 	
 	public static Connection conectarBDD() {
-		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String connectionUrl= "jdbc:mysql://179.43.126.68:3306/database" + "?useLegacyDatetimeCode=false&serverTimezone=America/Argentina/Buenos_Aires";
 			Connection connect= DriverManager.getConnection(connectionUrl, user, password);
-			
 			System.out.println("Conexión exitosa");
 			return connect;
 			
 		}catch(Exception ex){
-			
 			System.out.println("Error en la conexion a la BDD");
 			System.out.println(ex.getMessage());
             return null;
@@ -77,7 +71,7 @@ public class Conexion {
         return result;
     }
 	
-	// Método que ejecuta una acción en la BDD (insertar, eliminar etc.)
+	// Metodo que ejecuta una acción en la BDD (insertar, eliminar etc.)
 	
 	public static void ejecutar(String query) throws Exception{
         Connection con = null;

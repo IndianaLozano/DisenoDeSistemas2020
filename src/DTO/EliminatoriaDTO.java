@@ -38,6 +38,4 @@ public class EliminatoriaDTO implements Serializable{
 	}
 	
 	
-	
-
 }

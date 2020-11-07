@@ -23,8 +23,5 @@ public class Deporte {
 		//parseInt conversor de String a Int
 		this.idDeporte = Integer.parseInt(atributo[0]);
 		this.nombre= atributo[1];
-		
-		
-		
 	}
 }

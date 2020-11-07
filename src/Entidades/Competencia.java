@@ -39,7 +39,6 @@ public class Competencia {
 		this.deporte=deporte;
 		this.participantes=participantes;
 		this.disponibilidades= disponibilidades;
-		
 	}
 	
 	
@@ -57,7 +56,6 @@ public class Competencia {
 		}else {
 			dadaDeBaja=true;
 		}
-		
 	
 		try {
 			this.estado = GestorCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
@@ -76,7 +74,6 @@ public class Competencia {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 	
