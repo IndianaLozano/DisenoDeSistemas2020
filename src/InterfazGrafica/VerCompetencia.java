@@ -14,12 +14,15 @@ import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VerCompetencia extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	public int idCompetenciaActual;
 
 	/**
 	 * Create the panel.
@@ -110,10 +113,21 @@ public class VerCompetencia extends JPanel {
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnNewButton_5);
 		
-		JButton btnNewButton_6 = new JButton("Consultar Lista de Participantes");
-		btnNewButton_6.setBackground(SystemColor.inactiveCaption);
-		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnNewButton_6);
+		JButton btn_verParticipantes = new JButton("Consultar Lista de Participantes");
+		btn_verParticipantes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					PntListarParticipantes.cargarParticipantes(idCompetenciaActual);
+					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btn_verParticipantes.setBackground(SystemColor.inactiveCaption);
+		btn_verParticipantes.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel.add(btn_verParticipantes);
 		
 		JButton btnNewButton_1 = new JButton("Ver Encuentros");
 		btnNewButton_1.setBackground(SystemColor.inactiveCaption);

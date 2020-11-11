@@ -29,6 +29,11 @@ import InterfazGrafica.VentanaAdmin;
 
 public class GestorCompetencia {
 	
+	
+	public static List<Competencia> obtenerUltimaCompetencia() throws Exception{
+		return CompetenciaDAO.getUltimaCompetencia();
+	}
+
 	//Retorna competencia segun el idCompetencia pasado como parametro
 	public static List<Competencia> obtenerCompetencia(int idCompetencia) throws Exception{
 		return CompetenciaDAO.getCompetencia(idCompetencia);

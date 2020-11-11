@@ -39,6 +39,7 @@ public class VentanaAdmin extends JFrame {
 	public static PntCrearEliminatoria pntCrearEliminatoria= new PntCrearEliminatoria();
 	public static PntCrearLiga pntCrearLiga= new PntCrearLiga();
 	public static PntListarParticipantes pntListarParticipantes= new PntListarParticipantes();
+	public static PntAltaParticipante pntAltaParticipante = new PntAltaParticipante();
 	
 	private static Dimension sizePnt;
 	private static CardLayout cl= new CardLayout();
@@ -47,7 +48,7 @@ public class VentanaAdmin extends JFrame {
 	public static String n_pntCrearEliminatoria= "n_pntCrearEliminatoria";
 	public static String n_pntCrearLiga= "n_pntCrearLiga";
 	public static String n_pntListarParticipantes= "n_pntListarParticipantes";
-	
+	public static String n_pntAltaParticipante ="n_pntAltaParticipante";
 	/**
 	 * Launch the application.
 	 */
@@ -83,6 +84,7 @@ public class VentanaAdmin extends JFrame {
 		contentPane.add(n_pntCrearEliminatoria, pntCrearEliminatoria);
 		contentPane.add(n_pntCrearLiga, pntCrearLiga);
 		contentPane.add(n_pntListarParticipantes, pntListarParticipantes);
+		contentPane.add(n_pntAltaParticipante, pntAltaParticipante);
 		
 		cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
 		//cambiarPantalla(pntCrearLiga, n_pntCrearLiga);
