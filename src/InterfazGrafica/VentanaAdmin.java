@@ -156,8 +156,15 @@ public class VentanaAdmin extends JFrame {
 		case 6: 
 			mensajeExito("Competencia creada correctamente", "EXITO");
 		break;
-		
-		
+		case 7: 
+			mensajeError("El nombre del participante ya existe en esta competencia", "Error");
+		break;
+		case 8:
+			mensajeError("El correo ya esta ascociado a otro participante", "ERROR");
+		break;
+		case 9: 
+			mensajeExito("¡ Participante Registrado !", "ÉXITO");
+		break;
 
 
 		}

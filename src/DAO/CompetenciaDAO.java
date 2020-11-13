@@ -166,15 +166,21 @@ public class CompetenciaDAO {
 		int deporte = DeporteDAO.getIdDeporte(comp.deporte.nombre);
 		
 		String query= "INSERT INTO database.competencia (id_usuario, id_modalidad, id_estado, id_puntuacion, id_deporte, nombre, dada_de_baja, reglamento, cantidad_sets, tantos_ganados_ausencia_rival) VALUES ( " + 2 + ", " + mod + ", " + estado + ", " + puntuacion + ", " + deporte + ", '" + comp.nombre + "', " + 0 + ", '" + comp.reglamento + "', " + comp.cantidadSets + ", " + comp.tantosGanadosAusenciaRival + " );"  ;
+		//Conexion.ejecutar(query);
 		Connection con = Conexion.conectarBDD();
+
 		try {
+			
+			
 			con.setAutoCommit(false);
+			
 			System.out.println("commit");
 			con.createStatement().executeUpdate(query);
 			System.out.println("comp");
-			int idCompetencia= (CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia) + 1;
+			int idCompetencia= (CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia)+1 ;
 			System.out.println("idcomp =" + idCompetencia);
 			comp.idCompetencia = idCompetencia;
+			
 			int idLugar;
 			int disp;
 
@@ -198,6 +204,7 @@ public class CompetenciaDAO {
 			String query2 = "INSERT INTO database.liga (id_competencia, empate_permitido, puntos_pe, puntos_pg, puntos_por_presentarse) VALUES (" + comp.idCompetencia + ", " + ep + ", " + comp.puntosPE + ", " + comp.puntosPG + ", " + comp.puntosPorPresentarse + " );"  ;
 			con.createStatement().executeUpdate(query2);
 			System.out.println("liga");
+			
 			con.commit();
 			
 			MiExcepcion exep = new MiExcepcion("6");
@@ -205,8 +212,7 @@ public class CompetenciaDAO {
 			
 			} 
 		catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("ERROR: " + e.getMessage());
+			//System.err.println("ERROR: " + e.getMessage());
 			try {
 				//deshace todos los cambios realizados en los datos
 				con.rollback();
@@ -268,44 +274,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		}
 }
 	
-	
-	/*public static void newEliminatoria(Eliminatoria eliminatoria ) {
-		
-		int ed=0;
-		if(eliminatoria.esDoble==true) {
-			ed=1;
-		}else {
-			ed=0;
-		}
-		
-		String query= "INSERT INTO database.eliminatoria (id_competencia, es_doble) VALUES (" + eliminatoria.idCompetencia + ", " + ed + "); " ;
-		try {
-			Conexion.ejecutar(query);
-			VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	
-	}*/
-	
-	
-	
-/*	public static void newCompetencia_lugar(int idCompetencia, int idlugar, int disp) {
-		String query = "INSERT INTO database.competencia_lugar (id_lugar, id_competencia, disponibilidad) VALUES ( " + idlugar + ", " + idCompetencia + ", " + disp + " );";
-		try {
-			Connection con = Conexion.conectarBDD();
-			con.createStatement().executeQuery(query);
-			//Conexion.ejecutar(query);
-		} catch (Exception e) {
-			errorTransaccion();
-			e.printStackTrace();
-		}
-	}
-	
-	*/
-	
-	
+
 	
 	
 	public static List<Competencia> getUltimaCompetencia() throws Exception{
@@ -343,6 +312,44 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		catch(Exception ex) {
 			throw ex;
 		}
+		
+	}
+	
+	
+	
+	public static void newParticipanteCompetencia(Competencia c) throws Exception, MiExcepcion {
+		Participante p= c.participantes.get(c.participantes.size()-1);
+		
+		String query= "INSERT INTO database.participante (id_Competencia, nombre, contacto) VALUES ("+ c.idCompetencia + ", '" + p.nombre + "', '" + p.correo + "' );";
+		String query2= "UPDATE competencia SET competencia.id_estado = 1 WHERE competencia.id_competencia = " + c.idCompetencia + "; ";
+		String query3= "DELETE FROM database.fixture WHERE id_competencia = "+ c.idCompetencia + " ;";
+		Connection con = Conexion.conectarBDD();
+		try {
+			//Comienza transacción
+			con.setAutoCommit(false);
+			
+			con.createStatement().executeUpdate(query);
+			con.createStatement().executeUpdate(query2);
+			con.createStatement().executeUpdate(query3);
+			
+			con.commit();
+			
+			MiExcepcion exep = new MiExcepcion("6");
+			throw exep;
+		}
+		catch (Exception e) {
+		System.err.println("ERROR: " + e.getMessage());
+		try {
+			//deshace todos los cambios realizados en los datos
+			con.rollback();
+			} catch (SQLException ex1) {
+				System.err.println( "No se pudo deshacer" + ex1.getMessage() );    
+				}
+		}
+	
+			MiExcepcion e = new MiExcepcion("9");
+			throw e;
+			
 		
 	}
 	

@@ -7,7 +7,9 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
 
+import DTO.ParticipanteDTO;
 import Entidades.Competencia;
+import Entidades.MiExcepcion;
 import Gestores.GestorCompetencia;
 
 import javax.swing.JTextField;
@@ -15,11 +17,16 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import java.awt.Button;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PntAltaParticipante extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
+	public JTextField tf_nombre;
+	public JTextField tf_correo;
+	
+	public JPanel pantallaAnterior;
 	public int idCompetenciaActual;
+	
 	public JLabel lbl_competencia = new JLabel("");
 
 
@@ -38,12 +45,12 @@ public class PntAltaParticipante extends JPanel {
 		txtpnAltaParticipante.setBounds(273, 11, 219, 37);
 		add(txtpnAltaParticipante);
 		
-		textField = new JTextField();
-		textField.setToolTipText("");
-		textField.setForeground(Color.BLACK);
-		textField.setColumns(10);
-		textField.setBounds(124, 138, 308, 20);
-		add(textField);
+		tf_nombre = new JTextField();
+		tf_nombre.setToolTipText("");
+		tf_nombre.setForeground(Color.BLACK);
+		tf_nombre.setColumns(10);
+		tf_nombre.setBounds(124, 138, 308, 20);
+		add(tf_nombre);
 		
 		JTextPane txtpnNombre = new JTextPane();
 		txtpnNombre.setText("Nombre (*)");
@@ -54,10 +61,48 @@ public class PntAltaParticipante extends JPanel {
 		add(txtpnNombre);
 		
 		Button button = new Button("Atr\u00E1s");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (pantallaAnterior == VentanaAdmin.pntListarParticipantes) {
+					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
+				}
+
+			}
+		});
 		button.setBounds(52, 373, 70, 22);
 		add(button);
 		
 		Button button_1 = new Button("Aceptar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tf_nombre.getText().length()>0 && tf_correo.getText().length()>0) {
+					ParticipanteDTO pDTO= new ParticipanteDTO();
+					pDTO.setNombre(tf_nombre.getText());
+					pDTO.setCorreo(tf_correo.getText());
+					try {
+						Competencia c = GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
+						boolean val= GestorCompetencia.validarDatosParticipante(pDTO, c);
+						
+						if (val==true) {
+							GestorCompetencia.altaParticipante(pDTO, c);
+						}
+					
+					} catch (MiExcepcion e1) {
+						
+						VentanaAdmin.adminstrarExcepcion(e1.getMessage());
+						try {
+							PntListarParticipantes.actualizarTabla(idCompetenciaActual);
+						} catch (Exception e2) {
+						}
+
+					} catch (Exception e1) {
+					}
+					
+				}else {
+					VentanaAdmin.mensajeError("Faltan campos obligatorios por completar", "Error");
+				}
+			}
+		});
 		button_1.setBounds(595, 373, 70, 22);
 		add(button_1);
 		
@@ -75,10 +120,10 @@ public class PntAltaParticipante extends JPanel {
 		txtpnCorreoElectronico.setEditable(false);
 		txtpnCorreoElectronico.setBackground(SystemColor.menu);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(110, 156, 308, 20);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		tf_correo = new JTextField();
+		tf_correo.setBounds(110, 156, 308, 20);
+		panel.add(tf_correo);
+		tf_correo.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Competencia:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -92,29 +137,26 @@ public class PntAltaParticipante extends JPanel {
 	}
 	
 
-	public static void msjError(String error, String titulo) {
-		if (JOptionPane.showConfirmDialog(null, error, titulo, JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE)==0);
-		
-	}
-	
-	public static void msjExito(String texto, String titulo) {
-		if (JOptionPane.showConfirmDialog(null, texto, titulo, JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE)==0);
-		
-	}
 	
 	
-	public static void opcConsulta(String[] arg){
+	/*public static void opcConsulta(String[] arg){
 	String[] options = {"SI", "NO"};
 	int seleccion = JOptionPane.showOptionDialog(null, "¿Desea cancelar la carga de datos?\nSe perderá toda la información cargada.", "SPORTsYSTEM"
 			+ "", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 	System.out.println(seleccion);
-	}
+	}*/
+	
+	
 	
 	
 	public  void formatoPantalla(int idCompetencia) throws Exception {
 		Competencia c = GestorCompetencia.obtenerCompetencia(idCompetencia).get(0);
 		lbl_competencia.setText(c.nombre);
 	}
+	
+		
+	
+	
 	
 	
 }

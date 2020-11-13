@@ -72,8 +72,21 @@ public class PntListarParticipantes extends JPanel {
 		JButton btn_altaParticipante = new JButton("Dar de alta Participante");
 		btn_altaParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				VentanaAdmin.pntAltaParticipante.idCompetenciaActual= idCompetenciaActual;
-				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntAltaParticipante, VentanaAdmin.n_pntAltaParticipante);
+				try {
+					Competencia c= GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
+					boolean validacion= GestorCompetencia.validarEstadoCompetencia(c);
+					if(validacion==true) {
+						VentanaAdmin.pntAltaParticipante.idCompetenciaActual= idCompetenciaActual;
+						VentanaAdmin.pntAltaParticipante.formatoPantalla(idCompetenciaActual);
+						VentanaAdmin.pntAltaParticipante.pantallaAnterior= VentanaAdmin.pntListarParticipantes;
+						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntAltaParticipante, VentanaAdmin.n_pntAltaParticipante);
+					}else {
+						VentanaAdmin.mensajeError("El estado de la competencia es " + c.estado.name() , "Error");
+					}
+					
+				} catch (Exception e) {
+				}
+
 			}
 		});
 		btn_altaParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -145,6 +158,9 @@ public class PntListarParticipantes extends JPanel {
 			
 		}
 	}
+	
+	
+	
 	
 	
 	public  void actualizarTitulo() throws Exception {
