@@ -1,5 +1,6 @@
 package Gestores;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import DTO.CompetenciaDTO;
 import DTO.DisponibilidadDTO;
 import DTO.EliminatoriaDTO;
 import DTO.LigaDTO;
+import DTO.ParticipanteDTO;
 import Entidades.Competencia;
 import Entidades.Deporte;
 import Entidades.Disponibilidad;
@@ -29,6 +31,11 @@ import InterfazGrafica.VentanaAdmin;
 
 public class GestorCompetencia {
 	
+	
+	public static List<Competencia> obtenerUltimaCompetencia() throws Exception{
+		return CompetenciaDAO.getUltimaCompetencia();
+	}
+
 	//Retorna competencia segun el idCompetencia pasado como parametro
 	public static List<Competencia> obtenerCompetencia(int idCompetencia) throws Exception{
 		return CompetenciaDAO.getCompetencia(idCompetencia);
@@ -377,6 +384,63 @@ public class GestorCompetencia {
 			}
 		}
 		return retorno;
+	}
+	
+	
+	public static boolean validarEstadoCompetencia(Competencia c) throws Exception {
+		if (c.estado.name()=="Finalizada" || c.estado.name()=="EnDisputa") {
+			return false;
+		}else {return true;}
+		
+	}
+	
+	public static void altaParticipante (ParticipanteDTO pDto, Competencia c) throws MiExcepcion, Exception {
+		Participante p= new Participante();
+		p.nombre= pDto.getNombre();
+		p.correo= pDto.getCorreo();
+		
+		c.participantes.add(p);
+		
+		if (c.estado.name()=="Planificada") {
+			
+			c.estado=Estado.Creada;
+		}
+		
+		CompetenciaDAO.newParticipanteCompetencia(c);
+	}
+	
+	public static boolean validarDatosParticipante(ParticipanteDTO pDTO, Competencia c) throws MiExcepcion {
+		
+		boolean result= true;
+		
+		Collator comparador = Collator.getInstance(); //compara mayusculas y minúsculas
+		comparador.setStrength(Collator.TERTIARY);
+		
+		
+		List<Participante> participantes = c.participantes;
+		int i=0;
+		while(i<participantes.size() && result == true) {
+		if(comparador.equals(pDTO.getNombre(), participantes.get(i).nombre )) {
+			result=false;
+			MiExcepcion e= new MiExcepcion("7");
+			throw e;
+			
+			}else {
+				if(comparador.equals(pDTO.getCorreo(), participantes.get(i).correo)) {
+					result=false;
+					MiExcepcion e2= new MiExcepcion("8");
+					throw e2;
+				}
+			}
+		i++;
+		
+		
+		}
+		
+		return result;
+		
+		
+		
 	}
 
 }

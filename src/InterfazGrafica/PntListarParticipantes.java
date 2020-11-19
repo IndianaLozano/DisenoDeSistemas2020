@@ -11,6 +11,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
+
+import Entidades.Competencia;
+import Entidades.Participante;
+import Gestores.GestorCompetencia;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Component;
@@ -19,25 +24,30 @@ import javax.swing.SwingConstants;
 import java.awt.Button;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class PntListarParticipantes extends JPanel {
-	private JTable table;
 
+	public JLabel lbl_titulo = new JLabel();
+
+	public int idCompetenciaActual;
+	public static JTable table = new JTable();
+	public static DefaultTableModel dm = new DefaultTableModel(){
+		public boolean isCellEditable(int rowIndex, int columnIndex ) {
+			return false;
+		}
+	};
 	/**
 	 * Create the panel.
 	 */
 	public PntListarParticipantes() {
 		setLayout(null);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(333, 159, 17, 176);
-		add(scrollBar);
-		
-		JLabel lblNewLabel = new JLabel("COMPETENCIA <nombre-de-competencia>");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(192, 30, 343, 22);
-		add(lblNewLabel);
+		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lbl_titulo.setBounds(192, 30, 343, 22);
+		add(lbl_titulo);
 		
 		JLabel lblOrdenarPor = new JLabel("Ordenar por");
 		lblOrdenarPor.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -54,62 +64,34 @@ public class PntListarParticipantes extends JPanel {
 		chckbxDescendente.setBounds(227, 92, 108, 23);
 		add(chckbxDescendente);
 		
-		table = new JTable();
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
-			},
-			new String[] {
-				"New column", "New column"
-			}
-		));
-		table.setBounds(59, 159, 291, 176);
-		add(table);
-		
-		JLabel lblNombreDelParticipante = new JLabel("Nombre de participante");
-		lblNombreDelParticipante.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblNombreDelParticipante.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombreDelParticipante.setPreferredSize(new Dimension(111, 10));
-		lblNombreDelParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblNombreDelParticipante.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblNombreDelParticipante.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblNombreDelParticipante.setBounds(58, 137, 147, 22);
-		add(lblNombreDelParticipante);
-		
-		JLabel lblEmail = new JLabel("Correo electr\u00F3nico");
-		lblEmail.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail.setPreferredSize(new Dimension(111, 10));
-		lblEmail.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblEmail.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblEmail.setAlignmentX(0.5f);
-		lblEmail.setBounds(203, 137, 132, 22);
-		add(lblEmail);
-		
 		Button button = new Button("Atr\u00E1s");
 		button.setFont(new Font("Calibri", Font.PLAIN, 14));
 		button.setBounds(58, 383, 70, 22);
 		add(button);
 		
-		JButton btnNewButton = new JButton("Dar de alta Participante");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btn_altaParticipante = new JButton("Dar de alta Participante");
+		btn_altaParticipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					Competencia c= GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
+					boolean validacion= GestorCompetencia.validarEstadoCompetencia(c);
+					if(validacion==true) {
+						VentanaAdmin.pntAltaParticipante.idCompetenciaActual= idCompetenciaActual;
+						VentanaAdmin.pntAltaParticipante.formatoPantalla(idCompetenciaActual);
+						VentanaAdmin.pntAltaParticipante.pantallaAnterior= VentanaAdmin.pntListarParticipantes;
+						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntAltaParticipante, VentanaAdmin.n_pntAltaParticipante);
+					}else {
+						VentanaAdmin.mensajeError("El estado de la competencia es " + c.estado.name() , "Error");
+					}
+					
+				} catch (Exception e) {
+				}
+
 			}
 		});
-		btnNewButton.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnNewButton.setBounds(424, 92, 245, 56);
-		add(btnNewButton);
+		btn_altaParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
+		btn_altaParticipante.setBounds(424, 92, 245, 56);
+		add(btn_altaParticipante);
 		
 		JButton btnEditarParticipante = new JButton("Modificar Participante");
 		btnEditarParticipante.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -125,6 +107,20 @@ public class PntListarParticipantes extends JPanel {
 		btnEliminarParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnEliminarParticipante.setBounds(424, 279, 245, 56);
 		add(btnEliminarParticipante);
+		
+		dm.addColumn("idParticipante");
+		dm.addColumn("Nombre del Participante");
+		dm.addColumn("Correo Electrónico");
+		
+		table.setModel(dm);
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
+        table.doLayout();
+        
+		JScrollPane scrollPane_1 = new JScrollPane(table);
+		scrollPane_1.setBounds(58, 125, 277, 222);
+		add(scrollPane_1);
 
 	}
 	
@@ -134,5 +130,49 @@ public class PntListarParticipantes extends JPanel {
 			JOptionPane.PLAIN_MESSAGE, 
 			JOptionPane.ERROR_MESSAGE)==0);
 			
+	}
+	
+	
+	public static void cargarParticipantes (int idCompetencia) throws Exception {
+		
+		
+		Competencia comp= GestorCompetencia.obtenerCompetencia(idCompetencia).get(0);
+		List<Participante> participantes= comp.participantes;
+		int id;
+		String nombre;
+		String correo;
+		
+		if (participantes.size()>0) {
+			
+			for(int i=0; i<participantes.size(); i++) {
+			id= participantes.get(i).id;
+			nombre= participantes.get(i).nombre;
+			correo= participantes.get(i).correo;
+			
+			
+			Object[] rowData= {id, nombre, correo};
+			dm.addRow(rowData);
+			
+			}
+			
+			
+		}
+	}
+	
+	
+	
+	
+	
+	public  void actualizarTitulo() throws Exception {
+		Competencia comp= GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
+		String nombre = comp.nombre;
+		lbl_titulo.setText("COMPETENCIA: "+ nombre );
+	}
+	
+	public static void actualizarTabla(int idCompetencia) throws Exception {
+	       for( int i = dm.getRowCount() - 1; i >= 0; i-- ) {
+	           dm.removeRow(i);
+	       }
+	       cargarParticipantes(idCompetencia);
 	}
 }

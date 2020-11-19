@@ -76,13 +76,15 @@ public class PntCrearEliminatoria extends JPanel {
 					llenarEliminatoriaDTO();
 					GestorCompetencia.crearEliminatoria(competenciaDTO, eliminatoriaDTO);
 					VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+					VentanaAdmin.pntListarParticipantes.idCompetenciaActual= GestorCompetencia.obtenerUltimaCompetencia().get(0).idCompetencia;
+					VentanaAdmin.pntListarParticipantes.actualizarTitulo();
+					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
+
 				} catch (Exception e1) {
-					e1.printStackTrace();
 					String msj= e1.getMessage();
 					VentanaAdmin.adminstrarExcepcion(msj);
 				}
 				
-				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
 			}
 		});
 		btn_sig.setFont(new Font("Calibri", Font.PLAIN, 14));
