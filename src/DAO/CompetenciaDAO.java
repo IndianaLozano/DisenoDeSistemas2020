@@ -113,8 +113,6 @@ public class CompetenciaDAO {
 					query = "SELECT * FROM database.participante WHERE  id_Competencia = " + idCompetencia + " ORDER BY contacto ASC;" ;
 				}
 		break;
-
-			
 			}
 			ArrayList<Participante> participantes = (ArrayList<Participante>)((Object)Conexion.consultar(query, Participante.class));
 			return participantes;
@@ -122,10 +120,7 @@ public class CompetenciaDAO {
 		catch(Exception ex) {
 			throw ex;
 		}
-		
 	}
-	
-	
 	
 	public static List<Disponibilidad> getDisponibilidadesCompetencia(int idCompetencia) throws Exception{
 		try {
@@ -184,7 +179,6 @@ public class CompetenciaDAO {
 		return nombresCompetencias;
 	}
 	
-	
 	public static List<Competencia> getCompetenciasUsuario(int idUsuario) throws Exception{
 		try {
 			String query = "SELECT comp.id_competencia, comp.id_usuario, comp.id_modalidad, comp.id_estado, comp.id_puntuacion, comp.id_deporte, comp.nombre, comp.dada_de_baja, comp.reglamento, comp.cantidad_sets, comp.tantosGanadosAusenciaRival FROM database.competencia comp JOIN database.usuario us ON (comp.id_usuario = us.id_usuario) WHERE id_usuario = " + idUsuario + "  ;";                            
@@ -194,13 +188,9 @@ public class CompetenciaDAO {
 		catch(Exception ex) {
 			throw ex;
 		}
-		
 	}
 	
-	
 	//Metodo para ejecuciones
-	
-	
 	public static void newCompetenciaLiga (Liga comp) throws Exception, MiExcepcion {
 		
 		int mod = GestorCompetencia.obtenerIdModalidad(comp.modalidad);  //obtiene el id de la modalidad
@@ -213,8 +203,6 @@ public class CompetenciaDAO {
 		Connection con = Conexion.conectarBDD();
 
 		try {
-			
-			
 			con.setAutoCommit(false);
 			
 			System.out.println("commit");
@@ -317,9 +305,6 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		}
 }
 	
-
-	
-	
 	public static List<Competencia> getUltimaCompetencia() throws Exception{
 		try {
 			String query = "SELECT * FROM database.competencia ORDER BY id_competencia DESC LIMIT 1;";                            
@@ -344,8 +329,6 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 	
 	
 	public static List<Competencia> getCompetenciaByNombre(String nombre, int id_usuario) throws Exception{
-		
-		
 		try {
 			String query = "SELECT * FROM database.competencia WHERE nombre = '" + nombre + "' AND id_usuario = " + id_usuario +" ;" ;
 			ArrayList<Competencia> competencias = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
@@ -355,11 +338,8 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		catch(Exception ex) {
 			throw ex;
 		}
-		
 	}
-	
-	
-	
+		
 	public static void newParticipanteCompetencia(Competencia c) throws Exception, MiExcepcion {
 		Participante p= c.participantes.get(c.participantes.size()-1);
 		
@@ -420,6 +400,17 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 			Conexion.ejecutar(query);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static List<Competencia> getCompetenciasUsuario(int idUsuario, String nombreComp, String deporte, String modalidad, String estado) throws Exception {
+		try {
+			String query = "SELECT comp.id_competencia, comp.id_modalidad, comp.id_estado, comp.id_deporte, comp.nombre FROM database.competencia comp JOIN database.usuario us ON (comp.id_usuario = us.id_usuario) WHERE id_usuario = " + idUsuario + "  ;";                            
+			ArrayList<Competencia> competenciasUsuario = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
+			return competenciasUsuario;
+		}
+		catch(Exception ex) {
+			throw ex;
 		}
 	}
 		

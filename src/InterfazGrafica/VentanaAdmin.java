@@ -30,7 +30,7 @@ public class VentanaAdmin extends JFrame {
 
 	public static JPanel contentPane;
 	
-	public static ListarCompetencia listarComp = new ListarCompetencia();
+	public static PntListarCompetencias listarComp = new PntListarCompetencias();
 	public static VerCompetencia verComp= new VerCompetencia();
 	public static VerEncuentros verEnc= new VerEncuentros();
 	public static PntInicio inicio= new PntInicio();
@@ -40,6 +40,7 @@ public class VentanaAdmin extends JFrame {
 	public static PntCrearLiga pntCrearLiga= new PntCrearLiga();
 	public static PntListarParticipantes pntListarParticipantes= new PntListarParticipantes();
 	public static PntAltaParticipante pntAltaParticipante = new PntAltaParticipante();
+	public static PntListarCompetencias pntListarCompetencias = new PntListarCompetencias();
 	
 	private static Dimension sizePnt;
 	private static CardLayout cl= new CardLayout();
@@ -49,6 +50,7 @@ public class VentanaAdmin extends JFrame {
 	public static String n_pntCrearLiga= "n_pntCrearLiga";
 	public static String n_pntListarParticipantes= "n_pntListarParticipantes";
 	public static String n_pntAltaParticipante ="n_pntAltaParticipante";
+	public static String n_pntListarCompetencias = "npntListarCompetencias";
 	/**
 	 * Launch the application.
 	 */
@@ -85,10 +87,12 @@ public class VentanaAdmin extends JFrame {
 		contentPane.add(n_pntCrearLiga, pntCrearLiga);
 		contentPane.add(n_pntListarParticipantes, pntListarParticipantes);
 		contentPane.add(n_pntAltaParticipante, pntAltaParticipante);
+		contentPane.add(n_pntListarCompetencias, pntListarCompetencias);
 		
-		cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
+		//cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
 		//cambiarPantalla(pntCrearLiga, n_pntCrearLiga);
-		/*cambiarPantalla(pntCrearEliminatoria, n_pntCrearEliminatoria);*/
+		//cambiarPantalla(pntCrearEliminatoria, n_pntCrearEliminatoria);
+		cambiarPantalla(pntListarCompetencias, n_pntListarCompetencias);
 	
 	}
 	
@@ -125,7 +129,7 @@ public class VentanaAdmin extends JFrame {
 	
 	public static void administrarExcepcion (String msj) {
 		
-		int error= Integer.parseInt(msj);
+		int error = Integer.parseInt(msj);
 		
 		switch (error) {
 		
@@ -149,21 +153,24 @@ public class VentanaAdmin extends JFrame {
 		
 		case 5:
 			mensajeError("Campo 'Puntos por partido empatado' vacío", "ERROR");
-			
 		break;
 		
 		case 6: 
 			mensajeExito("Competencia creada correctamente", "EXITO");
 		break;
+		
 		case 7: 
 			mensajeError("El nombre del participante ya existe en esta competencia", "Error");
 		break;
+		
 		case 8:
 			mensajeError("El correo ya esta ascociado a otro participante", "ERROR");
 		break;
+		
 		case 9: 
 			mensajeExito("¡ Participante Registrado !", "ÉXITO");
 		break;
+		
 		case 10:
 			mensajeError("La competencia se encuentra Finalizada", "ERROR");
 		break;

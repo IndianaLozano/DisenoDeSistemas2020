@@ -212,7 +212,6 @@ public class PntCrearCompetencia extends JPanel {
 					validarNombre = GestorCompetencia.validarNombre(tf_nombre_comp.getText(),2); //TODO reemplazar el 2 por id_usuario
 					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				if (validarNombre == true && table.getRowCount() > 0) { 
@@ -237,7 +236,6 @@ public class PntCrearCompetencia extends JPanel {
 						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearEliminatoria, VentanaAdmin.n_pntCrearEliminatoria);
 					}
 					
-					
 				}
 				else {
 					if(validarNombre == false) {
@@ -247,13 +245,8 @@ public class PntCrearCompetencia extends JPanel {
 						VentanaAdmin.mensajeError("Debe seleccionar al menos un lugar de realización." , "ERROR");
 					}
 				}		
-				
-				
-				
 				}
-				
 			}
-			
 		});
 		btn_sig.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btn_sig.setBounds(591, 391, 94, 22);

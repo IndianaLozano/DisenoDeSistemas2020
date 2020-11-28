@@ -32,7 +32,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 public class PntListarParticipantes extends JPanel {
-
+	
 	public JLabel lbl_titulo = new JLabel();
 	public JComboBox cb_filtro = new JComboBox();
 	public JCheckBox chbx_descendente = new JCheckBox("Descendente");
@@ -205,7 +205,7 @@ public class PntListarParticipantes extends JPanel {
 	}
 	
 	public  void actualizarTitulo() throws Exception {
-		Competencia comp= GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
+		Competencia comp = GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
 		String nombre = comp.nombre;
 		lbl_titulo.setText("COMPETENCIA: "+ nombre );
 	}
