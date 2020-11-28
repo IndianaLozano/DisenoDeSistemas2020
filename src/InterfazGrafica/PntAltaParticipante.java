@@ -76,7 +76,7 @@ public class PntAltaParticipante extends JPanel {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tf_nombre.getText().length()>0 && tf_correo.getText().length()>0) {
-					ParticipanteDTO pDTO= new ParticipanteDTO();
+					ParticipanteDTO pDTO = new ParticipanteDTO();
 					pDTO.setNombre(tf_nombre.getText());
 					pDTO.setCorreo(tf_correo.getText());
 					try {
@@ -89,7 +89,7 @@ public class PntAltaParticipante extends JPanel {
 					
 					} catch (MiExcepcion e1) {
 						
-						VentanaAdmin.adminstrarExcepcion(e1.getMessage());
+						VentanaAdmin.administrarExcepcion(e1.getMessage());
 						try {
 							PntListarParticipantes.actualizarTabla(idCompetenciaActual);
 						} catch (Exception e2) {
@@ -136,18 +136,12 @@ public class PntAltaParticipante extends JPanel {
 		panel.add(lbl_competencia);
 	}
 	
-
-	
-	
 	/*public static void opcConsulta(String[] arg){
 	String[] options = {"SI", "NO"};
 	int seleccion = JOptionPane.showOptionDialog(null, "¿Desea cancelar la carga de datos?\nSe perderá toda la información cargada.", "SPORTsYSTEM"
 			+ "", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 	System.out.println(seleccion);
 	}*/
-	
-	
-	
 	
 	public  void formatoPantalla(int idCompetencia) throws Exception {
 		Competencia c = GestorCompetencia.obtenerCompetencia(idCompetencia).get(0);

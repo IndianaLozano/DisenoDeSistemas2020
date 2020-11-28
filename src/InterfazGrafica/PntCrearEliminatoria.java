@@ -82,7 +82,7 @@ public class PntCrearEliminatoria extends JPanel {
 
 				} catch (Exception e1) {
 					String msj= e1.getMessage();
-					VentanaAdmin.adminstrarExcepcion(msj);
+					VentanaAdmin.administrarExcepcion(msj);
 				}
 				
 			}

@@ -250,7 +250,7 @@ public class PntCrearLiga extends JPanel {
 
 								} catch (Exception e) {
 									String msje= e.getMessage();
-									VentanaAdmin.adminstrarExcepcion(msje);
+									VentanaAdmin.administrarExcepcion(msje);
 								}
 								
 							}

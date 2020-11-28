@@ -120,11 +120,10 @@ public class VentanaAdmin extends JFrame {
 	//Ventana emergente de confirmacion
 	public static void mensajeExito(String texto, String titulo) {
 		if (JOptionPane.showConfirmDialog(null, texto, titulo, JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE)==0);
-		
 	}
 	
 	
-	public static void adminstrarExcepcion (String msj) {
+	public static void administrarExcepcion (String msj) {
 		
 		int error= Integer.parseInt(msj);
 		

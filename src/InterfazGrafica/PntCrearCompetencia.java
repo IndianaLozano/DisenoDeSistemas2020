@@ -3,11 +3,8 @@ package InterfazGrafica;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Dimension;
 import java.awt.Font;
-
-
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -18,7 +15,6 @@ import java.awt.Button;
 import javax.swing.JTable;
 import java.awt.Rectangle;
 import javax.swing.table.DefaultTableModel;
-
 import DTO.CompetenciaDTO;
 import DTO.DisponibilidadDTO;
 import Entidades.Competencia;
@@ -29,7 +25,6 @@ import Gestores.GestorCompetencia;
 import Gestores.GestorCompetencia;
 import Gestores.GestorLugaresDeRealizacion;
 import javafx.scene.control.RadioButton;
-
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;

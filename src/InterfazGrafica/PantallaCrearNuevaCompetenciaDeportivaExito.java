@@ -2,6 +2,7 @@ package InterfazGrafica;
 
 import javax.swing.JPanel;
 import java.awt.Label;
+import java.awt.Rectangle;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +23,10 @@ public class PantallaCrearNuevaCompetenciaDeportivaExito extends JPanel {
 	 * Create the panel.
 	 */
 	public PantallaCrearNuevaCompetenciaDeportivaExito() {
+		setBorder(null);
+		setAlignmentY(0.0f);
+		setAlignmentX(0.0f);
+		setBounds(new Rectangle(1, 1, 724, 421));
 		setLayout(null);
 		
 		Button button_1 = new Button("Siguiente");

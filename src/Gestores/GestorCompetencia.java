@@ -396,7 +396,7 @@ public class GestorCompetencia {
 		return retorno;
 	}
 	
-	
+	// Si la competencia esta en estado Finalizada o EnDisputa, retorna true
 	public static boolean validarEstadoCompetencia(Competencia c) throws Exception {
 		if (c.estado.name()=="Finalizada" || c.estado.name()=="EnDisputa") {
 			return false;

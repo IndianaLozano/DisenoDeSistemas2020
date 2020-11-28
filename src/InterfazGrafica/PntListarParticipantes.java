@@ -3,6 +3,8 @@ package InterfazGrafica;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Rectangle;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -47,6 +49,10 @@ public class PntListarParticipantes extends JPanel {
 	 * Create the panel.
 	 */
 	public PntListarParticipantes() {
+		setBorder(null);
+		setAlignmentY(0.0f);
+		setAlignmentX(0.0f);
+		setBounds(new Rectangle(1, 1, 724, 421));
 		setLayout(null);
 		
 		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -75,16 +81,23 @@ public class PntListarParticipantes extends JPanel {
 		
 		JButton btn_altaParticipante = new JButton("Dar de alta Participante");
 		btn_altaParticipante.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
+				
 				try {
+					
+					//Obtengo idCompetenciaActual
 					Competencia c= GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
+					
+					// validacion==true si la competencia esta en estado Finalizada o EnDisputa
 					boolean validacion= GestorCompetencia.validarEstadoCompetencia(c);
+					
 					if(validacion==true) {
 						VentanaAdmin.pntAltaParticipante.idCompetenciaActual= idCompetenciaActual;
 						VentanaAdmin.pntAltaParticipante.formatoPantalla(idCompetenciaActual);
 						VentanaAdmin.pntAltaParticipante.pantallaAnterior= VentanaAdmin.pntListarParticipantes;
 						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntAltaParticipante, VentanaAdmin.n_pntAltaParticipante);
-					}else {
+					} else {
 						VentanaAdmin.mensajeError("El estado de la competencia es " + c.estado.name() , "Error");
 					}
 					
@@ -140,25 +153,20 @@ public class PntListarParticipantes extends JPanel {
 					
 					if (participantes.size()>0) {
 						restaurarTabla();
+						
 						for(int i=0; i<participantes.size(); i++) {
-						id= participantes.get(i).id;
-						nombre= participantes.get(i).nombre;
-						correo= participantes.get(i).correo;
+							id= participantes.get(i).id;
+							nombre= participantes.get(i).nombre;
+							correo= participantes.get(i).correo;
 						
-						
-						Object[] rowData= {id, nombre, correo};
-						dm.addRow(rowData);
-						
-						}
-						
-						
+							Object[] rowData= {id, nombre, correo};
+							dm.addRow(rowData);
+						}				
 					}
-				
 				
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-
 			}
 		});
 		btn_filtrar.setBounds(179, 95, 89, 23);
@@ -171,9 +179,7 @@ public class PntListarParticipantes extends JPanel {
 		if (JOptionPane.showConfirmDialog(null, error, titulo, 
 			JOptionPane.PLAIN_MESSAGE, 
 			JOptionPane.ERROR_MESSAGE)==0);
-			
 	}
-	
 	
 	public static void cargarParticipantes (int idCompetencia) throws Exception {
 		restaurarTabla();
@@ -191,22 +197,12 @@ public class PntListarParticipantes extends JPanel {
 			nombre= participantes.get(i).nombre;
 			correo= participantes.get(i).correo;
 			
-			
 			Object[] rowData= {id, nombre, correo};
 			dm.addRow(rowData);
 			
 			}
-			
-			
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	public  void actualizarTitulo() throws Exception {
 		Competencia comp= GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
