@@ -61,6 +61,16 @@ public class GestorCompetencia {
 		return CompetenciaDAO.getParticipantesCompetencia(idCompetencia);
 	}
 	
+	public static List<Participante> obtenerParticipante(int idPar) throws Exception{
+		return CompetenciaDAO.getParticipante(idPar);
+	}
+
+	
+	public static List<Participante> obtenerParticipantesCompetenciaOrdenados(int idCompetencia, int index, boolean orden) throws Exception{
+		return CompetenciaDAO.getParticipantesCompetenciaOrdenados(idCompetencia, index, orden);
+	}
+
+	
 	//Retorna deporte segun el idDeporte pasado como parametro
 	public static List<Deporte> obtenerDeporte(int idDeporte) throws Exception{
 		return DeporteDAO.getDeporte(idDeporte);

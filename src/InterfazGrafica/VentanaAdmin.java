@@ -165,7 +165,13 @@ public class VentanaAdmin extends JFrame {
 		case 9: 
 			mensajeExito("¡ Participante Registrado !", "ÉXITO");
 		break;
+		case 10:
+			mensajeError("La competencia se encuentra Finalizada", "ERROR");
+		break;
 
+		case 11:
+			mensajeError("La competencia se encuentra En Disputa", "ERROR");
+		break;
 
 		}
 		

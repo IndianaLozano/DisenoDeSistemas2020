@@ -84,6 +84,49 @@ public class CompetenciaDAO {
 		
 	}
 	
+	public static List<Participante> getParticipante(int idPar) throws Exception{
+		try {
+			String query = "SELECT * FROM database.participante WHERE id_participante = " + idPar + " ;"  ;
+			ArrayList<Participante> participantes = (ArrayList<Participante>)((Object)Conexion.consultar(query, Participante.class));
+			return participantes;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+		
+	}
+	
+	public static List<Participante> getParticipantesCompetenciaOrdenados(int idCompetencia, int index, boolean orden) throws Exception{
+		try {
+			
+			String query = null ;
+			switch (index) {
+			case 0: if(orden == true) {
+					query = "SELECT * FROM database.participante WHERE id_Competencia = " + idCompetencia + " ORDER BY nombre DESC;";
+					}else {
+						query = "SELECT * FROM database.participante WHERE  id_Competencia = " + idCompetencia + " ORDER BY nombre ASC;" ;
+					}
+			break;
+			case 1: if(orden == true) {
+				query = "SELECT * FROM database.participante WHERE id_Competencia = " + idCompetencia + " ORDER BY contacto DESC;";
+				}else {
+					query = "SELECT * FROM database.participante WHERE  id_Competencia = " + idCompetencia + " ORDER BY contacto ASC;" ;
+				}
+		break;
+
+			
+			}
+			ArrayList<Participante> participantes = (ArrayList<Participante>)((Object)Conexion.consultar(query, Participante.class));
+			return participantes;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+		
+	}
+	
+	
+	
 	public static List<Disponibilidad> getDisponibilidadesCompetencia(int idCompetencia) throws Exception{
 		try {
 			
