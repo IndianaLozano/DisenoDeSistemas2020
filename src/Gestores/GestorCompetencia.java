@@ -70,7 +70,6 @@ public class GestorCompetencia {
 		return CompetenciaDAO.getParticipantesCompetenciaOrdenados(idCompetencia, index, orden);
 	}
 
-	
 	//Retorna deporte segun el idDeporte pasado como parametro
 	public static List<Deporte> obtenerDeporte(int idDeporte) throws Exception{
 		return DeporteDAO.getDeporte(idDeporte);
@@ -87,7 +86,7 @@ public class GestorCompetencia {
 	}
 	
 	//Retorna lista de nombres de todas las Competencias existentes de un usuario segun el idUsuario pasado como parametro
-	public static List<Competencia> obtenerCompetenciasUsuario(int idUsuario) throws Exception{
+	 public static List<Competencia> obtenerCompetenciasUsuario(int idUsuario) throws Exception{
 		return CompetenciaDAO.getCompetenciasUsuario(idUsuario);
 	}
 	
@@ -187,7 +186,6 @@ public class GestorCompetencia {
 	
 	public static int obtenerIdModalidad (Modalidad modalidad) {
 		int idEstado=0;
-		
 		if( modalidad.name() == "SistemaDeLiga"){
 			idEstado = 1;
 		}
@@ -196,10 +194,8 @@ public class GestorCompetencia {
 		}if( modalidad.name() == "SistemaDeEliminatoriaDoble"){
 			idEstado = 3;
 		}
-		
 		return idEstado; 
 	}
-	
 	
 	public static int obtenerIdPuntuacion (Puntuacion puntuacion){
 		int idRetorno=0;
@@ -229,9 +225,7 @@ public class GestorCompetencia {
 		else {
 			return true;
 		}
-		
 	}
-	
 	
 //_----------------------------------------------------------------------------------------------------------------------------------
 	
@@ -248,13 +242,10 @@ public class GestorCompetencia {
 		liga.cantidadSets= ligaDTO.getCantidadSets();
 		liga.tantosGanadosAusenciaRival= ligaDTO.getTantosGanadosAusRival();
 		liga.deporte= obtenerDeporte(compDTO.getIdDeporte()).get(0);
-		
-
 		liga.puntosPE=ligaDTO.getPtos_pe();
 		liga.puntosPG=ligaDTO.getPtos_pg();
 		liga.puntosPorPresentarse =ligaDTO.getPtos_pp();
 		liga.empatePermitido = ligaDTO.isEmpatePermitido();
-				
 		
 		int idModalidad= GestorCompetencia.obtenerIdModalidad(liga.modalidad);
 		int idEstado= GestorCompetencia.obtenerIdEstado(liga.estado);
@@ -271,7 +262,6 @@ public class GestorCompetencia {
 			Disponibilidad disponibilidad= new Disponibilidad();
 			disponibilidad.disponibilidad=disp;
 			disponibilidad.lugarDeRealizacion = obtenerLugarDeRealizacion(idLugar).get(0);
-			
 			disponibilidades.add(disponibilidad);
 			
 		} 
@@ -282,14 +272,11 @@ public class GestorCompetencia {
 			CompetenciaDAO.newCompetenciaLiga(liga);
 			
 		}
-		
-		
 	}
 	
 	public static void crearEliminatoria (CompetenciaDTO compDTO, EliminatoriaDTO eliminatoriaDTO) throws Exception, MiExcepcion {
 		
 		Eliminatoria eliminatoria = new Eliminatoria();
-		
 		eliminatoria.nombre= compDTO.getNombre();
 		eliminatoria.modalidad= compDTO.getModalidad();
 		eliminatoria.estado=Estado.Creada;
@@ -325,9 +312,7 @@ public class GestorCompetencia {
 		
 		if(validarCamposEliminatoriaDTO(compDTO)) {
 			CompetenciaDAO.newCompetenciaEliminatoria(eliminatoria);
-			
-		}
-				
+		}	
 	}
 	
 	private static boolean validarCamposLigaDTO(CompetenciaDTO competDTO, LigaDTO ligaDTO) throws MiExcepcion{
@@ -443,14 +428,13 @@ public class GestorCompetencia {
 				}
 			}
 		i++;
-		
-		
 		}
-		
 		return result;
-		
-		
-		
+	}
+
+	public static List<Competencia> obtenerMisCompetencias(int idUsuario, String nombreComp, String deporte, String modalidad, String estado) throws Exception {
+		List<Competencia> competencias = CompetenciaDAO.getCompetenciasUsuario(idUsuario, nombreComp, deporte, modalidad, estado);
+		return competencias;
 	}
 
 }

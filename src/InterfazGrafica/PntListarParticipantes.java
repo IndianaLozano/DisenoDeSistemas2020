@@ -3,6 +3,8 @@ package InterfazGrafica;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Rectangle;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -30,7 +32,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
 public class PntListarParticipantes extends JPanel {
-
+	
 	public JLabel lbl_titulo = new JLabel();
 	public JComboBox cb_filtro = new JComboBox();
 	public JCheckBox chbx_descendente = new JCheckBox("Descendente");
@@ -47,6 +49,10 @@ public class PntListarParticipantes extends JPanel {
 	 * Create the panel.
 	 */
 	public PntListarParticipantes() {
+		setBorder(null);
+		setAlignmentY(0.0f);
+		setAlignmentX(0.0f);
+		setBounds(new Rectangle(1, 1, 724, 421));
 		setLayout(null);
 		
 		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -196,20 +202,11 @@ public class PntListarParticipantes extends JPanel {
 			dm.addRow(rowData);
 			
 			}
-			
-			
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	public  void actualizarTitulo() throws Exception {
-		Competencia comp= GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
+		Competencia comp = GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
 		String nombre = comp.nombre;
 		lbl_titulo.setText("COMPETENCIA: "+ nombre );
 	}

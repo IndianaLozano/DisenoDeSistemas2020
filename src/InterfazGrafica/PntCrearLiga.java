@@ -53,13 +53,7 @@ public class PntCrearLiga extends JPanel {
 	public static JRadioButton rb_resultado_final = new JRadioButton("RESULTADO FINAL");
 	public static JRadioButton rb_puntuacion = new JRadioButton("PUNTUACI\u00D3N");
 
-
-	
-
-
-	/**
-	 * Create the panel.
-	 */
+	//Create the panel.
 	public PntCrearLiga() {
 		setPreferredSize(new Dimension(730, 460));
 		setLayout(null);
@@ -167,8 +161,6 @@ public class PntCrearLiga extends JPanel {
 		btn_atras.setBounds(62, 372, 70, 22);
 		add(btn_atras);
 		
-		
-		
 		JLabel crearNuevaCompetenciaPuntuacionLiga_1 = new JLabel();
 		crearNuevaCompetenciaPuntuacionLiga_1.setText(" FORMA DE PUNTUACI\u00D3N:");
 		crearNuevaCompetenciaPuntuacionLiga_1.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -193,7 +185,6 @@ public class PntCrearLiga extends JPanel {
 		cb_tantos_ganados_ausencia_rival.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9"}));
 		add(cb_tantos_ganados_ausencia_rival);
 		
-		
 		rb_sets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cb_cantidad_sets.setEnabled(true);
@@ -213,8 +204,6 @@ public class PntCrearLiga extends JPanel {
 		rb_puntuacion.setBounds(413, 194, 110, 23);
 		add(rb_puntuacion);
 		
-		
-		
 		rb_resultado_final.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cb_cantidad_sets.setEnabled(false);
@@ -231,8 +220,8 @@ public class PntCrearLiga extends JPanel {
 		bg.add(rb_resultado_final);
 		bg.setSelected(rb_sets.getModel(), true);
 				
-		Button btn_siguiente = new Button("Siguiente");//cambiar siguiente a guardar
-		btn_siguiente.addActionListener(new ActionListener() {
+		Button btn_guardar = new Button("Guardar");
+		btn_guardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 							
 				if (validarCamposVacios()==true) {
@@ -246,7 +235,7 @@ public class PntCrearLiga extends JPanel {
 									//Obtenemos el id de la competencia creada
 									VentanaAdmin.pntListarParticipantes.idCompetenciaActual= GestorCompetencia.obtenerUltimaCompetencia().get(0).idCompetencia;
 									VentanaAdmin.pntListarParticipantes.actualizarTitulo();
-									VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);		
+									VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);	
 
 								} catch (Exception e) {
 									String msje= e.getMessage();
@@ -259,9 +248,9 @@ public class PntCrearLiga extends JPanel {
 							
 			}
 		});
-		btn_siguiente.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btn_siguiente.setBounds(590, 372, 70, 22);
-		add(btn_siguiente);
+		btn_guardar.setFont(new Font("Calibri", Font.PLAIN, 14));
+		btn_guardar.setBounds(590, 372, 70, 22);
+		add(btn_guardar);
 
 	}
 	
