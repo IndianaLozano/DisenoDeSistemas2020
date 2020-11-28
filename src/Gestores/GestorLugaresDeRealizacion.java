@@ -21,5 +21,8 @@ public class GestorLugaresDeRealizacion {
 		return LugarDeRealizacionDAO.getLugaresDeporte(idDeporte);
 	}
 	
+	public static List<LugarDeRealizacion> obtenerLugarDeRealizacion(int idLugar) throws Exception{
+		return LugarDeRealizacionDAO.getLugarById(idLugar);
+	}
 	
 }

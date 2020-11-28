@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import Entidades.Competencia;
 import Entidades.Participante;
 import Gestores.GestorCompetencia;
+import javafx.scene.control.ComboBox;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -31,6 +32,9 @@ import javax.swing.JScrollPane;
 public class PntListarParticipantes extends JPanel {
 
 	public JLabel lbl_titulo = new JLabel();
+	public JComboBox cb_filtro = new JComboBox();
+	public JCheckBox chbx_descendente = new JCheckBox("Descendente");
+
 
 	public int idCompetenciaActual;
 	public static JTable table = new JTable();
@@ -46,23 +50,23 @@ public class PntListarParticipantes extends JPanel {
 		setLayout(null);
 		
 		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lbl_titulo.setBounds(192, 30, 343, 22);
+		lbl_titulo.setBounds(191, 22, 343, 22);
 		add(lbl_titulo);
 		
 		JLabel lblOrdenarPor = new JLabel("Ordenar por");
 		lblOrdenarPor.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblOrdenarPor.setBounds(58, 92, 76, 22);
+		lblOrdenarPor.setBounds(57, 66, 76, 22);
 		add(lblOrdenarPor);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Campo"}));
-		comboBox.setBounds(133, 93, 58, 20);
-		add(comboBox);
+		cb_filtro.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		cb_filtro.setModel(new DefaultComboBoxModel(new String[] {"Nombre", "Correo"}));
+		cb_filtro.setBounds(132, 67, 136, 20);
+		add(cb_filtro);
 		
-		JCheckBox chckbxDescendente = new JCheckBox("Descendente");
-		chckbxDescendente.setFont(new Font("Calibri", Font.PLAIN, 14));
-		chckbxDescendente.setBounds(227, 92, 108, 23);
-		add(chckbxDescendente);
+
+		chbx_descendente.setFont(new Font("Calibri", Font.PLAIN, 14));
+		chbx_descendente.setBounds(58, 95, 99, 23);
+		add(chbx_descendente);
 		
 		Button button = new Button("Atr\u00E1s");
 		button.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -121,6 +125,44 @@ public class PntListarParticipantes extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane(table);
 		scrollPane_1.setBounds(58, 125, 277, 222);
 		add(scrollPane_1);
+		
+		JButton btn_filtrar = new JButton("Filtrar");
+		btn_filtrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = cb_filtro.getSelectedIndex();
+				boolean orden = chbx_descendente.isSelected();
+				
+				try {
+					List<Participante> participantes= GestorCompetencia.obtenerParticipantesCompetenciaOrdenados(idCompetenciaActual, index, orden);
+					int id;
+					String nombre;
+					String correo;
+					
+					if (participantes.size()>0) {
+						restaurarTabla();
+						for(int i=0; i<participantes.size(); i++) {
+						id= participantes.get(i).id;
+						nombre= participantes.get(i).nombre;
+						correo= participantes.get(i).correo;
+						
+						
+						Object[] rowData= {id, nombre, correo};
+						dm.addRow(rowData);
+						
+						}
+						
+						
+					}
+				
+				
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		btn_filtrar.setBounds(179, 95, 89, 23);
+		add(btn_filtrar);
 
 	}
 	
@@ -134,7 +176,7 @@ public class PntListarParticipantes extends JPanel {
 	
 	
 	public static void cargarParticipantes (int idCompetencia) throws Exception {
-		
+		restaurarTabla();
 		
 		Competencia comp= GestorCompetencia.obtenerCompetencia(idCompetencia).get(0);
 		List<Participante> participantes= comp.participantes;
@@ -163,10 +205,19 @@ public class PntListarParticipantes extends JPanel {
 	
 	
 	
+	
+	
+	
 	public  void actualizarTitulo() throws Exception {
 		Competencia comp= GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
 		String nombre = comp.nombre;
 		lbl_titulo.setText("COMPETENCIA: "+ nombre );
+	}
+	
+	public static void restaurarTabla() {
+		 for( int i = dm.getRowCount() - 1; i >= 0; i-- ) {
+	           dm.removeRow(i);
+	       }
 	}
 	
 	public static void actualizarTabla(int idCompetencia) throws Exception {

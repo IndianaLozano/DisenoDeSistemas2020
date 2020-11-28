@@ -5,10 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import Gestores.GestorCompetencia;
+import Gestores.GestorFixture;
+
 public class Fixture{
 
 	public int idFixture;
-	public Date fecha;
+	public String fecha;
 	public Competencia competencia;
 	public List<Fase> fases;
 	
@@ -19,7 +22,7 @@ public class Fixture{
 	}
 	
 	//Creacion del constructor con parametros
-	public Fixture (int idFixture, Date fecha) {
+	public Fixture (int idFixture, String fecha) {
 		this.idFixture = idFixture;
 		this.fecha = fecha;
 		
@@ -28,9 +31,16 @@ public class Fixture{
 	//BDD envia datos todos juntos en un String. Separo y convierto los datos que no son String en su respectivo tipo.
 	public Fixture (String datos) throws ParseException {
 		String[] atributo = datos.split("\t");
-		this.idFixture = Integer.parseInt(atributo[0]);
-		Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse(atributo[1]);  
-		this.fecha = fecha;
+		this.idFixture = Integer.parseInt(atributo[0]);		
+		this.fecha = atributo[2];
+		try {
+			this.competencia= GestorCompetencia.obtenerCompetencia(Integer.parseInt(atributo[1])).get(0);
+			this.fases= GestorFixture.getFasesFixture(idFixture);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
