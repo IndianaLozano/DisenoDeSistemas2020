@@ -25,11 +25,19 @@ import javax.swing.JToggleButton;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import java.awt.Component;
 
 public class PntListarCompetencias extends JPanel {
 	private JTextField txtListarCompetencia;
 	public static JTextField tf_nombrecomp;
-	private JTable table_listarcomps;
+	
+	public static JTable table = new JTable();
+	public static DefaultTableModel dm = new DefaultTableModel(){
+		public boolean isCellEditable(int rowIndex, int columnIndex ) {
+			return false;
+		}
+	};
 
 	/**
 	 * Create the panel.
@@ -97,54 +105,6 @@ public class PntListarCompetencias extends JPanel {
 		cb_estado.setBounds(10, 252, 168, 20);
 		add(cb_estado);
 		
-		table_listarcomps = new JTable();
-		table_listarcomps.setBackground(Color.WHITE);
-		table_listarcomps.setForeground(Color.BLACK);
-		table_listarcomps.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Nombre", "Modalidad", "Deporte", "Estado"
-			}
-		));
-		table_listarcomps.setRowHeight(25);
-		table_listarcomps.setBounds(new Rectangle(1, 2, 1, 1));
-		table_listarcomps.setBounds(225, 103, 466, 175);
-		add(table_listarcomps);
-		
-		JLabel lbl_nombre = new JLabel("Nombre");
-		lbl_nombre.setForeground(Color.BLACK);
-		lbl_nombre.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lbl_nombre.setBackground(Color.WHITE);
-		lbl_nombre.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_nombre.setBounds(225, 81, 116, 25);
-		add(lbl_nombre);
-		
-		JLabel lbl_modalidad = new JLabel("Modalidad");
-		lbl_modalidad.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lbl_modalidad.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_modalidad.setBounds(458, 81, 116, 25);
-		add(lbl_modalidad);
-		
-		JLabel lbl_deporte = new JLabel("Deporte");
-		lbl_deporte.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lbl_deporte.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_deporte.setBounds(339, 81, 121, 20);
-		add(lbl_deporte);
-		
-		JLabel lbl_estado = new JLabel("Estado");
-		lbl_estado.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_estado.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lbl_estado.setBounds(570, 84, 121, 19);
-		add(lbl_estado);
-		
 		JButton btn_atras = new JButton("Atr\u00E1s");
 		btn_atras.setBackground(UIManager.getColor("Button.background"));
 		btn_atras.setBounds(10, 387, 77, 23);
@@ -153,10 +113,6 @@ public class PntListarCompetencias extends JPanel {
 		JButton btn_ver = new JButton("Ver");
 		btn_ver.setBounds(650, 387, 64, 23);
 		add(btn_ver);
-		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(690, 105, 17, 173);
-		add(scrollBar);
 		
 		JButton btn_buscar = new JButton("Buscar");
 		btn_buscar.addActionListener(new ActionListener() {
@@ -189,6 +145,27 @@ public class PntListarCompetencias extends JPanel {
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblNewLabel_8.setBounds(278, 323, 29, 46);
 		add(lblNewLabel_8);
+	
+		
+		dm.addColumn("idCompetencia");
+		dm.addColumn("Nombre");
+		dm.addColumn("Deporte");
+		dm.addColumn("Modalidad");
+		dm.addColumn("Estado");
+		
+		table.setModel(dm); //table tendra las columnas de dm que agregamos aqui arriba
+		
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
+        table.doLayout();
+		
+		JScrollPane scrollPane_1 = new JScrollPane(table);
+		scrollPane_1.setBounds(258, 87, 397, 195);
+		add(scrollPane_1);
 
 	}
+	
+	
+	
 }

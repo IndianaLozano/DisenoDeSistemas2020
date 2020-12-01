@@ -25,7 +25,7 @@ public class FixtureDAO {
 			con.setAutoCommit(false);
 			
 			String query1="INSERT INTO database.fixture (id_competencia, fecha, baja) VALUES (" + f.competencia.idCompetencia + ", CURDATE(), 0)";
-			//Ejecutar query1 
+			
 			con.createStatement().executeUpdate(query1);
 			
 			String query2;
@@ -65,56 +65,6 @@ public class FixtureDAO {
 		}
 		
 		
-			/* PARTE CAMI
-			 try {
-				con.setAutoCommit(false);
-				
-				String query1="INSERT INTO database.fixture (id_competencia, fecha, baja) VALUES (" + f.competencia.idCompetencia + ", CURDATE(), 0)";
-				con.createStatement().executeUpdate(query1);
-				
-				String query2;
-				String query3;
-				String query4;
-				
-				
-					int idUltimoFixture = (getUltimoIdFixture()) + 1;
-					int idUltimaFase = (FaseDAO.getUltimoIdFase());
-					int cantidadFases= f.fases.size();
-					
-					int idFaseActual;
-					for (int i=0 ; i<cantidadFases; i++) {
-						
-						query2= "INSERT INTO database.fase (id_fixture, numero_fase, baja) VALUES ( " + idUltimoFixture + ", " + (i+1) + ", 0 )" ;	
-						con.createStatement().executeUpdate(query2);
-						idFaseActual= idUltimaFase +(i+1);
-						int cantidadEncuentros = f.fases.get(i).encuentros.size();
-					
-						for(int j=0 ; j<cantidadEncuentros ; j++) {
-							
-						int idLocal= f.fases.get(i).encuentros.get(j).local.id;
-						int idVisitante= f.fases.get(i).encuentros.get(j).visitante.id;
-						
-						query3 = "INSERT INTO database.encuentro (id_participante_local, id_participante_visitante, id_fase, fecha, hora) VALUES (" + idLocal + ", " + idVisitante + ", " + idFaseActual + ", CURDATE(), curTime() ) ;" ;	
-							
-							
-						}
-						
-						}
-				
-				
-			
-				con.commit();
-			} catch (SQLException e) {
-				//TODO ROLLBACK
-				e.printStackTrace();
-			}
-			*/
-			
-			
-			
-		
-		
-		
 		
 	}
 	
@@ -126,6 +76,16 @@ public class FixtureDAO {
 		}
 		catch(Exception ex) {
 			throw ex;
+		}
+	}
+	
+	
+	public static void deleteFixture(int idCompetencia) {
+		String query = "UPDATE database.fixture SET baja= 1 WHERE id_competencia = " + idCompetencia + " ;";
+		try {
+			Conexion.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

@@ -18,10 +18,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class VerCompetencia extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField tf_nombre;
+	private JTextField tf_modalidad;
+	private JTextField tf_deporte;
+	private JTextField tf_estado;
 	public int idCompetenciaActual;
 
 	/**
@@ -40,33 +40,33 @@ public class VerCompetencia extends JPanel {
 		lblNewLabel_1.setBounds(48, 87, 61, 14);
 		add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setColumns(10);
-		textField.setBounds(141, 86, 142, 20);
-		add(textField);
+		tf_nombre = new JTextField();
+		tf_nombre.setEditable(false);
+		tf_nombre.setColumns(10);
+		tf_nombre.setBounds(141, 86, 142, 20);
+		add(tf_nombre);
 		
 		JLabel lblNewLabel_2 = new JLabel("Modalidad");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2.setBounds(48, 142, 75, 14);
 		add(lblNewLabel_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(141, 141, 142, 20);
-		add(textField_1);
+		tf_modalidad = new JTextField();
+		tf_modalidad.setEditable(false);
+		tf_modalidad.setColumns(10);
+		tf_modalidad.setBounds(141, 141, 142, 20);
+		add(tf_modalidad);
 		
 		JLabel lblNewLabel_3 = new JLabel("Deporte");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_3.setBounds(48, 196, 61, 14);
 		add(lblNewLabel_3);
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
-		textField_2.setBounds(141, 195, 142, 20);
-		add(textField_2);
+		tf_deporte = new JTextField();
+		tf_deporte.setEditable(false);
+		tf_deporte.setColumns(10);
+		tf_deporte.setBounds(141, 195, 142, 20);
+		add(tf_deporte);
 		
 		JButton btnNewButton = new JButton("Atr\u00E1s");
 		btnNewButton.setBounds(34, 374, 75, 23);
@@ -77,11 +77,11 @@ public class VerCompetencia extends JPanel {
 		lblNewLabel_4.setBounds(48, 248, 61, 14);
 		add(lblNewLabel_4);
 		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setColumns(10);
-		textField_3.setBounds(141, 247, 142, 20);
-		add(textField_3);
+		tf_estado = new JTextField();
+		tf_estado.setEditable(false);
+		tf_estado.setColumns(10);
+		tf_estado.setBounds(141, 247, 142, 20);
+		add(tf_estado);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(371, 84, 279, 296);
