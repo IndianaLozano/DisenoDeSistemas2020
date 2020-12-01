@@ -178,6 +178,11 @@ public class VentanaAdmin extends JFrame {
 		case 11:
 			mensajeError("La competencia se encuentra En Disputa", "ERROR");
 		break;
+		
+		case 12:
+			mensajeError("No hay suficientes disponibilidades para la cantidad de encuentros a disputar por fase.", "ERROR");
+		break;
+			
 
 		}
 		

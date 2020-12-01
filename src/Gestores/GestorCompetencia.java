@@ -144,9 +144,7 @@ public class GestorCompetencia {
 	
 	
 	public static Estado obtenerEstadoEnum (int idEstado) {
-		
 		Estado estado = null;
-		
 		switch (idEstado) {
 		case 1: estado = Estado.Creada;
 		break;
@@ -157,31 +155,24 @@ public class GestorCompetencia {
 		case 4: estado = Estado.Finalizada;
 		break;
 		}
-		
 		return estado; 
 	}
 	
-	
 	public static int obtenerIdEstado(Estado estado) {
-		
 		int idRetorno = 0;
-		
 		if (estado.name() == "Creada") {
 			idRetorno=1;
 		}
 		if(estado.name() == "Planificada") {
 			idRetorno= 2;
 		}
-		
 		if(estado.name() == "EnDisputa") {
 			idRetorno= 3;
 		}
-		
 		if(estado.name() == "Finalizada") {
 			idRetorno= 4;
 		}
 		return idRetorno;
-		
 	}
 	
 	public static int obtenerIdModalidad (Modalidad modalidad) {

@@ -134,6 +134,7 @@ public class CompetenciaDAO {
 		}
 	}
 	
+	
 	/*Metodo para traer todas las Competencias (enteras)
 		public static List<Competencia> getAllCompetencias() throws Exception{
 		try {

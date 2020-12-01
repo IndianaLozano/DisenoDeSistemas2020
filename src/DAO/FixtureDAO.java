@@ -9,6 +9,10 @@ import Entidades.Competencia;
 import Entidades.ConsultaGenerica;
 import Entidades.Fixture;
 
+import javax.transaction.*;
+import javax.transaction.xa.*;
+
+
 public class FixtureDAO {
 	
 	
@@ -17,8 +21,52 @@ public class FixtureDAO {
 		
 		Connection con = Conexion.conectarBDD();
 		
+		try {
+			con.setAutoCommit(false);
+			
+			String query1="INSERT INTO database.fixture (id_competencia, fecha, baja) VALUES (" + f.competencia.idCompetencia + ", CURDATE(), 0)";
+			//Ejecutar query1 
+			con.createStatement().executeUpdate(query1);
+			
+			String query2;
+			String query3;
+			String query4;
+			
+				int idUltimoFixture = (getUltimoIdFixture())+1;
+				int idUltimaFase = FaseDAO.getUltimoIdFase();
+				int idUltimoEncuentro = EncuentroDAO.getUltimoIdEncuentro();
+				int cantidadFases= f.fases.size();
+				
+				int idFaseActual;
+				for (int i=0 ; i<cantidadFases; i++) {
+					
+					query2= "INSERT INTO database.fase (id_fixture, numero_fase, baja) VALUES ( " + idUltimoFixture + ", " + (i+1) + ", 0 )" ;	
+					con.createStatement().executeUpdate(query2);
+					idFaseActual = idUltimaFase +(i+1);
+					int cantidadEncuentros = f.fases.get(i).encuentros.size();
+				
+					for(int j=0 ; j<cantidadEncuentros ; j++) {
+						
+						int idLocal= f.fases.get(i).encuentros.get(j).local.id;
+						int idVisitante= f.fases.get(i).encuentros.get(j).visitante.id;
+						int idLugar = f.fases.get(i).encuentros.get(j).lugar.idLugar;
+						idUltimoEncuentro++;
+						query3 = "INSERT INTO database.encuentro (id_participante_local, id_participante_visitante, id_lugar, id_fase, fecha, hora) VALUES (" + idLocal + ", " + idVisitante + ", " + idLugar + ", " + idFaseActual + ", CURDATE(), curTime() ) ;" ;	
+						query4 = "INSERT INTO database.enc_ronda_ganador (id_encuentro) VALUE (" + idUltimoEncuentro + ");";
+						con.createStatement().executeUpdate(query3);
+						con.createStatement().executeUpdate(query4);
+						
+					}
+				}
+			con.commit();
+		} catch (SQLException e) {
+			con.rollback();
+			e.printStackTrace();
+		}
 		
-			try {
+		
+			/* PARTE CAMI
+			 try {
 				con.setAutoCommit(false);
 				
 				String query1="INSERT INTO database.fixture (id_competencia, fecha, baja) VALUES (" + f.competencia.idCompetencia + ", CURDATE(), 0)";
@@ -50,8 +98,6 @@ public class FixtureDAO {
 							
 							
 						}
-					
-				
 						
 						}
 				
@@ -62,6 +108,7 @@ public class FixtureDAO {
 				//TODO ROLLBACK
 				e.printStackTrace();
 			}
+			*/
 			
 			
 			

@@ -5,6 +5,7 @@ import java.util.List;
 import DAO.EncuentroDAO;
 import DAO.FaseDAO;
 import Entidades.Competencia;
+import Entidades.Disponibilidad;
 import Entidades.Encuentro;
 import Entidades.EncuentroRondaGanador;
 import Entidades.Estado;
@@ -12,6 +13,7 @@ import Entidades.Fase;
 import Entidades.Fixture;
 import Entidades.MiExcepcion;
 import Entidades.Participante;
+import InterfazGrafica.VentanaAdmin;
 
 public class GestorFixture {
 	
@@ -46,8 +48,11 @@ public class GestorFixture {
 				if(cantidadParticipantes % 2 == 0) {
 					//Cantidad Par
 					cantidadFases= cantidadParticipantes -1;
-					encuentrosPorFase= cantidadParticipantes /2;
+					encuentrosPorFase = cantidadParticipantes /2;
 					esPar=true;
+					// 10 partic, 9 fases, 5 enc
+					// 9 partic, 9 fases, 5 enc
+					//(c.disponibilidades.size() >= encuentrosPorFase)
 					
 				}else {
 					//Cantidad Impar
@@ -55,99 +60,104 @@ public class GestorFixture {
 					encuentrosPorFase= (cantidadParticipantes + 1)/2;
 				}
 				
-				int contador1=0;
-				int contador2 = cantidadParticipantes-1;
-				
-				if (esPar==true) {
+				List<Disponibilidad> disponibilidades = c.disponibilidades;
+				if (disponibilidades.size() >= encuentrosPorFase) {
+						//inicio
+					int contador1=0;
+					int contador2 = cantidadParticipantes-1;
 					
-				for (int i=0; i<cantidadFases ; i++) {
-					Fase f = new Fase();
-					
-					for (int j=0 ; j<encuentrosPorFase; j++) {
-						EncuentroRondaGanador enc = new EncuentroRondaGanador();
+					if (esPar==true) {
 						
-						if (contador1 == cantidadParticipantes -1) {
-							contador1 =0;
-						}
+						for (int i=0; i<cantidadFases ; i++) {
+							Fase f = new Fase();
 						
-						if (contador2 ==0) {
-							contador2 = cantidadParticipantes -1;
-						}
-						
-						if (j==0) {
-						enc.visitante =c.participantes.get(cantidadParticipantes -1);
-						enc.local = c.participantes.get(contador1);
-						contador1 ++;
-						contador2 --;
-						
-						}else {
+							for (int j=0 ; j<encuentrosPorFase; j++) {
+								EncuentroRondaGanador enc = new EncuentroRondaGanador();
 							
-							enc.visitante = c.participantes.get(contador2);
-							enc.local= c.participantes.get(contador1);
+								if (contador1 == cantidadParticipantes -1) {
+									contador1 =0;
+								}
 							
-							contador1++;
-							contador2--;
+								if (contador2 ==0) {
+									contador2 = cantidadParticipantes -1;
+								}
 							
+								if (j==0) {
+										enc.visitante = c.participantes.get(cantidadParticipantes -1);
+										enc.local = c.participantes.get(contador1);
+										contador1 ++;
+										contador2 --;
+										enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
+							
+								}
+								else{
+										enc.visitante = c.participantes.get(contador2);
+										enc.local= c.participantes.get(contador1);
+								
+										contador1++;
+										contador2--;
+										enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
+								}
+							
+								f.encuentros.add(enc);
+							
+							}
+						
+							fixture.fases.add(f);
+							invertirlocalVisitante(fixture);
 						}
-						
-						f.encuentros.add(enc);
-						
 					}
+					else {
+						for (int i=0; i<cantidadFases ; i++) {
+							Fase f = new Fase();
+						
+							for (int j=0 ; j<encuentrosPorFase; j++) {
+								EncuentroRondaGanador enc = new EncuentroRondaGanador();
+							
+								if (contador1 == cantidadParticipantes -1) {
+									contador1 =0;
+								}
+							
+								if (contador2 ==0) {
+									contador2 = cantidadParticipantes -1;
+								}
+							
+								if (j==0) {
+									enc.local = c.participantes.get(contador1);
+									contador1 ++;
+									contador2 --;
+							
+								}
+								else {
+								
+									enc.visitante = c.participantes.get(contador2);
+									enc.local= c.participantes.get(contador1);
+								
+									contador1++;
+									contador2--;
+								}
+							
+								f.encuentros.add(enc);
+							
+							}
+						
+							fixture.fases.add(f);
+						
+						}
 					
-					fixture.fases.add(f);
-					invertirlocalVisitante(fixture);
+					}
+					fixture.competencia= c;
+					
 					
 				}
-				
-			}else {
-				for (int i=0; i<cantidadFases ; i++) {
-					Fase f = new Fase();
-					
-					for (int j=0 ; j<encuentrosPorFase; j++) {
-						EncuentroRondaGanador enc = new EncuentroRondaGanador();
-						
-						if (contador1 == cantidadParticipantes -1) {
-							contador1 =0;
-						}
-						
-						if (contador2 ==0) {
-							contador2 = cantidadParticipantes -1;
-						}
-						
-						if (j==0) {
-						enc.local = c.participantes.get(contador1);
-						contador1 ++;
-						contador2 --;
-						
-						}else {
-							
-							enc.visitante = c.participantes.get(contador2);
-							enc.local= c.participantes.get(contador1);
-							
-							contador1++;
-							contador2--;
-							
-						}
-						
-						f.encuentros.add(enc);
-						
-					}
-					
-					fixture.fases.add(f);
-					
+					//fin
+				else {
+					MiExcepcion e12 = new MiExcepcion ("12");
+					throw e12;
 				}
 				
 			}
-				fixture.competencia= c;
-				
-				
-			}
-			
-			
-			
 		}
-		
-		
 	}
 	
 	

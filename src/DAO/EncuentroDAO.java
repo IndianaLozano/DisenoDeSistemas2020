@@ -3,6 +3,7 @@ package DAO;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entidades.ConsultaGenerica;
 import Entidades.Encuentro;
 
 public class EncuentroDAO {
@@ -32,4 +33,25 @@ public class EncuentroDAO {
 		
 	} 
 
+	public static int getUltimoIdEncuentro() throws Exception{
+		try {
+			String query = "SELECT id_encuentro FROM database.encuentro ORDER BY id_encuentro DESC LIMIT 1;"; 
+			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar(query, ConsultaGenerica.class);
+			return Integer.parseInt(ls1.get(0).getValor("id_encuentro"));
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public static int getUltimoIdEncRondaGanador() throws Exception{
+		try {
+			String query = "SELECT id_encuentro FROM database.enc_ronda_ganador ORDER BY id_encuentro DESC LIMIT 1;"; 
+			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar(query, ConsultaGenerica.class);
+			return Integer.parseInt(ls1.get(0).getValor("id_encuentro"));
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
 }
