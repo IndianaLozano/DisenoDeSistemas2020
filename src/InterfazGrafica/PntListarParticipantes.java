@@ -142,7 +142,7 @@ public class PntListarParticipantes extends JPanel {
 		JButton btn_filtrar = new JButton("Filtrar");
 		btn_filtrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int index = cb_filtro.getSelectedIndex();
+				int index = cb_filtro.getSelectedIndex(); // index para nombre o contacto
 				boolean orden = chbx_descendente.isSelected();
 				
 				try {

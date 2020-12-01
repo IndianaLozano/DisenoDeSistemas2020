@@ -142,7 +142,6 @@ public class GestorCompetencia {
 		return mod;
 	}
 	
-	
 	public static Estado obtenerEstadoEnum (int idEstado) {
 		Estado estado = null;
 		switch (idEstado) {
@@ -199,6 +198,39 @@ public class GestorCompetencia {
 		}
 		if (puntuacion.name() == "Sets"){
 			idRetorno = 3;
+		}
+		return idRetorno;
+	}
+	
+	public static int obtenerIdDeporte(String deporte) {
+		int idRetorno = 0;
+		String nombre = deporte;
+		if (nombre == "Voley") {
+			idRetorno = 1;
+		}
+		else if (nombre == "Fútbol") {
+			idRetorno = 2;
+		}
+		else if (nombre == "Tenis") {
+			idRetorno = 3;
+		}
+		else if (nombre == "Básquet") {
+			idRetorno = 4;
+		}
+		else if (nombre == "Handball") {
+			idRetorno = 5;
+		}
+		else if (nombre == "Béisbol") {
+			idRetorno = 6;
+		}
+		else if (nombre == "Paddle") {
+			idRetorno = 7;
+		}
+		else if (nombre == "Ping Pong") {
+			idRetorno = 8;
+		}
+		else if (nombre == "Ajedrez") {
+			idRetorno = 9;
 		}
 		return idRetorno;
 	}
@@ -427,7 +459,18 @@ public class GestorCompetencia {
 		List<Competencia> competencias = CompetenciaDAO.getCompetenciasUsuario(idUsuario, nombreComp, deporte, modalidad, estado);
 		return competencias;
 	}
+	
+	/*
+	 public static List<Competencia> obtenerMisCompetenciasSegunFiltro(int idUsuario, String nombreComp, String deporte, String modalidad, String estado) throws Exception {
+	 
+		List<Competencia> competencias = CompetenciaDAO.getCompetenciasUsuarioSegunFiltro(idUsuario, nombreComp, deporte, modalidad, estado);
+		return competencias;
+	}
+	*/
+	
 
+	
+	
 }
 
 

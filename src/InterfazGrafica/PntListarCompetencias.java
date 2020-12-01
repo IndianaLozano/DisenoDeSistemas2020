@@ -161,23 +161,39 @@ public class PntListarCompetencias extends JPanel {
 		JButton btn_buscar = new JButton("Buscar");
 		btn_buscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+			
 				//int idUsuario
 				String nombreComp = tf_nombrecomp.getText();
 				String deporte = cb_deporte.getSelectedItem().toString();
+				int idDeporte = GestorCompetencia.obtenerIdDeporte(deporte);
 				String modalidad = cb_modalidad.getSelectedItem().toString();
 				String estado = cb_estado.getSelectedItem().toString();	
 				
 				try {
-					List<Competencia> competencias = GestorCompetencia.obtenerMisCompetencias(2 /*idUsuario*/, nombreComp, deporte, modalidad, estado);
-				} catch (Exception e1) {
+					//List<Competencia> competencias = GestorCompetencia.obtenerMisCompetenciasSegunFiltro(2, nombreComp, deporte, modalidad, estado);
+					//for (int i = 0; i < competencias.size() ; i++) {
+						
+						
+						
+					//}
+				}catch (Exception e1) {
 					
 					e1.printStackTrace();
 				}
 			
-			
 			}
+			
 		});
+		
+		
+		
+		/*public static void restaurarTabla() {
+			 for( int i = dm.getRowCount() - 1; i >= 0; i-- ) {
+		           dm.removeRow(i);
+		       }
+		}
+		*/
+		
 		btn_buscar.setBounds(52, 296, 77, 23);
 		add(btn_buscar);
 		
