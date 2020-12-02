@@ -417,7 +417,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		
 	public static List<Competencia> getCompetenciasUsuarioSegunFiltro(int idUsuario, String nombreComp, String deporte, String modalidad, String estado) throws Exception {
 			try {
-				String query = "SELECT comp.id_competencia, comp.id_modalidad, comp.id_estado, comp.id_deporte, comp.nombre FROM database.competencia comp JOIN database.usuario us ON (comp.id_usuario = us.id_usuario) WHERE id_usuario = " + idUsuario + "  ;";                            
+				String query = "SELECT comp.id_competencia, comp.nombre, dep.nombre, modal.modalidad,est.estado FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario +" AND comp.nombre = " + nombreComp + " AND dep.nombre = " + deporte +" AND modal.modalidad = " + modalidad + " AND est.estado = " + estado + " ;";                            
 				ArrayList<Competencia> competenciasUsuario = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
 				return competenciasUsuario;
 			}

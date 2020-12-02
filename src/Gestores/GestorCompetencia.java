@@ -460,13 +460,27 @@ public class GestorCompetencia {
 		return competencias;
 	}
 	
-	/*
+	
 	 public static List<Competencia> obtenerMisCompetenciasSegunFiltro(int idUsuario, String nombreComp, String deporte, String modalidad, String estado) throws Exception {
-	 
+		
+		if((deporte == "Todos") && (modalidad != "Todos") && (estado != "Todos")) {
+			//metodo del DAO que retorne las competencias de todos los deportes
+		}
+		if((deporte != "Todos") && (modalidad == "Todos") && (estado != "Todos")) {
+			//metodo del DAO que retorne las competencias de todos las modalidades
+		}
+		if((deporte != "Todos") && (modalidad != "Todos") && (estado == "Todos")) {
+			//metodo del DAO que retorne las competencias en cualquier estado
+		}
+		if((deporte == "Todos") && (modalidad == "Todos") && (estado == "Todos")) {
+			//metodo del DAO que retorne todas las competencias sin ningun filtro
+			
+		}
+		
 		List<Competencia> competencias = CompetenciaDAO.getCompetenciasUsuarioSegunFiltro(idUsuario, nombreComp, deporte, modalidad, estado);
 		return competencias;
 	}
-	*/
+	
 	
 
 	
