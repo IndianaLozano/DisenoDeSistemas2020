@@ -30,7 +30,6 @@ public class VentanaAdmin extends JFrame {
 
 	public static JPanel contentPane;
 	
-	public static PntListarCompetencias listarComp = new PntListarCompetencias();
 	public static VerCompetencia verComp= new VerCompetencia();
 	public static VerEncuentros verEnc= new VerEncuentros();
 	public static PntInicio inicio= new PntInicio();

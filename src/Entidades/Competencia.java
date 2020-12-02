@@ -61,12 +61,15 @@ public class Competencia {
 			this.estado = GestorCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
 			this.modalidad = GestorCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));
 			
-			this.participantes = GestorCompetencia.obtenerParticipantesCompetencia(Integer.parseInt(atributo[0]));
+			//Si se comenta no demora dos años
+			
+			//this.participantes = GestorCompetencia.obtenerParticipantesCompetencia(Integer.parseInt(atributo[0]));
 			this.deporte = GestorCompetencia.obtenerDeporte(Integer.parseInt(atributo[5])).get(0);
 			
-			if (GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0])).size()>0) {
+			/*if (GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0])).size()>0) {
 			this.disponibilidades = GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0]));
-			}
+			}*/
+			
 			//puede llegar a haber un else aca
 			this.puntuacion = GestorCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
 			} catch (NumberFormatException e) {

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import DAO.CompetenciaDAO;
 import DAO.DeporteDAO;
 import DAO.LugarDeRealizacionDAO;
+import DTO.BuscarCompetenciaDTO;
 import DTO.CompetenciaDTO;
 import DTO.DisponibilidadDTO;
 import DTO.EliminatoriaDTO;
@@ -19,6 +20,7 @@ import Entidades.Deporte;
 import Entidades.Disponibilidad;
 import Entidades.Eliminatoria;
 import Entidades.Estado;
+import Entidades.Filtros;
 import Entidades.Liga;
 import Entidades.LugarDeRealizacion;
 import Entidades.MiExcepcion;
@@ -461,27 +463,71 @@ public class GestorCompetencia {
 	}
 	
 	
-	 public static List<Competencia> obtenerMisCompetenciasSegunFiltro(int idUsuario, String nombreComp, String deporte, String modalidad, String estado) throws Exception {
+	 public static List<Competencia> obtenerMisCompetenciasSegunFiltro(BuscarCompetenciaDTO bcDTO) throws Exception {
+		 
+		 List<String> campos = new ArrayList();
+		 List<String> valores = new ArrayList();
+		 String tabla = "database.competencia";
+		 
+		 campos.add("id_usuario");
+		 valores.add("2");
+		 
+		 if(bcDTO.getNombre().isEmpty()==false) {
+			 campos.add("nombre");
+			 valores.add(bcDTO.getNombre());
+		 }
+		 
+		 if (bcDTO.getDeporte() != "Todos") {
+			 int idDeporte= obtenerIdDeporte(bcDTO.getDeporte());
+			 campos.add("id_deporte");
+			 valores.add(idDeporte + "");
+			 
+		 }
+		 
+		 if (bcDTO.getEstado() != "Todos") {
+			 int idEstado;
+			 if (bcDTO.getEstado() == "Creada") {
+				 idEstado = obtenerIdEstado(Estado.Creada);	 
+			 }else {
+				 if(bcDTO.getEstado() =="Planificada") {
+					 idEstado= obtenerIdEstado(Estado.Planificada);
+				 }else {
+					 if(bcDTO.getEstado() =="En Disputa") {
+						 idEstado= obtenerIdEstado(Estado.EnDisputa);
+					 }else {
+						 idEstado= obtenerIdEstado(Estado.Finalizada);
+					 }
+				 }
+			 }
+			 
+			 campos.add("id_estado");
+			 valores.add(idEstado + "");
+		 }
+		 
+		 if (bcDTO.getModalidad() != 0) {
+			 int idModalidad;
+			 
+			 if (bcDTO.getModalidad() == 1){
+				 idModalidad= obtenerIdModalidad(Modalidad.SistemaDeLiga);
+			 }else {
+				 if(bcDTO.getModalidad() == 2) {
+					 idModalidad= obtenerIdModalidad(Modalidad.SistemaDeEliminatoriaSimple);
+				 }else {
+					 idModalidad= obtenerIdModalidad(Modalidad.SistemaDeEliminatoriaDoble);
+				 }
+			 }
+			 campos.add("id_modalidad");
+			 valores.add(idModalidad + "");
+		 }
 		
-		if((deporte == "Todos") && (modalidad != "Todos") && (estado != "Todos")) {
-			//metodo del DAO que retorne las competencias de todos los deportes
-		}
-		if((deporte != "Todos") && (modalidad == "Todos") && (estado != "Todos")) {
-			//metodo del DAO que retorne las competencias de todos las modalidades
-		}
-		if((deporte != "Todos") && (modalidad != "Todos") && (estado == "Todos")) {
-			//metodo del DAO que retorne las competencias en cualquier estado
-		}
-		if((deporte == "Todos") && (modalidad == "Todos") && (estado == "Todos")) {
-			//metodo del DAO que retorne todas las competencias sin ningun filtro
-			
-		}
-		
-		List<Competencia> competencias = CompetenciaDAO.getCompetenciasUsuarioSegunFiltro(idUsuario, nombreComp, deporte, modalidad, estado);
-		return competencias;
+		 String query = Filtros.generarConsultaFiltro(campos, valores, tabla);
+		 List<Competencia> competencias = CompetenciaDAO.getCompetenciasUsuarioSegunFiltro(query);
+
+		 return competencias;
 	}
-	
-	
+	 
+	 
+		
 
 	
 	

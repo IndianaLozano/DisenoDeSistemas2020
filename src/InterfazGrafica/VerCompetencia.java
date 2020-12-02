@@ -18,10 +18,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class VerCompetencia extends JPanel {
-	private JTextField tf_nombre;
-	private JTextField tf_modalidad;
-	private JTextField tf_deporte;
-	private JTextField tf_estado;
+	public JTextField tf_nombre;
+	public JTextField tf_modalidad;
+	public JTextField tf_deporte;
+	public JTextField tf_estado;
 	public int idCompetenciaActual;
 
 	/**

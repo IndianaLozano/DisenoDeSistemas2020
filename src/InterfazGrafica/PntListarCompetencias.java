@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import DTO.BuscarCompetenciaDTO;
 import Entidades.Competencia;
 import Entidades.Usuario;
 import Gestores.GestorCompetencia;
@@ -118,20 +119,34 @@ public class PntListarCompetencias extends JPanel {
 		btn_buscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				//int idUsuario
-				String nombreComp = tf_nombrecomp.getText();
-				String deporte = cb_deporte.getSelectedItem().toString();
-				int idDeporte = GestorCompetencia.obtenerIdDeporte(deporte);
-				String modalidad = cb_modalidad.getSelectedItem().toString();
-				String estado = cb_estado.getSelectedItem().toString();	
+				BuscarCompetenciaDTO buscarCompDTO= new BuscarCompetenciaDTO();
+				
+				buscarCompDTO.setNombre(tf_nombrecomp.getText());
+				buscarCompDTO.setDeporte(cb_deporte.getSelectedItem().toString());
+				buscarCompDTO.setEstado(cb_estado.getSelectedItem().toString());
+				buscarCompDTO.setModalidad(cb_modalidad.getSelectedIndex());
+				buscarCompDTO.setIdUsuario(2);	
 				
 				try {
-					//List<Competencia> competencias = GestorCompetencia.obtenerMisCompetenciasSegunFiltro(2, nombreComp, deporte, modalidad, estado);
-					//for (int i = 0; i < competencias.size() ; i++) {
+					restaurarTabla();
+					
+					List<Competencia> competencias = GestorCompetencia.obtenerMisCompetenciasSegunFiltro(buscarCompDTO);
+					int idCompetencia;
+					String nombre;
+					String deporte;
+					String modalidad;
+					String estado;
+					for (int i = 0; i < competencias.size() ; i++) {
+						idCompetencia= competencias.get(i).idCompetencia;
+						nombre= competencias.get(i).nombre;
+						deporte= competencias.get(i).deporte.nombre;
+						modalidad= competencias.get(i).modalidad.name();
+						estado= competencias.get(i).estado.name();
 						
+						Object[] rowData= {idCompetencia, nombre, deporte, modalidad, estado};
+						dm.addRow(rowData);
 						
-						
-					//}
+					}
 				}catch (Exception e1) {
 					
 					e1.printStackTrace();
@@ -143,17 +158,15 @@ public class PntListarCompetencias extends JPanel {
 		
 		
 		
-		/*public static void restaurarTabla() {
-			 for( int i = dm.getRowCount() - 1; i >= 0; i-- ) {
-		           dm.removeRow(i);
-		       }
-		}
-		*/
-		
 		btn_buscar.setBounds(52, 296, 77, 23);
 		add(btn_buscar);
 		
 		JButton btn_altacompetencia = new JButton("Dar de Alta Competencia");
+		btn_altacompetencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia, VentanaAdmin.n_pntCrearCompetencia);
+			}
+		});
 		btn_altacompetencia.setBounds(306, 323, 176, 46);
 		add(btn_altacompetencia);
 		
@@ -181,6 +194,13 @@ public class PntListarCompetencias extends JPanel {
 		add(scrollPane_1);
 
 	}
+	
+	public static void restaurarTabla() {
+	 for( int i = dm.getRowCount() - 1; i >= 0; i-- ) {
+          dm.removeRow(i);
+      }
+}
+
 	
 	
 	
