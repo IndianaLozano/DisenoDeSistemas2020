@@ -24,6 +24,8 @@ import javax.swing.JScrollBar;
 import javax.swing.JProgressBar;
 import javax.swing.JToggleButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -50,6 +52,8 @@ public class PntListarCompetencias extends JPanel {
 		setBounds(new Rectangle(1, 1, 724, 421));
 		setLayout(null);
 		
+		
+		
 		txtListarCompetencia = new JTextField();
 		txtListarCompetencia.setBorder(null);
 		txtListarCompetencia.setFocusTraversalKeysEnabled(false);
@@ -72,6 +76,12 @@ public class PntListarCompetencias extends JPanel {
 		tf_nombrecomp.setBounds(10, 105, 168, 20);
 		add(tf_nombrecomp);
 		tf_nombrecomp.setColumns(10);
+		tf_nombrecomp.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				tf_nombrecomp.setText(tf_nombrecomp.getText().toUpperCase());
+			}
+		});
 		
 		JLabel lblNewLabel_1 = new JLabel("Deporte");
 		lblNewLabel_1.setFont(new Font("Calibri", Font.PLAIN, 15));
@@ -112,6 +122,16 @@ public class PntListarCompetencias extends JPanel {
 		add(btn_atras);
 		
 		JButton btn_ver = new JButton("Ver");
+		btn_ver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow() != -1) {
+					int idCompetencia = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+				}
+				else {
+					VentanaAdmin.mensajeError("Seleccione una Competencia de la Tabla", "ERROR");
+				}
+			}
+		});
 		btn_ver.setBounds(650, 387, 64, 23);
 		add(btn_ver);
 		
@@ -190,7 +210,7 @@ public class PntListarCompetencias extends JPanel {
         table.doLayout();
 		
 		JScrollPane scrollPane_1 = new JScrollPane(table);
-		scrollPane_1.setBounds(258, 87, 397, 195);
+		scrollPane_1.setBounds(203, 87, 511, 195);
 		add(scrollPane_1);
 
 	}
