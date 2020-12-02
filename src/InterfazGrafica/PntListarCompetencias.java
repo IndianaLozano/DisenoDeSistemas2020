@@ -11,6 +11,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import DTO.BuscarCompetenciaDTO;
+import DTO.CompDTO;
+import DTO.CompetenciaDTO;
 import Entidades.Competencia;
 import Entidades.Usuario;
 import Gestores.GestorCompetencia;
@@ -121,18 +123,33 @@ public class PntListarCompetencias extends JPanel {
 		btn_atras.setBounds(10, 387, 77, 23);
 		add(btn_atras);
 		
-		JButton btn_ver = new JButton("Ver");
+		JButton btn_ver = new JButton("Ver Competencia");
+		btn_ver.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_ver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() != -1) {
 					int idCompetencia = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+					
+					CompDTO compDTO = new CompDTO();
+					try {
+						compDTO = GestorCompetencia.mostrarCompetenciaDTO(idCompetencia);
+						VentanaAdmin.pntVerCompetencia.cargarDatos(compDTO);
+						VentanaAdmin.pntVerCompetencia.idCompetenciaActual =  compDTO.getIdCompetencia();
+						VentanaAdmin.cambiarPantalla(VentanaAdmin.pntVerCompetencia, VentanaAdmin.n_pntVerCompetencia);
+						
+					} catch (Exception e1) {
+						
+						e1.printStackTrace();
+					}
+					
+					
 				}
 				else {
 					VentanaAdmin.mensajeError("Seleccione una Competencia de la Tabla", "ERROR");
 				}
 			}
 		});
-		btn_ver.setBounds(650, 387, 64, 23);
+		btn_ver.setBounds(378, 296, 168, 46);
 		add(btn_ver);
 		
 		JButton btn_buscar = new JButton("Buscar");
@@ -181,18 +198,19 @@ public class PntListarCompetencias extends JPanel {
 		btn_buscar.setBounds(52, 296, 77, 23);
 		add(btn_buscar);
 		
-		JButton btn_altacompetencia = new JButton("Dar de Alta Competencia");
+		JButton btn_altacompetencia = new JButton("Crear Nueva Competencia");
+		btn_altacompetencia.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btn_altacompetencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia, VentanaAdmin.n_pntCrearCompetencia);
 			}
 		});
-		btn_altacompetencia.setBounds(306, 323, 176, 46);
+		btn_altacompetencia.setBounds(470, 393, 218, 46);
 		add(btn_altacompetencia);
 		
 		JLabel lblNewLabel_8 = new JLabel("+");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblNewLabel_8.setBounds(278, 323, 29, 46);
+		lblNewLabel_8.setBounds(431, 393, 29, 46);
 		add(lblNewLabel_8);
 	
 		
@@ -210,7 +228,7 @@ public class PntListarCompetencias extends JPanel {
         table.doLayout();
 		
 		JScrollPane scrollPane_1 = new JScrollPane(table);
-		scrollPane_1.setBounds(203, 87, 511, 195);
+		scrollPane_1.setBounds(211, 87, 492, 195);
 		add(scrollPane_1);
 
 	}
@@ -219,9 +237,5 @@ public class PntListarCompetencias extends JPanel {
 	 for( int i = dm.getRowCount() - 1; i >= 0; i-- ) {
           dm.removeRow(i);
       }
-}
-
-	
-	
-	
+	}
 }

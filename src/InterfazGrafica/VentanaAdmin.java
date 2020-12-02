@@ -30,8 +30,8 @@ public class VentanaAdmin extends JFrame {
 
 	public static JPanel contentPane;
 	
-	public static VerCompetencia verComp= new VerCompetencia();
-	public static VerEncuentros verEnc= new VerEncuentros();
+	public static VerCompetencia pntVerCompetencia= new VerCompetencia();
+	public static VerEncuentros pntVerEncuentro= new VerEncuentros();
 	public static PntInicio inicio= new PntInicio();
 	public static PntLogin login= new PntLogin();
 	public static PntCrearCompetencia pntCrearCompetencia = new PntCrearCompetencia();
@@ -49,7 +49,9 @@ public class VentanaAdmin extends JFrame {
 	public static String n_pntCrearLiga= "n_pntCrearLiga";
 	public static String n_pntListarParticipantes= "n_pntListarParticipantes";
 	public static String n_pntAltaParticipante ="n_pntAltaParticipante";
-	public static String n_pntListarCompetencias = "npntListarCompetencias";
+	public static String n_pntListarCompetencias = "n_pntListarCompetencias";
+	public static String n_pntVerCompetencia = "n_pntVerCompetencia";
+	
 	/**
 	 * Launch the application.
 	 */
@@ -87,6 +89,7 @@ public class VentanaAdmin extends JFrame {
 		contentPane.add(n_pntListarParticipantes, pntListarParticipantes);
 		contentPane.add(n_pntAltaParticipante, pntAltaParticipante);
 		contentPane.add(n_pntListarCompetencias, pntListarCompetencias);
+		contentPane.add(n_pntVerCompetencia, pntVerCompetencia);
 		
 		//cambiarPantalla(pntCrearCompetencia, n_pntCrearCompetencia);
 		//cambiarPantalla(pntCrearLiga, n_pntCrearLiga);

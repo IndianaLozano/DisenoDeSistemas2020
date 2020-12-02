@@ -9,6 +9,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import java.awt.Rectangle;
 import javax.swing.table.DefaultTableModel;
+
+import DTO.CompDTO;
+
 import javax.swing.JScrollBar;
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -28,6 +31,10 @@ public class VerCompetencia extends JPanel {
 	 * Create the panel.
 	 */
 	public VerCompetencia() {
+		setBorder(null);
+		setAlignmentY(0.0f);
+		setAlignmentX(0.0f);
+		setBounds(new Rectangle(1, 1, 724, 421));
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("VER COMPETENCIA");
@@ -69,6 +76,11 @@ public class VerCompetencia extends JPanel {
 		add(tf_deporte);
 		
 		JButton btnNewButton = new JButton("Atr\u00E1s");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarCompetencias,VentanaAdmin.n_pntListarCompetencias);
+			}
+		});
 		btnNewButton.setBounds(34, 374, 75, 23);
 		add(btnNewButton);
 		
@@ -117,6 +129,7 @@ public class VerCompetencia extends JPanel {
 		btn_verParticipantes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					
 					PntListarParticipantes.cargarParticipantes(idCompetenciaActual);
 					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
 				} catch (Exception e1) {
@@ -135,4 +148,20 @@ public class VerCompetencia extends JPanel {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 	}
+	
+	public void cargarDatos(CompDTO competDTO) {
+	
+		tf_nombre.setText(competDTO.getNombre());
+		tf_modalidad.setText(competDTO.getModalidad());
+		tf_estado.setText(competDTO.getEstado());
+		tf_deporte.setText(competDTO.getDeporte().getNombre());	
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 }

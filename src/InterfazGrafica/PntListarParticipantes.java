@@ -54,6 +54,8 @@ public class PntListarParticipantes extends JPanel {
 		setAlignmentX(0.0f);
 		setBounds(new Rectangle(1, 1, 724, 421));
 		setLayout(null);
+		lbl_titulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_titulo.setText("PARTICIPANTES DE COMPETENCIA");
 		
 		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lbl_titulo.setBounds(191, 22, 343, 22);
@@ -61,7 +63,7 @@ public class PntListarParticipantes extends JPanel {
 		
 		JLabel lblOrdenarPor = new JLabel("Ordenar por");
 		lblOrdenarPor.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblOrdenarPor.setBounds(57, 66, 76, 22);
+		lblOrdenarPor.setBounds(26, 67, 96, 22);
 		add(lblOrdenarPor);
 		
 		cb_filtro.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -107,7 +109,7 @@ public class PntListarParticipantes extends JPanel {
 			}
 		});
 		btn_altaParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btn_altaParticipante.setBounds(424, 92, 245, 56);
+		btn_altaParticipante.setBounds(458, 95, 245, 56);
 		add(btn_altaParticipante);
 		
 		JButton btnEditarParticipante = new JButton("Modificar Participante");
@@ -117,12 +119,12 @@ public class PntListarParticipantes extends JPanel {
 			}
 		});
 		btnEditarParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnEditarParticipante.setBounds(424, 187, 245, 56);
+		btnEditarParticipante.setBounds(458, 190, 245, 56);
 		add(btnEditarParticipante);
 		
 		JButton btnEliminarParticipante = new JButton("Dar de baja Participante");
 		btnEliminarParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnEliminarParticipante.setBounds(424, 279, 245, 56);
+		btnEliminarParticipante.setBounds(458, 282, 245, 56);
 		add(btnEliminarParticipante);
 		
 		dm.addColumn("idParticipante");
@@ -136,7 +138,7 @@ public class PntListarParticipantes extends JPanel {
         table.doLayout();
         
 		JScrollPane scrollPane_1 = new JScrollPane(table);
-		scrollPane_1.setBounds(58, 125, 277, 222);
+		scrollPane_1.setBounds(26, 125, 388, 222);
 		add(scrollPane_1);
 		
 		JButton btn_filtrar = new JButton("Filtrar");
@@ -169,7 +171,7 @@ public class PntListarParticipantes extends JPanel {
 				}
 			}
 		});
-		btn_filtrar.setBounds(179, 95, 89, 23);
+		btn_filtrar.setBounds(291, 95, 89, 23);
 		add(btn_filtrar);
 
 	}

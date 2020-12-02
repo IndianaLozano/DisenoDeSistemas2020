@@ -10,7 +10,9 @@ import DAO.CompetenciaDAO;
 import DAO.DeporteDAO;
 import DAO.LugarDeRealizacionDAO;
 import DTO.BuscarCompetenciaDTO;
+import DTO.CompDTO;
 import DTO.CompetenciaDTO;
+import DTO.DeporteDTO;
 import DTO.DisponibilidadDTO;
 import DTO.EliminatoriaDTO;
 import DTO.LigaDTO;
@@ -350,7 +352,7 @@ public class GestorCompetencia {
 			
 			//Si la validacion es verdadera muestra el mensaje de error y vuelve a la pantalla crearCompetencia
 		} else {
-			if (competDTO.disponibilidadesDTO.isEmpty()) {
+			if (competDTO.getDisponibilidadesDTO().isEmpty()) {
 				MiExcepcion e2= new MiExcepcion("2");
 				throw e2;
 				
@@ -618,17 +620,31 @@ public class GestorCompetencia {
 
 		 return competencias;
 		 */
-		 
-		 
-		 
-		 
-		 
-		 
+		
 	}
 	 
-	 
+	 public static CompDTO mostrarCompetenciaDTO(int idCompetencia) throws Exception {
+		 
+		 CompDTO competDTO = new CompDTO();
+		 Competencia comp = obtenerCompetencia(idCompetencia).get(0);
+		 DeporteDTO dep = new DeporteDTO();
+		 
+		 
+		 competDTO.setIdCompetencia(comp.idCompetencia);
+		 competDTO.setNombre(comp.nombre);
+		 competDTO.setEstado(comp.estado.name());
+		 competDTO.setModalidad(comp.modalidad.name());
+		 dep.setIdDeporte(comp.deporte.idDeporte);
+		 dep.setNombre(comp.deporte.nombre);
+		 competDTO.setDeporte(dep);		 
+		 
+		 return competDTO;
+	 }
 		
 
+	 
+	 
+	 
 	
 	
 }
