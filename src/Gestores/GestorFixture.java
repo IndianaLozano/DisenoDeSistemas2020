@@ -1,5 +1,6 @@
 package Gestores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import DAO.EncuentroDAO;
@@ -18,7 +19,7 @@ import InterfazGrafica.VentanaAdmin;
 
 public class GestorFixture {
 	
-	public static void generarFixture (Competencia c) throws MiExcepcion {
+	public static void generarFixture (Competencia c) throws Exception {
 	
 		Estado e = c.estado;
 		
@@ -47,10 +48,11 @@ public class GestorFixture {
 		}
 	}
 	
-	public static void crearFixtureLiga(Competencia c) throws MiExcepcion {
+	public static void crearFixtureLiga(Competencia c) throws MiExcepcion, Exception {
 		Fixture fixture = new Fixture();
+		fixture.fases= new ArrayList();
 		
-		int cantidadParticipantes = c.participantes.size();
+		int cantidadParticipantes = c.getParticipantes().size();
 		int cantidadFases;
 		int encuentrosPorFase;
 		boolean esPar = false;
@@ -70,7 +72,8 @@ public class GestorFixture {
 			encuentrosPorFase= (cantidadParticipantes + 1)/2;
 		}
 		
-		List<Disponibilidad> disponibilidades = c.disponibilidades;
+		List<Disponibilidad> disponibilidades = c.getDisponibilidades();
+		int t= disponibilidades.size();
 		if (disponibilidades.size() >= encuentrosPorFase) {
 				//inicio
 			int contador1=0;
@@ -80,7 +83,8 @@ public class GestorFixture {
 				
 				for (int i=0; i<cantidadFases ; i++) {
 					Fase f = new Fase();
-				
+					f.encuentros= new ArrayList();
+					
 					for (int j=0 ; j<encuentrosPorFase; j++) {
 						EncuentroRondaGanador enc = new EncuentroRondaGanador();
 					
@@ -93,22 +97,23 @@ public class GestorFixture {
 						}
 					
 						if (j==0) {
-								enc.visitante = c.participantes.get(cantidadParticipantes -1);
-								enc.local = c.participantes.get(contador1);
+								enc.visitante = c.getParticipantes().get(cantidadParticipantes -1);
+								enc.local = c.getParticipantes().get(contador1);
 								contador1 ++;
 								contador2 --;
 								enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
 					
 						}
 						else{
-								enc.visitante = c.participantes.get(contador2);
-								enc.local= c.participantes.get(contador1);
+								enc.visitante = c.getParticipantes().get(contador2);
+								enc.local= c.getParticipantes().get(contador1);
 						
 								contador1++;
 								contador2--;
 								enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
 						}
-					
+						
+						
 						f.encuentros.add(enc);
 					
 					}
@@ -133,14 +138,14 @@ public class GestorFixture {
 						}
 			
 						if (j==0) {
-							enc.local = c.participantes.get(contador1);
+							enc.local = c.getParticipantes().get(contador1);
 							contador1 ++;
 							contador2 --;
 						}
 						else {
 						
-							enc.visitante = c.participantes.get(contador2);
-							enc.local= c.participantes.get(contador1);
+							enc.visitante = c.getParticipantes().get(contador2);
+							enc.local= c.getParticipantes().get(contador1);
 						
 							contador1++;
 							contador2--;
@@ -151,11 +156,9 @@ public class GestorFixture {
 				}
 			}
 			fixture.competencia= c;
-			try {
+			
 				FixtureDAO.createFixture(fixture);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			
 			
 		}
 			//fin

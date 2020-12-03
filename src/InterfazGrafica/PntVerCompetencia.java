@@ -127,22 +127,23 @@ public class PntVerCompetencia extends JPanel {
 		JButton btnNewButton_5 = new JButton("Generar Fixture");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-/*				if (VentanaAdmin.administrarExcepcion2("13") == 0) {
- 					Competencia c;
+				
+				if (VentanaAdmin.mensajeConsulta(null, "SPORTsYSTEM", "¿Desea generar el Fixture para la Competencia actual?") == 0) {
+ 					Competencia c = new Competencia();
 					try {
-						c = (Competencia) GestorCompetencia.obtenerCompetencia(idCompetenciaActual);
+						c = GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
+						try {
+							GestorFixture.generarFixture(c);
+						
+					} catch (MiExcepcion e1) {
+						VentanaAdmin.administrarExcepcion(e1.getMessage());
+					}
 					} catch (Exception e2) {
-						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
-					try {
-						GestorFixture.generarFixture(c);
-					} catch (MiExcepcion e1) {
-						e1.printStackTrace();
-					}
-					VentanaAdmin.mensajeExito("Fixture generado con éxito", "ÉXITO");
+					
 				} 
-*/
+
 			}
 		}); 
 
@@ -154,7 +155,7 @@ public class PntVerCompetencia extends JPanel {
 		btn_verParticipantes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
+					VentanaAdmin.pntListarParticipantes.idCompetenciaActual= idCompetenciaActual ;
 					PntListarParticipantes.cargarParticipantes(idCompetenciaActual);
 					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
 				} catch (Exception e1) {

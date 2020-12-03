@@ -95,6 +95,7 @@ public class PntListarParticipantes extends JPanel {
 					boolean validacion= GestorCompetencia.validarEstadoCompetencia(c);
 					
 					if(validacion==true) {
+						
 						VentanaAdmin.pntAltaParticipante.idCompetenciaActual= idCompetenciaActual;
 						VentanaAdmin.pntAltaParticipante.formatoPantalla(idCompetenciaActual);
 						VentanaAdmin.pntAltaParticipante.pantallaAnterior= VentanaAdmin.pntListarParticipantes;
@@ -187,7 +188,7 @@ public class PntListarParticipantes extends JPanel {
 		restaurarTabla();
 		
 		Competencia comp= GestorCompetencia.obtenerCompetencia(idCompetencia).get(0);
-		List<Participante> participantes= comp.participantes;
+		List<Participante> participantes= comp.getParticipantes();
 		int id;
 		String nombre;
 		String correo;

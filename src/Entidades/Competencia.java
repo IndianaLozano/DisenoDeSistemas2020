@@ -2,6 +2,7 @@ package Entidades;
 
 import java.util.List;
 
+import DAO.CompetenciaDAO;
 import Gestores.GestorCompetencia;
 import Gestores.GestorUsuario;
 
@@ -59,17 +60,9 @@ public class Competencia {
 	
 		try {
 			this.estado = GestorCompetencia.obtenerEstadoEnum(Integer.parseInt(atributo[3]));
-			this.modalidad = GestorCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));
-			
-			//Si se comenta no demora dos años
-			
-			this.participantes = GestorCompetencia.obtenerParticipantesCompetencia(Integer.parseInt(atributo[0]));
+			this.modalidad = GestorCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));			
 			this.deporte = GestorCompetencia.obtenerDeporte(Integer.parseInt(atributo[5])).get(0);
-			
-			if (GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0])).size()>0) {
-			this.disponibilidades = GestorCompetencia.obtenerDisponibilidadesCompetencia(Integer.parseInt(atributo[0]));
-			}
-			
+		
 			//puede llegar a haber un else aca
 			this.puntuacion = GestorCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
 			} catch (NumberFormatException e) {
@@ -79,5 +72,44 @@ public class Competencia {
 		}
 		
 	}
+
+	
+	public List<Participante> getParticipantes() {
+		if(this.participantes == null) {
+			try {
+				this.participantes = CompetenciaDAO.getParticipantesCompetencia(this.idCompetencia);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return participantes;
+	}
+
+	public void setParticipantes(List<Participante> participantes) {
+		this.participantes = participantes;
+	}
+
+	public List<Disponibilidad> getDisponibilidades() {
+		
+		if(this.disponibilidades == null) {
+			try {
+				this.disponibilidades = CompetenciaDAO.getDisponibilidadesCompetencia(this.idCompetencia);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return disponibilidades;
+	}
+
+	public void setDisponibilidades(List<Disponibilidad> disponibilidades) {
+		this.disponibilidades = disponibilidades;
+	}
+	
+	
+	
+	
+	
+	
 	
 }

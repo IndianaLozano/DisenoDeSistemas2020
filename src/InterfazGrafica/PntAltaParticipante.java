@@ -88,7 +88,6 @@ public class PntAltaParticipante extends JPanel {
 						}
 					
 					} catch (MiExcepcion e1) {
-						
 						VentanaAdmin.administrarExcepcion(e1.getMessage());
 						try {
 							PntListarParticipantes.actualizarTabla(idCompetenciaActual);

@@ -439,7 +439,7 @@ public class GestorCompetencia {
 		comparador.setStrength(Collator.TERTIARY);
 		
 		
-		List<Participante> participantes = c.participantes;
+		List<Participante> participantes = c.getParticipantes();
 		int i=0;
 		while(i<participantes.size() && result == true) {
 		if(comparador.equals(pDTO.getNombre(), participantes.get(i).nombre )) {

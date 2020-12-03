@@ -35,9 +35,12 @@ public class FaseDAO {
 	
 	public static int getUltimoIdFase() throws Exception{
 		try {
-			String query = "SELECT id_fase FROM database.fixture ORDER BY id_fase DESC LIMIT 1;"; 
+			String query = "SELECT id_fase FROM database.fase ORDER BY id_fase DESC LIMIT 1;"; 
 			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar(query, ConsultaGenerica.class);
-			return Integer.parseInt(ls1.get(0).getValor("id_fase"));
+			if (ls1.size()==0) {
+				return 0;
+			}else {
+			return Integer.parseInt(ls1.get(0).getValor("id_fase"));}
 		}
 		catch(Exception ex) {
 			throw ex;
