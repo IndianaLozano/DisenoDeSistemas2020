@@ -195,6 +195,11 @@ public class PntCrearCompetencia extends JPanel {
 		add(btn_mas);
 		
 		Button btn_atras = new Button("Atr\u00E1s");
+		btn_atras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarCompetencias, VentanaAdmin.n_pntListarCompetencias);
+			}
+		});
 		btn_atras.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btn_atras.setBounds(42, 391, 94, 22);
 		add(btn_atras);

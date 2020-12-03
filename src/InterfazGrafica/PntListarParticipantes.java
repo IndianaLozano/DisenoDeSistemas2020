@@ -109,7 +109,7 @@ public class PntListarParticipantes extends JPanel {
 			}
 		});
 		btn_altaParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btn_altaParticipante.setBounds(458, 95, 245, 56);
+		btn_altaParticipante.setBounds(445, 95, 245, 56);
 		add(btn_altaParticipante);
 		
 		JButton btnEditarParticipante = new JButton("Modificar Participante");
@@ -119,12 +119,12 @@ public class PntListarParticipantes extends JPanel {
 			}
 		});
 		btnEditarParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnEditarParticipante.setBounds(458, 190, 245, 56);
+		btnEditarParticipante.setBounds(445, 190, 245, 56);
 		add(btnEditarParticipante);
 		
 		JButton btnEliminarParticipante = new JButton("Dar de baja Participante");
 		btnEliminarParticipante.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnEliminarParticipante.setBounds(458, 282, 245, 56);
+		btnEliminarParticipante.setBounds(445, 285, 245, 56);
 		add(btnEliminarParticipante);
 		
 		dm.addColumn("idParticipante");

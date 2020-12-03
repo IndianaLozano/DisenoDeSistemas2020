@@ -65,17 +65,17 @@ public class PntListarCompetencias extends JPanel {
 		txtListarCompetencia.setEditable(false);
 		txtListarCompetencia.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtListarCompetencia.setText("LISTAR COMPETENCIAS");
-		txtListarCompetencia.setBounds(271, 11, 211, 20);
+		txtListarCompetencia.setBounds(271, 21, 211, 20);
 		add(txtListarCompetencia);
 		txtListarCompetencia.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nombre de la competencia");
 		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 15));
-		lblNewLabel.setBounds(10, 87, 176, 14);
+		lblNewLabel.setBounds(18, 75, 176, 14);
 		add(lblNewLabel);
 		
 		tf_nombrecomp = new JTextField();
-		tf_nombrecomp.setBounds(10, 105, 168, 20);
+		tf_nombrecomp.setBounds(18, 88, 168, 20);
 		add(tf_nombrecomp);
 		tf_nombrecomp.setColumns(10);
 		tf_nombrecomp.addKeyListener(new KeyAdapter() {
@@ -87,40 +87,40 @@ public class PntListarCompetencias extends JPanel {
 		
 		JLabel lblNewLabel_1 = new JLabel("Deporte");
 		lblNewLabel_1.setFont(new Font("Calibri", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(10, 136, 64, 14);
+		lblNewLabel_1.setBounds(18, 119, 64, 14);
 		add(lblNewLabel_1);
 		
 		JComboBox cb_deporte = new JComboBox();
 		cb_deporte.setFont(new Font("Calibri", Font.PLAIN, 15));
 		cb_deporte.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Voley", "Futbol", "Basquet", "Ajedrez", "Tenis", "Handball", "Nataci\u00F3n", "Rugby"}));
-		cb_deporte.setBounds(10, 152, 168, 20);
+		cb_deporte.setBounds(18, 134, 168, 20);
 		add(cb_deporte);
 		
 		JLabel lblNewLabel_2 = new JLabel("Modalidad");
 		lblNewLabel_2.setFont(new Font("Calibri", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(10, 189, 77, 14);
+		lblNewLabel_2.setBounds(18, 175, 77, 14);
 		add(lblNewLabel_2);
 		
 		JComboBox cb_modalidad = new JComboBox();
 		cb_modalidad.setFont(new Font("Calibri", Font.PLAIN, 15));
 		cb_modalidad.setModel(new DefaultComboBoxModel(new String[] {"Todas", "Sistema de liga", "Sistema de eliminaci\u00F3n simple", "Sistema de eliminaci\u00F3n doble"}));
-		cb_modalidad.setBounds(10, 203, 168, 20);
+		cb_modalidad.setBounds(18, 187, 168, 20);
 		add(cb_modalidad);
 		
 		JLabel lblNewLabel_3 = new JLabel("Estado");
 		lblNewLabel_3.setFont(new Font("Calibri", Font.PLAIN, 15));
-		lblNewLabel_3.setBounds(10, 239, 46, 14);
+		lblNewLabel_3.setBounds(18, 227, 46, 14);
 		add(lblNewLabel_3);
 		
 		JComboBox cb_estado = new JComboBox();
 		cb_estado.setFont(new Font("Calibri", Font.PLAIN, 15));
 		cb_estado.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Creada", "Planificada", "En Disputa", "Finalizada"}));
-		cb_estado.setBounds(10, 252, 168, 20);
+		cb_estado.setBounds(18, 239, 168, 20);
 		add(cb_estado);
 		
 		JButton btn_atras = new JButton("Atr\u00E1s");
 		btn_atras.setBackground(UIManager.getColor("Button.background"));
-		btn_atras.setBounds(10, 387, 77, 23);
+		btn_atras.setBounds(18, 376, 77, 23);
 		add(btn_atras);
 		
 		JButton btn_ver = new JButton("Ver Competencia");
@@ -149,7 +149,7 @@ public class PntListarCompetencias extends JPanel {
 				}
 			}
 		});
-		btn_ver.setBounds(378, 296, 168, 46);
+		btn_ver.setBounds(377, 281, 168, 46);
 		add(btn_ver);
 		
 		JButton btn_buscar = new JButton("Buscar");
@@ -205,12 +205,12 @@ public class PntListarCompetencias extends JPanel {
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia, VentanaAdmin.n_pntCrearCompetencia);
 			}
 		});
-		btn_altacompetencia.setBounds(470, 393, 218, 46);
+		btn_altacompetencia.setBounds(485, 353, 218, 46);
 		add(btn_altacompetencia);
 		
 		JLabel lblNewLabel_8 = new JLabel("+");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblNewLabel_8.setBounds(431, 393, 29, 46);
+		lblNewLabel_8.setBounds(446, 353, 29, 46);
 		add(lblNewLabel_8);
 	
 		
@@ -228,7 +228,7 @@ public class PntListarCompetencias extends JPanel {
         table.doLayout();
 		
 		JScrollPane scrollPane_1 = new JScrollPane(table);
-		scrollPane_1.setBounds(211, 87, 492, 195);
+		scrollPane_1.setBounds(211, 75, 492, 195);
 		add(scrollPane_1);
 
 	}

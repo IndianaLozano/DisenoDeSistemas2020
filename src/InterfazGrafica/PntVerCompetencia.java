@@ -11,6 +11,7 @@ import java.awt.Rectangle;
 import javax.swing.table.DefaultTableModel;
 
 import DTO.CompDTO;
+import Entidades.MiExcepcion;
 
 import javax.swing.JScrollBar;
 import java.awt.GridLayout;
@@ -20,7 +21,7 @@ import javax.swing.UIManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VerCompetencia extends JPanel {
+public class PntVerCompetencia extends JPanel {
 	public JTextField tf_nombre;
 	public JTextField tf_modalidad;
 	public JTextField tf_deporte;
@@ -30,7 +31,7 @@ public class VerCompetencia extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public VerCompetencia() {
+	public PntVerCompetencia() {
 		setBorder(null);
 		setAlignmentY(0.0f);
 		setAlignmentX(0.0f);
@@ -121,6 +122,12 @@ public class VerCompetencia extends JPanel {
 		panel.add(btnNewButton_7);
 		
 		JButton btnNewButton_5 = new JButton("Generar Fixture");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaAdmin.administrarExcepcion("13");
+				
+			}
+		});
 		btnNewButton_5.setBackground(SystemColor.inactiveCaption);
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnNewButton_5);

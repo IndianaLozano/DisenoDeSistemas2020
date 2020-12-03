@@ -30,7 +30,7 @@ public class VentanaAdmin extends JFrame {
 
 	public static JPanel contentPane;
 	
-	public static VerCompetencia pntVerCompetencia= new VerCompetencia();
+	public static PntVerCompetencia pntVerCompetencia= new PntVerCompetencia();
 	public static VerEncuentros pntVerEncuentro= new VerEncuentros();
 	public static PntInicio inicio= new PntInicio();
 	public static PntLogin login= new PntLogin();
@@ -158,11 +158,11 @@ public class VentanaAdmin extends JFrame {
 		break;
 		
 		case 6: 
-			mensajeExito("Competencia creada correctamente", "EXITO");
+			mensajeExito("Competencia creada correctamente", "ÉXITO");
 		break;
 		
 		case 7: 
-			mensajeError("El nombre del participante ya existe en esta competencia", "Error");
+			mensajeError("El nombre del participante ya existe en esta competencia", "ERROR");
 		break;
 		
 		case 8:
@@ -170,7 +170,7 @@ public class VentanaAdmin extends JFrame {
 		break;
 		
 		case 9: 
-			mensajeExito("¡ Participante Registrado !", "ÉXITO");
+			mensajeExito("¡Participante Registrado!", "ÉXITO");
 		break;
 		
 		case 10:
@@ -184,7 +184,14 @@ public class VentanaAdmin extends JFrame {
 		case 12:
 			mensajeError("No hay suficientes disponibilidades para la cantidad de encuentros a disputar por fase.", "ERROR");
 		break;
+		
+		case 13:
+			int retorno = mensajeConsulta(null, "SPORTsYSTEM", "¿Desea generar el Fixture para la Competencia actual?");
+			if (retorno == 0) {
+				mensajeExito("Fixture generado con éxito", "ÉXITO");
+			}
 			
+		break;
 
 		}
 		
