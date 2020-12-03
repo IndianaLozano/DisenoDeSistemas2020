@@ -23,28 +23,22 @@ public class FixtureDAO {
 		Connection con = Conexion.conectarBDD();
 		
 		try {
-			int idUltimoFixture = getUltimoIdFixture()+1;
 			con.setAutoCommit(false);
-			
 			String query1="INSERT INTO database.fixture (id_competencia, fecha, baja) VALUES (" + f.competencia.idCompetencia + ", CURDATE(), 0)";
-			
 			con.createStatement().executeUpdate(query1);
-			
+			int idUltimoFixture = getUltimoIdFixture().get(0).idFixture + 1;
 			String query2;
 			String query3;
 			String query4;
-			
 				
-				int idUltimaFase = FaseDAO.getUltimoIdFase();
-				int idUltimoEncuentro = EncuentroDAO.getUltimoIdEncuentro();
+				//int idUltimoEncuentro = EncuentroDAO.getUltimoIdEncuentro();
 				int cantidadFases= f.fases.size();
-				
-				int idFaseActual;
+				// int idFaseActual;
 				for (int i=0 ; i<cantidadFases; i++) {
-					
+					// idFaseActual = idUltimaFase +(i+1);
 					query2= "INSERT INTO database.fase (id_fixture, numero_fase, baja) VALUES ( " + idUltimoFixture + ", " + (i+1) + ", 0 )" ;	
-					idFaseActual = idUltimaFase +(i+1);
-					con.createStatement().executeUpdate(query2);					
+					con.createStatement().executeUpdate(query2);
+					int idUltimaFase = FaseDAO.getUltimoIdFase().get(0).idFase;
 					int cantidadEncuentros = f.fases.get(i).encuentros.size();
 				
 					for(int j=0 ; j<cantidadEncuentros ; j++) {
@@ -52,12 +46,12 @@ public class FixtureDAO {
 						int idLocal= f.fases.get(i).encuentros.get(j).local.id;
 						int idVisitante= f.fases.get(i).encuentros.get(j).visitante.id;
 						int idLugar = f.fases.get(i).encuentros.get(j).lugar.idLugar;
-						idUltimoEncuentro++;
-						query3 = "INSERT INTO database.encuentro (id_participante_local, id_participante_visitante, id_lugar, id_fase, fecha, hora) VALUES (" + idLocal + ", " + idVisitante + ", " + idLugar + ", " + idFaseActual + ", CURDATE(), curTime() ) ;" ;	
+						// idUltimoEncuentro++;
+						query3 = "INSERT INTO database.encuentro (id_participante_local, id_participante_visitante, id_lugar, id_fase, fecha, hora) VALUES (" + idLocal + ", " + idVisitante + ", " + idLugar + ", " + idUltimaFase + ", CURDATE(), curTime() ) ;" ;	
+						int idUltimoEncuentro = EncuentroDAO.getUltimoIdEncuentro().get(0).idEncuentro;
 						query4 = "INSERT INTO database.enc_ronda_ganador (id_encuentro) VALUE (" + idUltimoEncuentro + ");";
 						con.createStatement().executeUpdate(query3);
 						con.createStatement().executeUpdate(query4);
-						
 					}
 				}
 			con.commit();
@@ -72,7 +66,18 @@ public class FixtureDAO {
 		
 	}
 	
-	public static int getUltimoIdFixture() throws Exception{
+	public static List<Fixture> getUltimoIdFixture() throws Exception{
+		try {
+			String query = "SELECT * FROM database.fixture ORDER BY id_fixture DESC LIMIT 1;";                            
+			ArrayList<Fixture> fixture = (ArrayList<Fixture>)((Object)Conexion.consultar(query, Competencia.class));
+			return fixture;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	/*public static int getUltimoIdFixture() throws Exception{
 		try {
 			String query = "SELECT id_fixture FROM database.fixture ORDER BY id_fixture DESC LIMIT 1;"; 
 			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar(query, ConsultaGenerica.class);
@@ -85,7 +90,7 @@ public class FixtureDAO {
 		catch(Exception ex) {
 			throw ex;
 		}
-	}
+	}*/
 	
 	
 	public static void deleteFixture(int idCompetencia) {
