@@ -184,18 +184,13 @@ public class VentanaAdmin extends JFrame {
 		case 12:
 			mensajeError("No hay suficientes disponibilidades para la cantidad de encuentros a disputar por fase.", "ERROR");
 		break;
-		
-		case 13:
-			int retorno = mensajeConsulta(null, "SPORTsYSTEM", "¿Desea generar el Fixture para la Competencia actual?");
-			if (retorno == 0) {
-				mensajeExito("Fixture generado con éxito", "ÉXITO");
-			}
-			
-		break;
-
 		}
 		
 	}
 	
+	public static int administrarExcepcion2 (String msj) {
+		int retorno = mensajeConsulta(null, "SPORTsYSTEM", "¿Desea generar el Fixture para la Competencia actual?");
+		return retorno;
+	}
 	
 }

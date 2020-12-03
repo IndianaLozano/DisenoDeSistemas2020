@@ -11,7 +11,10 @@ import java.awt.Rectangle;
 import javax.swing.table.DefaultTableModel;
 
 import DTO.CompDTO;
+import Entidades.Competencia;
 import Entidades.MiExcepcion;
+import Gestores.GestorCompetencia;
+import Gestores.GestorFixture;
 
 import javax.swing.JScrollBar;
 import java.awt.GridLayout;
@@ -124,10 +127,25 @@ public class PntVerCompetencia extends JPanel {
 		JButton btnNewButton_5 = new JButton("Generar Fixture");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaAdmin.administrarExcepcion("13");
-				
+/*				if (VentanaAdmin.administrarExcepcion2("13") == 0) {
+ 					Competencia c;
+					try {
+						c = (Competencia) GestorCompetencia.obtenerCompetencia(idCompetenciaActual);
+					} catch (Exception e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					try {
+						GestorFixture.generarFixture(c);
+					} catch (MiExcepcion e1) {
+						e1.printStackTrace();
+					}
+					VentanaAdmin.mensajeExito("Fixture generado con éxito", "ÉXITO");
+				} 
+*/
 			}
-		});
+		}); 
+
 		btnNewButton_5.setBackground(SystemColor.inactiveCaption);
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnNewButton_5);
@@ -162,13 +180,5 @@ public class PntVerCompetencia extends JPanel {
 		tf_modalidad.setText(competDTO.getModalidad());
 		tf_estado.setText(competDTO.getEstado());
 		tf_deporte.setText(competDTO.getDeporte().getNombre());	
-		
-		
 	}
-	
-	
-	
-	
-	
-	
 }

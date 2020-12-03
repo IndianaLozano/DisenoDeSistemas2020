@@ -18,37 +18,31 @@ import InterfazGrafica.VentanaAdmin;
 
 public class GestorFixture {
 	
-	
-	
-	
-	
 	public static void generarFixture (Competencia c) throws MiExcepcion {
 	
 		Estado e = c.estado;
-		
 		
 		if (e.name()== "Finalizada") {
 			
 			MiExcepcion ex= new MiExcepcion("10");
 			throw ex;
 			
-		} else {
+		}
+		else {
 			if(e.name() == "EnDisputa") {
 				
 				MiExcepcion ex1 = new MiExcepcion("11");
 				
-			}else {
+			}
+			else {
 				if (e.name()=="Creada") {
 					crearFixtureLiga(c);
 					//TODO cambiar estado de la competencia a planificada
-				}else {
+				}
+				else {
 					FixtureDAO.deleteFixture(c.idCompetencia); //elimina el fixture existente
 					crearFixtureLiga(c);
-					
 				}
-				
-				
-				
 			}
 		}
 	}
@@ -69,7 +63,8 @@ public class GestorFixture {
 			
 			
 			
-		}else {
+		}
+		else{
 			//Cantidad Impar
 			cantidadFases= cantidadParticipantes;
 			encuentrosPorFase= (cantidadParticipantes + 1)/2;
@@ -136,12 +131,11 @@ public class GestorFixture {
 						if (contador2 ==0) {
 							contador2 = cantidadParticipantes -1;
 						}
-					
+			
 						if (j==0) {
 							enc.local = c.participantes.get(contador1);
 							contador1 ++;
 							contador2 --;
-					
 						}
 						else {
 						
@@ -151,15 +145,10 @@ public class GestorFixture {
 							contador1++;
 							contador2--;
 						}
-					
 						f.encuentros.add(enc);
-					
 					}
-				
 					fixture.fases.add(f);
-				
 				}
-			
 			}
 			fixture.competencia= c;
 			try {
@@ -174,7 +163,6 @@ public class GestorFixture {
 			MiExcepcion e12 = new MiExcepcion ("12");
 			throw e12;
 		}
-		
 	}
 	
 	
@@ -193,10 +181,9 @@ public class GestorFixture {
 	public static List<Encuentro> getEncuentroByID(int idEncuentro) throws Exception{
 		return EncuentroDAO.getEncuentroByID(idEncuentro);
 	}
-
+	
 
 	public static void invertirlocalVisitante(Fixture f) {
-		
 		
 		for (int i=0; i<f.fases.size() ;i++) {
 			
@@ -207,12 +194,5 @@ public class GestorFixture {
 			f.fases.get(i).encuentros.get(0).visitante=local;
 			
 		}
-		
-		
-		
-		
-		
 	}
-
-
 }
