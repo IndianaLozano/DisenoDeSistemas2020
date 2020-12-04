@@ -77,6 +77,11 @@ public class PntListarParticipantes extends JPanel {
 		add(chbx_descendente);
 		
 		Button button = new Button("Atr\u00E1s");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntVerCompetencia, VentanaAdmin.n_pntVerCompetencia);
+			}
+		});
 		button.setFont(new Font("Calibri", Font.PLAIN, 14));
 		button.setBounds(58, 383, 70, 22);
 		add(button);
