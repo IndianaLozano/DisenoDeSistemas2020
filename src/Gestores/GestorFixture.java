@@ -73,7 +73,7 @@ public class GestorFixture {
 		}
 		
 		List<Disponibilidad> disponibilidades = c.getDisponibilidades();
-		int t= disponibilidades.size();
+		int t = disponibilidades.size();
 		if (disponibilidades.size() >= encuentrosPorFase) {
 				//inicio
 			int contador1=0;
@@ -141,6 +141,7 @@ public class GestorFixture {
 							enc.local = c.getParticipantes().get(contador1);
 							contador1 ++;
 							contador2 --;
+							//TODO Agregar lugar de realizacion
 						}
 						else {
 						
@@ -149,6 +150,7 @@ public class GestorFixture {
 						
 							contador1++;
 							contador2--;
+							//TODO Agregar lugar de realizacion
 						}
 						f.encuentros.add(enc);
 					}

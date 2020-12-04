@@ -61,6 +61,18 @@ public class EncuentroDAO {
 		}
 	}
 	
+	public static int getUltimoIdEncuentro() throws Exception{
+		try {
+			String query = "SELECT id_encuentro FROM database.encuentro ORDER BY id_encuentro DESC LIMIT 1;";                            
+			ArrayList<ConsultaGenerica> encuentro = (ArrayList<ConsultaGenerica>)((Object)Conexion.consultar(query, ConsultaGenerica.class));
+			return Integer.parseInt(encuentro.get(0).getValor("id_encuentro"));
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+	
+	
 	public static int getUltimoIdEncRondaGanador() throws Exception{
 		try {
 			String query = "SELECT id_encuentro FROM database.enc_ronda_ganador ORDER BY id_encuentro DESC LIMIT 1;"; 
