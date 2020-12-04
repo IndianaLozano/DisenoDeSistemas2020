@@ -50,10 +50,10 @@ public class EncuentroDAO {
 		}
 	}*/
 	
-	public static List<Encuentro> getUltimoIdEncuentro() throws Exception{
+	public static List<Encuentro> getUltimoEncuentro() throws Exception{
 		try {
 			String query = "SELECT * FROM database.encuentro ORDER BY id_encuentro DESC LIMIT 1;";                            
-			ArrayList<Encuentro> encuentro = (ArrayList<Encuentro>)((Object)Conexion.consultar(query, Competencia.class));
+			ArrayList<Encuentro> encuentro = (ArrayList<Encuentro>)((Object)Conexion.consultar(query, Encuentro.class));
 			return encuentro;
 		}
 		catch(Exception ex) {

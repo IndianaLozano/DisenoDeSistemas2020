@@ -35,10 +35,10 @@ public class FaseDAO {
 		}
 	}
 	
-	public static List<Fase> getUltimoIdFase() throws Exception{
+	public static List<Fase> getUltimaFase() throws Exception{
 		try {
 			String query = "SELECT * FROM database.fase ORDER BY id_fase DESC LIMIT 1;";                            
-			ArrayList<Fase> fase = (ArrayList<Fase>)((Object)Conexion.consultar(query, Competencia.class));
+			ArrayList<Fase> fase = (ArrayList<Fase>)((Object)Conexion.consultar(query, Fase.class));
 			return fase;
 		}
 		catch(Exception ex) {
