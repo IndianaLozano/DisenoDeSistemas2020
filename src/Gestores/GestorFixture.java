@@ -63,8 +63,6 @@ public class GestorFixture {
 			encuentrosPorFase = cantidadParticipantes /2;
 			esPar=true;
 			
-			
-			
 		}
 		else{
 			//Cantidad Impar
@@ -141,7 +139,9 @@ public class GestorFixture {
 							enc.local = c.getParticipantes().get(contador1);
 							contador1 ++;
 							contador2 --;
-							//TODO Agregar lugar de realizacion
+							enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
+
+							
 						}
 						else {
 						
@@ -150,7 +150,8 @@ public class GestorFixture {
 						
 							contador1++;
 							contador2--;
-							//TODO Agregar lugar de realizacion
+							enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
+
 						}
 						f.encuentros.add(enc);
 					}
