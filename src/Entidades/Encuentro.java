@@ -1,5 +1,8 @@
 package Entidades;
 
+import java.util.List;
+
+import DAO.ResultadoDAO;
 import Gestores.GestorCompetencia;
 import Gestores.GestorFixture;
 import Gestores.GestorLugaresDeRealizacion;
@@ -13,10 +16,12 @@ public class Encuentro {
 	public LugarDeRealizacion lugar;
 	public String fecha;
 	public String hora;
+	public Resultado actual;
+	public List<Resultado> anterior;
 	
 	
 	public Encuentro(int idEncuentro, Participante local, Participante visitante, Participante ganador,
-			LugarDeRealizacion lugar,  String fecha, String hora) {
+			LugarDeRealizacion lugar,  String fecha, String hora, Resultado ac, List<Resultado> ant) {
 
 		this.idEncuentro = idEncuentro;
 		this.local = local;
@@ -25,6 +30,8 @@ public class Encuentro {
 		this.lugar = lugar;
 		this.fecha = fecha;
 		this.hora = hora;
+		this.actual=ac;
+		this.anterior=ant;
 	}
 
 
@@ -40,8 +47,19 @@ public class Encuentro {
 		try {
 			this.local= GestorCompetencia.obtenerParticipante(Integer.parseInt(atributo[1])).get(0);
 			this.visitante=GestorCompetencia.obtenerParticipante(Integer.parseInt(atributo[2])).get(0);
+			
+			if (atributo[3].equals("null") == false ) {
 			this.ganador= GestorCompetencia.obtenerParticipante(Integer.parseInt(atributo[3])).get(0);
+			}
+			
 			this.lugar= GestorLugaresDeRealizacion.obtenerLugarDeRealizacion(Integer.parseInt(atributo[4])).get(0);
+			
+			List<Resultado> res= ResultadoDAO.getResultadosEncuentro(idEncuentro);
+			if(res.size() >0) {
+			this.actual= res.get(0);
+			}else {
+				this.actual=null;
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -51,6 +69,15 @@ public class Encuentro {
 		this.fecha= atributo[6];
 		this.hora= atributo[7];
 	}
+
+
+	
+
+
+	
+	
+	
+	
 	
 	
 

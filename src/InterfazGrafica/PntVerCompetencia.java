@@ -159,7 +159,6 @@ public class PntVerCompetencia extends JPanel {
 					PntListarParticipantes.cargarParticipantes(idCompetenciaActual);
 					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -169,6 +168,18 @@ public class PntVerCompetencia extends JPanel {
 		panel.add(btn_verParticipantes);
 		
 		JButton btnNewButton_1 = new JButton("Ver Encuentros");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaAdmin.pntVerEncuentro.idCompetenciaActual= idCompetenciaActual;
+				try {
+					VentanaAdmin.pntVerEncuentro.cargarEncuentrosProximos();
+					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntVerEncuentro, VentanaAdmin.n_pntVerEncuentros);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		btnNewButton_1.setBackground(SystemColor.inactiveCaption);
 		panel.add(btnNewButton_1);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));

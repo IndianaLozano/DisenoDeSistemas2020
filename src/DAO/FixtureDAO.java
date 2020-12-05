@@ -17,7 +17,18 @@ import javax.transaction.xa.*;
 public class FixtureDAO {
 	
 	
-	
+	public static List<Fixture> getFixtureCompetencia(int idComp) throws Exception{
+		try {
+			String query = "SELECT * FROM database.fixture WHERE id_competencia = " + idComp + " ;";                            
+			ArrayList<Fixture> fixture = (ArrayList<Fixture>)((Object)Conexion.consultar(query, Fixture.class));
+			return fixture;
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+		
+		
+	}
 	public static void createFixture (Fixture f) throws Exception, MiExcepcion {
 		
 		Connection con = Conexion.conectarBDD();
@@ -56,6 +67,8 @@ public class FixtureDAO {
 					}
 				}
 			con.commit();
+			CompetenciaDAO.updateEstado(f.competencia.idCompetencia);
+
 			MiExcepcion e1= new MiExcepcion("13");
 			throw e1;
 		} catch (SQLException e) {

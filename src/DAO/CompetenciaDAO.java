@@ -424,6 +424,18 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 				throw ex;
 			}
 	}
+	
+	public static void updateEstado (int idComp) {
+		
+		String query = "UPDATE database.competencia SET id_estado = 2 WHERE id_competencia= " + idComp + " ;";
+		
+		try {
+			Conexion.ejecutar(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 		
 		
 	

@@ -3,9 +3,12 @@ package Gestores;
 import java.util.ArrayList;
 import java.util.List;
 
+import DAO.CompetenciaDAO;
 import DAO.EncuentroDAO;
 import DAO.FaseDAO;
 import DAO.FixtureDAO;
+import DTO.EncuentrosProxDTO;
+import DTO.ProxEncuentroDTO;
 import Entidades.Competencia;
 import Entidades.Disponibilidad;
 import Entidades.Encuentro;
@@ -38,7 +41,6 @@ public class GestorFixture {
 			else {
 				if (e.name()=="Creada") {
 					crearFixtureLiga(c);
-					//TODO cambiar estado de la competencia a planificada
 				}
 				else {
 					FixtureDAO.deleteFixture(c.idCompetencia); //elimina el fixture existente
@@ -201,4 +203,47 @@ public class GestorFixture {
 			
 		}
 	}
+	
+	
+	public static EncuentrosProxDTO obtenerEncuentrosProximos(int idCompetencia) throws Exception{
+	
+		EncuentrosProxDTO epDTO = new EncuentrosProxDTO();
+	
+	Fixture fix = FixtureDAO.getFixtureCompetencia(idCompetencia).get(0);
+	List<ProxEncuentroDTO> proxeDTO= new ArrayList();
+	
+	int cantidadFases= fix.fases.size();  
+	
+	for (int i=0; i<cantidadFases; i++) {
+		
+		Fase f= fix.fases.get(i);
+		
+		for (int j=0; j<f.getEncuentros().size(); j++) {
+			
+			Encuentro e= f.getEncuentros().get(j);
+			
+			if(e.actual == null ) {
+				ProxEncuentroDTO  proxEncDTO = new ProxEncuentroDTO();
+				proxEncDTO.setFecha(e.fecha);
+				proxEncDTO.setHora(e.hora);
+				proxEncDTO.setpLocal(e.local.nombre);
+				proxEncDTO.setpVisitante(e.visitante.nombre);
+				proxEncDTO.setIdEncuentro(e.idEncuentro);
+				
+				proxeDTO.add(proxEncDTO);
+			}
+			
+		}
+	}
+		
+		
+		epDTO.setEncuentrosProxDTO(proxeDTO);
+		
+		return epDTO;
+	}
+	
+	
+	
+	
+	
 }
