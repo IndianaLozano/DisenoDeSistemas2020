@@ -81,7 +81,7 @@ public class PntAltaParticipante extends JPanel {
 					pDTO.setCorreo(tf_correo.getText());
 					try {
 						Competencia c = GestorCompetencia.obtenerCompetencia(idCompetenciaActual).get(0);
-						boolean val= GestorCompetencia.validarDatosParticipante(pDTO, c);
+						boolean val = GestorCompetencia.validarDatosParticipante(pDTO, c);
 						
 						if (val==true) {
 							GestorCompetencia.altaParticipante(pDTO, c);
@@ -95,6 +95,10 @@ public class PntAltaParticipante extends JPanel {
 						}
 
 					} catch (Exception e1) {
+					}
+					finally {
+						tf_nombre.setText(null);
+						tf_correo.setText(null);
 					}
 					
 				}else {

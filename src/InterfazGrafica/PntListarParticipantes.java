@@ -70,7 +70,6 @@ public class PntListarParticipantes extends JPanel {
 		cb_filtro.setModel(new DefaultComboBoxModel(new String[] {"Nombre", "Correo"}));
 		cb_filtro.setBounds(132, 67, 136, 20);
 		add(cb_filtro);
-		
 
 		chbx_descendente.setFont(new Font("Calibri", Font.PLAIN, 14));
 		chbx_descendente.setBounds(58, 95, 99, 23);
@@ -100,7 +99,6 @@ public class PntListarParticipantes extends JPanel {
 					boolean validacion= GestorCompetencia.validarEstadoCompetencia(c);
 					
 					if(validacion==true) {
-						
 						VentanaAdmin.pntAltaParticipante.idCompetenciaActual= idCompetenciaActual;
 						VentanaAdmin.pntAltaParticipante.formatoPantalla(idCompetenciaActual);
 						VentanaAdmin.pntAltaParticipante.pantallaAnterior= VentanaAdmin.pntListarParticipantes;

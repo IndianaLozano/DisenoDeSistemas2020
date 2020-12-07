@@ -373,8 +373,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 	
 			MiExcepcion e = new MiExcepcion("9");
 			throw e;
-			
-		
+					
 	}
 	
 	public static void comenzarTransaccion() {

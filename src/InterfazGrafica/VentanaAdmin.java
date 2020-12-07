@@ -173,6 +173,7 @@ public class VentanaAdmin extends JFrame {
 		
 		case 9: 
 			mensajeExito("¡Participante Registrado!", "ÉXITO");
+			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
 		break;
 		
 		case 10:
