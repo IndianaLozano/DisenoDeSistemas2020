@@ -46,7 +46,7 @@ public class FaseDAO {
 		}
 	}
 	
-	/*public static int getUltimoIdFase() throws Exception{
+	public static int getUltimoIdFase() throws Exception{
 		try {
 			String query = "SELECT id_fase FROM database.fase ORDER BY id_fase DESC LIMIT 1;"; 
 			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar(query, ConsultaGenerica.class);
@@ -58,6 +58,6 @@ public class FaseDAO {
 		catch(Exception ex) {
 			throw ex;
 		}
-	}*/
+	}
 
 }

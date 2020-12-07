@@ -35,9 +35,10 @@ public class FixtureDAO {
 		
 		try {
 			con.setAutoCommit(false);
-			String query1="INSERT INTO database.fixture (id_competencia, fecha, baja) VALUES (" + f.competencia.idCompetencia + ", CURDATE(), 0)";
+			int idUltimoFixture = (getUltimoIdFixture())+1;
+			//int idUltimoFixture = (getUltimoFixture().get(0).idFixture)+1;
+			String query1="INSERT INTO database.fixture (id_fixture, id_competencia, fecha, baja) VALUES (" + idUltimoFixture + ", " + f.competencia.idCompetencia + ", CURDATE(), 0)";
 			con.createStatement().executeUpdate(query1);
-			int idUltimoFixture = (getUltimoFixture().get(0).idFixture)+1;
 			String query2;
 			String query3;
 			String query4;
@@ -47,9 +48,10 @@ public class FixtureDAO {
 				// int idFaseActual;
 				for (int i=0 ; i<cantidadFases; i++) {
 					// idFaseActual = idUltimaFase +(i+1);
-					query2= "INSERT INTO database.fase (id_fixture, numero_fase, baja) VALUES ( " + idUltimoFixture + ", " + (i+1) + ", 0 )" ;	
+					//int idUltimaFase = (FaseDAO.getUltimaFase().get(0).idFase)+(i+1);
+					int idUltimaFase = (FaseDAO.getUltimoIdFase())+(i+1);
+					query2= "INSERT INTO database.fase (id_fase, id_fixture, numero_fase, baja) VALUES ( " + idUltimaFase + ", " + idUltimoFixture + ", " + (i+1) + ", 0 )" ;	
 					con.createStatement().executeUpdate(query2);
-					int idUltimaFase = (FaseDAO.getUltimaFase().get(0).idFase)+(i+1);
 					int cantidadEncuentros = f.fases.get(i).encuentros.size();
 				
 					for(int j=0 ; j<cantidadEncuentros ; j++) {
@@ -59,9 +61,9 @@ public class FixtureDAO {
 						int idLugar = f.fases.get(i).encuentros.get(j).lugar.idLugar;
 						int suma =(j+1)+(cantidadEncuentros*i);
 						// idUltimoEncuentro++;
-						query3 = "INSERT INTO database.encuentro (id_participante_local, id_participante_visitante, id_lugar, id_fase, fecha, hora) VALUES (" + idLocal + ", " + idVisitante + ", " + idLugar + ", " + idUltimaFase + ", CURDATE(), curTime() ) ;" ;	
-						con.createStatement().executeUpdate(query3);
 						int idUltimoEncuentro = (EncuentroDAO.getUltimoIdEncuentro())+(suma);
+						query3 = "INSERT INTO database.encuentro (id_encuentro, id_participante_local, id_participante_visitante, id_lugar, id_fase, fecha, hora) VALUES (" + idUltimoEncuentro + ", " + idLocal + ", " + idVisitante + ", " + idLugar + ", " + idUltimaFase + ", CURDATE(), curTime() ) ;" ;	
+						con.createStatement().executeUpdate(query3);
 						query4 = "INSERT INTO database.enc_ronda_ganador (id_encuentro, id_encuentro_gan) VALUE (" + idUltimoEncuentro + ", " + idUltimoEncuentro + ");";
 						con.createStatement().executeUpdate(query4);
 					}
@@ -91,7 +93,7 @@ public class FixtureDAO {
 		}
 	}
 	
-	/*public static int getUltimoIdFixture() throws Exception{
+	public static int getUltimoIdFixture() throws Exception{
 		try {
 			String query = "SELECT id_fixture FROM database.fixture ORDER BY id_fixture DESC LIMIT 1;"; 
 			List<ConsultaGenerica> ls1 = (List<ConsultaGenerica>)(Object)Conexion.consultar(query, ConsultaGenerica.class);
@@ -104,7 +106,7 @@ public class FixtureDAO {
 		catch(Exception ex) {
 			throw ex;
 		}
-	}*/
+	}
 	
 	
 	public static void deleteFixture(int idCompetencia) {

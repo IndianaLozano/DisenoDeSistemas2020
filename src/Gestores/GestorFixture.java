@@ -1,5 +1,6 @@
 package Gestores;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import Entidades.EncuentroRondaGanador;
 import Entidades.Estado;
 import Entidades.Fase;
 import Entidades.Fixture;
+import Entidades.LugarDeRealizacion;
 import Entidades.MiExcepcion;
 import Entidades.Participante;
 import InterfazGrafica.VentanaAdmin;
@@ -64,17 +66,22 @@ public class GestorFixture {
 			cantidadFases= cantidadParticipantes -1;
 			encuentrosPorFase = cantidadParticipantes /2;
 			esPar=true;
-			
 		}
 		else{
 			//Cantidad Impar
 			cantidadFases= cantidadParticipantes;
-			encuentrosPorFase= (cantidadParticipantes + 1)/2;
+			encuentrosPorFase = (cantidadParticipantes + 1)/2;
 		}
 		
-		List<Disponibilidad> disponibilidades = c.getDisponibilidades();
-		int t = disponibilidades.size();
-		if (disponibilidades.size() >= encuentrosPorFase) {
+		ArrayList<LugarDeRealizacion> lugaresPorFase = new ArrayList();
+		List<Disponibilidad> disponibilidades = c.getDisponibilidades();   // {(lugar, disp), (lugar, disp), ...}
+		for (int a = 0; a < disponibilidades.size(); a++) {
+			for (int b = 0; b < disponibilidades.get(a).disponibilidad; b++) {
+				lugaresPorFase.add(disponibilidades.get(a).lugarDeRealizacion);
+			}
+		}
+				
+		if (lugaresPorFase.size() >= encuentrosPorFase) {
 				//inicio
 			int contador1=0;
 			int contador2 = cantidadParticipantes-1;
@@ -101,7 +108,7 @@ public class GestorFixture {
 								enc.local = c.getParticipantes().get(contador1);
 								contador1 ++;
 								contador2 --;
-								enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
+								enc.lugar = lugaresPorFase.get(j);
 					
 						}
 						else{
@@ -110,10 +117,8 @@ public class GestorFixture {
 						
 								contador1++;
 								contador2--;
-								enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
+								enc.lugar = lugaresPorFase.get(j);
 						}
-						
-						
 						f.encuentros.add(enc);
 					
 					}
@@ -125,7 +130,7 @@ public class GestorFixture {
 			else {
 				for (int i=0; i<cantidadFases ; i++) {
 					Fase f = new Fase();
-				
+					f.encuentros = new ArrayList();
 					for (int j=0 ; j<encuentrosPorFase; j++) {
 						EncuentroRondaGanador enc = new EncuentroRondaGanador();
 					
@@ -139,9 +144,11 @@ public class GestorFixture {
 			
 						if (j==0) {
 							enc.local = c.getParticipantes().get(contador1);
+							enc.visitante = null;
+							//enc.visitante = c.getParticipantes().get(contador2);
 							contador1 ++;
 							contador2 --;
-							enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
+							enc.lugar = lugaresPorFase.get(j);
 
 							
 						}
@@ -152,8 +159,7 @@ public class GestorFixture {
 						
 							contador1++;
 							contador2--;
-							enc.lugar = disponibilidades.get(j).lugarDeRealizacion;
-
+							enc.lugar = lugaresPorFase.get(j);
 						}
 						f.encuentros.add(enc);
 					}

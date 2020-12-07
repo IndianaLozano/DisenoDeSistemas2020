@@ -32,8 +32,6 @@ public class Disponibilidad {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-
 	}
 	
 }

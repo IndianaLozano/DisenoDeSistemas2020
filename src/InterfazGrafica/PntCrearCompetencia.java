@@ -337,11 +337,8 @@ public class PntCrearCompetencia extends JPanel {
 			idMod= idModalidades.get(i);
 			nombres_modalidades= GestorCompetencia.obtenerModalidadEnum(idMod).toString();
 			cb_modalidad.addItem(nombres_modalidades);
-				
 		}
-	
 	}
-	
 
 	public static int devolverIdDeporte(int index) {
 		return (index + 1);
@@ -361,7 +358,6 @@ public class PntCrearCompetencia extends JPanel {
 			idLugares.add(id);
 			cb_lugar.addItem(nombreLugar);
 		}
-		
 	}
 	
 	public static void deleteAllRows(final DefaultTableModel model) {

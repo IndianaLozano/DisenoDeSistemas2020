@@ -65,7 +65,11 @@ public class EncuentroDAO {
 		try {
 			String query = "SELECT id_encuentro FROM database.encuentro ORDER BY id_encuentro DESC LIMIT 1;";                            
 			ArrayList<ConsultaGenerica> encuentro = (ArrayList<ConsultaGenerica>)((Object)Conexion.consultar(query, ConsultaGenerica.class));
-			return Integer.parseInt(encuentro.get(0).getValor("id_encuentro"));
+			if (encuentro.size()==0) {
+				return 0;
+			}else {
+				return Integer.parseInt(encuentro.get(0).getValor("id_encuentro"));
+			}
 		}
 		catch(Exception ex) {
 			throw ex;
