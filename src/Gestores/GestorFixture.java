@@ -133,44 +133,31 @@ public class GestorFixture {
 					f.encuentros = new ArrayList();
 					for (int j=0 ; j<encuentrosPorFase; j++) {
 						EncuentroRondaGanador enc = new EncuentroRondaGanador();
-					
-						if (contador1 == cantidadParticipantes -1) {
-							contador1 =0;
-						}
-					
-						if (contador2 ==0) {
-							contador2 = cantidadParticipantes -1;
-						}
-			
-						if (j==0) {
-							enc.local = c.getParticipantes().get(contador1);
+						if (j == i) {
+							enc.local = c.getParticipantes().get(j);
 							enc.visitante = null;
-							//enc.visitante = c.getParticipantes().get(contador2);
-							contador1 ++;
-							contador2 --;
-							enc.lugar = lugaresPorFase.get(j);
-
 							
 						}
-						else {
-						
-							enc.visitante = c.getParticipantes().get(contador2);
-							enc.local= c.getParticipantes().get(contador1);
-						
-							contador1++;
-							contador2--;
-							enc.lugar = lugaresPorFase.get(j);
+						if (contador1 == cantidadParticipantes - 1) {
+							contador1 = 0;
 						}
+						
+						if (contador2 == 0) {
+							contador2 = cantidadParticipantes - 1;
+						}
+						enc.local = c.getParticipantes().get(contador1);
+						enc.visitante = c.getParticipantes().get(contador2);
+						contador1++;
+						contador2--;
+						
 						f.encuentros.add(enc);
 					}
 					fixture.fases.add(f);
 				}
 			}
+			
 			fixture.competencia= c;
-			
-				FixtureDAO.createFixture(fixture);
-			
-			
+			FixtureDAO.createFixture(fixture);		
 		}
 			//fin
 		else {
