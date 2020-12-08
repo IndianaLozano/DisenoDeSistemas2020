@@ -9,6 +9,7 @@ import DAO.EncuentroDAO;
 import DAO.FaseDAO;
 import DAO.FixtureDAO;
 import DTO.EncuentrosProxDTO;
+import DTO.ParticipanteDTO;
 import DTO.ProxEncuentroDTO;
 import Entidades.Competencia;
 import Entidades.Disponibilidad;
@@ -71,6 +72,8 @@ public class GestorFixture {
 			//Cantidad Impar
 			cantidadFases= cantidadParticipantes;
 			encuentrosPorFase = (cantidadParticipantes + 1)/2;
+			ParticipanteDTO participanteNulo = new ParticipanteDTO();
+			GestorCompetencia.altaParticipanteNulo(participanteNulo, c);
 		}
 		
 		ArrayList<LugarDeRealizacion> lugaresPorFase = new ArrayList();
@@ -87,6 +90,86 @@ public class GestorFixture {
 			int contador2 = cantidadParticipantes-1;
 			
 			if (esPar==true) {
+				for (int i=0; i<cantidadFases ; i++) {
+					Fase f = new Fase();
+					f.encuentros = new ArrayList();
+					for (int j=0 ; j<encuentrosPorFase; j++) {
+						EncuentroRondaGanador enc = new EncuentroRondaGanador();
+						int contadorLugar = i+j;
+						if (j == i) {
+							enc.local = c.getParticipantes().get(j);
+							enc.visitante = null;
+							enc.lugar = lugaresPorFase.get(contadorLugar);
+							contador1 += j;
+						}
+						else {
+							if (contador1 == cantidadParticipantes - 1) {
+									contador1 = 0;
+								}
+						
+							if (contador2 == 0) {
+							contador2 = cantidadParticipantes - 1;
+							}
+							
+							enc.local = c.getParticipantes().get(contador1);
+							enc.visitante = c.getParticipantes().get(contador2);
+							enc.lugar = lugaresPorFase.get(contadorLugar);
+							contador1++;
+							contador2--;
+						}
+						f.encuentros.add(enc);
+					}
+					fixture.fases.add(f);
+				}
+				
+				/*
+				 for (int i=0; i<cantidadFases ; i++) {
+					Fase f = new Fase();
+					f.encuentros= new ArrayList();
+					
+					for (int j=0 ; j<encuentrosPorFase; j++) {
+						EncuentroRondaGanador enc = new EncuentroRondaGanador();
+					
+						if (contador1 == cantidadParticipantes -1) {
+							contador1 =0;
+						}
+					
+						if (contador2 ==0) {
+							contador2 = cantidadParticipantes -1;
+						}
+					
+						if (j==0) {
+								enc.visitante = c.getParticipantes().get(cantidadParticipantes -1);
+								enc.local = c.getParticipantes().get(contador1);
+								contador1 ++;
+								contador2 --;
+					
+						}
+						else{
+								enc.visitante = c.getParticipantes().get(contador2);
+								enc.local= c.getParticipantes().get(contador1);
+						
+								contador1++;
+								contador2--;
+						}
+						enc.lugar = lugaresPorFase.get(j);
+						f.encuentros.add(enc);
+					
+					}
+				
+					fixture.fases.add(f);
+					invertirlocalVisitante(fixture);
+				}
+				*/
+
+			
+			
+			
+			
+			/* 
+			 * else {
+				ParticipanteDTO participanteNulo = new ParticipanteDTO();
+				GestorCompetencia.altaParticipanteNulo(participanteNulo, c);
 				
 				for (int i=0; i<cantidadFases ; i++) {
 					Fase f = new Fase();
@@ -108,7 +191,6 @@ public class GestorFixture {
 								enc.local = c.getParticipantes().get(contador1);
 								contador1 ++;
 								contador2 --;
-								enc.lugar = lugaresPorFase.get(j);
 					
 						}
 						else{
@@ -117,8 +199,8 @@ public class GestorFixture {
 						
 								contador1++;
 								contador2--;
-								enc.lugar = lugaresPorFase.get(j);
 						}
+						enc.lugar = lugaresPorFase.get(j);
 						f.encuentros.add(enc);
 					
 					}
@@ -126,36 +208,42 @@ public class GestorFixture {
 					fixture.fases.add(f);
 					invertirlocalVisitante(fixture);
 				}
-			}
-			else {
+				
+				
 				for (int i=0; i<cantidadFases ; i++) {
 					Fase f = new Fase();
 					f.encuentros = new ArrayList();
 					for (int j=0 ; j<encuentrosPorFase; j++) {
 						EncuentroRondaGanador enc = new EncuentroRondaGanador();
+						int contadorLugar = i+j;
 						if (j == i) {
 							enc.local = c.getParticipantes().get(j);
 							enc.visitante = null;
-							
+							enc.lugar = lugaresPorFase.get(contadorLugar);
+							contador1 += j;
 						}
-						if (contador1 == cantidadParticipantes - 1) {
-							contador1 = 0;
-						}
+						else {
+							if (contador1 == cantidadParticipantes - 1) {
+									contador1 = 0;
+								}
 						
-						if (contador2 == 0) {
+							if (contador2 == 0) {
 							contador2 = cantidadParticipantes - 1;
+							}
+							
+							enc.local = c.getParticipantes().get(contador1);
+							enc.visitante = c.getParticipantes().get(contador2);
+							enc.lugar = lugaresPorFase.get(contadorLugar);
+							contador1++;
+							contador2--;
 						}
-						enc.local = c.getParticipantes().get(contador1);
-						enc.visitante = c.getParticipantes().get(contador2);
-						contador1++;
-						contador2--;
-						
 						f.encuentros.add(enc);
 					}
 					fixture.fases.add(f);
-				}
+				} 
+				
 			}
-			
+			*/
 			fixture.competencia= c;
 			FixtureDAO.createFixture(fixture);		
 		}

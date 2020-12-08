@@ -641,11 +641,16 @@ public class GestorCompetencia {
 		 return competDTO;
 	 }
 		
-
 	 
-	 
-	 
-	
+	 public static void altaParticipanteNulo (ParticipanteDTO pDto, Competencia c) throws Exception {
+			Participante p= new Participante();
+			p.nombre= pDto.getNombre();
+			p.correo= pDto.getCorreo();
+			
+			c.participantes.add(p);
+			
+			CompetenciaDAO.newParticipanteCompetencia(c);
+		}
 	
 }
 
