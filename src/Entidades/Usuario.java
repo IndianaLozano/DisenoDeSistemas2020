@@ -51,7 +51,6 @@ public class Usuario {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//TODO: LOCALIDAD, tipoDocumento, competencias
 		
 }
 

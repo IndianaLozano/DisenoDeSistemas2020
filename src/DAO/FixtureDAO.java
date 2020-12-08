@@ -19,7 +19,7 @@ public class FixtureDAO {
 	
 	public static List<Fixture> getFixtureCompetencia(int idComp) throws Exception{
 		try {
-			String query = "SELECT * FROM database.fixture WHERE id_competencia = " + idComp + " ;";                            
+			String query = "SELECT * FROM database.fixture WHERE id_competencia = " + idComp + " AND baja = 0;";                            
 			ArrayList<Fixture> fixture = (ArrayList<Fixture>)((Object)Conexion.consultar(query, Fixture.class));
 			return fixture;
 		}
@@ -36,19 +36,14 @@ public class FixtureDAO {
 		try {
 			con.setAutoCommit(false);
 			int idUltimoFixture = (getUltimoIdFixture())+1;
-			//int idUltimoFixture = (getUltimoFixture().get(0).idFixture)+1;
 			String query1="INSERT INTO database.fixture (id_fixture, id_competencia, fecha, baja) VALUES (" + idUltimoFixture + ", " + f.competencia.idCompetencia + ", CURDATE(), 0)";
 			con.createStatement().executeUpdate(query1);
 			String query2;
 			String query3;
 			String query4;
 				
-				//int idUltimoEncuentro = EncuentroDAO.getUltimoIdEncuentro();
 				int cantidadFases= f.fases.size();
-				// int idFaseActual;
 				for (int i=0 ; i<cantidadFases; i++) {
-					// idFaseActual = idUltimaFase +(i+1);
-					//int idUltimaFase = (FaseDAO.getUltimaFase().get(0).idFase)+(i+1);
 					int idUltimaFase = (FaseDAO.getUltimoIdFase())+(i+1);
 					query2= "INSERT INTO database.fase (id_fase, id_fixture, numero_fase, baja) VALUES ( " + idUltimaFase + ", " + idUltimoFixture + ", " + (i+1) + ", 0 )" ;	
 					con.createStatement().executeUpdate(query2);
@@ -60,7 +55,6 @@ public class FixtureDAO {
 						int idVisitante= f.fases.get(i).encuentros.get(j).visitante.id;
 						int idLugar = f.fases.get(i).encuentros.get(j).lugar.idLugar;
 						int suma =(j+1)+(cantidadEncuentros*i);
-						// idUltimoEncuentro++;
 						int idUltimoEncuentro = (EncuentroDAO.getUltimoIdEncuentro())+(suma);
 						query3 = "INSERT INTO database.encuentro (id_encuentro, id_participante_local, id_participante_visitante, id_lugar, id_fase, fecha, hora) VALUES (" + idUltimoEncuentro + ", " + idLocal + ", " + idVisitante + ", " + idLugar + ", " + idUltimaFase + ", CURDATE(), curTime() ) ;" ;	
 						con.createStatement().executeUpdate(query3);

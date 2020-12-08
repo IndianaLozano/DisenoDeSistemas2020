@@ -24,6 +24,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import java.awt.Button;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -74,16 +76,6 @@ public class PntListarParticipantes extends JPanel {
 		chbx_descendente.setFont(new Font("Calibri", Font.PLAIN, 14));
 		chbx_descendente.setBounds(58, 95, 99, 23);
 		add(chbx_descendente);
-		
-		Button button = new Button("Atr\u00E1s");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntVerCompetencia, VentanaAdmin.n_pntVerCompetencia);
-			}
-		});
-		button.setFont(new Font("Calibri", Font.PLAIN, 14));
-		button.setBounds(58, 383, 70, 22);
-		add(button);
 		
 		JButton btn_altaParticipante = new JButton("Dar de alta Participante");
 		btn_altaParticipante.addActionListener(new ActionListener() {
@@ -177,11 +169,21 @@ public class PntListarParticipantes extends JPanel {
 		});
 		btn_filtrar.setBounds(291, 95, 89, 23);
 		add(btn_filtrar);
+		
+		JButton btnNewButton = new JButton("Atr\u00E1s");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntVerCompetencia, VentanaAdmin.n_pntVerCompetencia);
+
+				
+			}
+		});
+		btnNewButton.setBounds(26, 388, 89, 23);
+		add(btnNewButton);
 
 	}
 	
 	public static void mensaje(String error, String titulo) {
-		// TODO Auto-generated method stub
 		if (JOptionPane.showConfirmDialog(null, error, titulo, 
 			JOptionPane.PLAIN_MESSAGE, 
 			JOptionPane.ERROR_MESSAGE)==0);

@@ -10,7 +10,7 @@ public class ResultadoDAO {
 	
 	public static List<Resultado> getResultadosEncuentro(int idEncuentro) throws Exception{
 		try {
-			String query = "SELECT * FROM database.resultado ORDER BY id_encuentro_actual DESC LIMIT 1;";
+			String query = "SELECT * FROM database.resultado WHERE id_encuentro_actual = " + idEncuentro + " ORDER BY id_encuentro_actual DESC LIMIT 1;";
 			ArrayList<Resultado> resultados = (ArrayList<Resultado>)((Object)Conexion.consultar(query, Resultado.class));
 			return resultados;
 		}

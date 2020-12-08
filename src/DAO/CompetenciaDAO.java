@@ -189,17 +189,16 @@ public class CompetenciaDAO {
 		int deporte = DeporteDAO.getIdDeporte(comp.deporte.nombre);
 		
 		String query= "INSERT INTO database.competencia (id_usuario, id_modalidad, id_estado, id_puntuacion, id_deporte, nombre, dada_de_baja, reglamento, cantidad_sets, tantos_ganados_ausencia_rival) VALUES ( " + 2 + ", " + mod + ", " + estado + ", " + puntuacion + ", " + deporte + ", '" + comp.nombre + "', " + 0 + ", '" + comp.reglamento + "', " + comp.cantidadSets + ", " + comp.tantosGanadosAusenciaRival + " );"  ;
-		//Conexion.ejecutar(query);
 		Connection con = Conexion.conectarBDD();
 
 		try {
 			con.setAutoCommit(false);
 			
-			System.out.println("commit");
+			
 			con.createStatement().executeUpdate(query);
-			System.out.println("comp");
+			
 			int idCompetencia= (CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia)+1 ;
-			System.out.println("idcomp =" + idCompetencia);
+			
 			comp.idCompetencia = idCompetencia;
 			
 			int idLugar;
@@ -231,7 +230,6 @@ public class CompetenciaDAO {
 			
 			} 
 		catch (Exception e) {
-			//System.err.println("ERROR: " + e.getMessage());
 			try {
 				//deshace todos los cambios realizados en los datos
 				con.rollback();
@@ -252,9 +250,9 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 		Connection con = Conexion.conectarBDD();
 		try {
 			con.setAutoCommit(false);
-			System.out.println("commit");
+			
 			con.createStatement().executeUpdate(query);
-			System.out.println("comp");
+			
 			int idCompetencia= CompetenciaDAO.getUltimaCompetencia().get(0).idCompetencia + 1;
 			comp.idCompetencia=idCompetencia;
 			int idLugar;
@@ -275,7 +273,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 			
 			String query2= "INSERT INTO database.eliminatoria (id_competencia, es_doble) VALUES (" + comp.idCompetencia + ", " + ed + "); " ;
 			con.createStatement().executeUpdate(query2);
-			System.out.println("liga");
+			
 			con.commit();
 			
 			MiExcepcion exep = new MiExcepcion("6");
@@ -396,32 +394,6 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 					
 	}
 	
-	public static void comenzarTransaccion() {
-		String query = "START TRANSACTION;";
-		try {
-			Conexion.ejecutar(query);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void finalizarTransaccion() {
-		String query = "COMMIT;";
-		try {
-			Conexion.ejecutar(query);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void errorTransaccion() {
-		String query = "ROLLBACK;";
-		try {
-			Conexion.ejecutar(query);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	public static List<Competencia> getCompetenciasUsuario(int idUsuario, String nombreComp, String deporte, String modalidad, String estado) throws Exception {
 		try {
