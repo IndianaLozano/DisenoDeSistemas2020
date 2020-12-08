@@ -128,6 +128,7 @@ public class PntListarCompetencias extends JPanel {
 		btn_ver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() != -1) {
+					
 					int idCompetencia = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
 					
 					CompDTO compDTO = new CompDTO();

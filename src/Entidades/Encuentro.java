@@ -20,6 +20,55 @@ public class Encuentro {
 	public List<Resultado> anterior;
 	
 	
+	//--------------------------------------------------------------------
+	public String[] atributo;
+	
+	
+	
+	
+	public Participante getGanador() {
+		if (this.ganador == null) {
+			if (atributo[3].equals("null") == false ) {
+				try {
+					this.ganador= GestorCompetencia.obtenerParticipante(Integer.parseInt(atributo[3])).get(0);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				}
+			
+		}
+		
+		return ganador;
+	}
+
+
+	public void setGanador(Participante ganador) {
+		this.ganador = ganador;
+	}
+
+
+	public LugarDeRealizacion getLugar() {
+		if(this.lugar == null) {
+			try {
+				this.lugar= GestorLugaresDeRealizacion.obtenerLugarDeRealizacion(Integer.parseInt(atributo[4])).get(0);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return lugar;
+	}
+
+
+	public void setLugar(LugarDeRealizacion lugar) {
+		this.lugar = lugar;
+	}
+
+
 	public Encuentro(int idEncuentro, Participante local, Participante visitante, Participante ganador,
 			LugarDeRealizacion lugar,  String fecha, String hora, Resultado ac, List<Resultado> ant) {
 
@@ -41,18 +90,12 @@ public class Encuentro {
 	
 	
 	public Encuentro(String datos) {
-		String[] atributo = datos.split("\t");
+		atributo = datos.split("\t");
 		
 		this.idEncuentro = Integer.parseInt(atributo[0]);
 		try {
 			this.local= GestorCompetencia.obtenerParticipante(Integer.parseInt(atributo[1])).get(0);
 			this.visitante=GestorCompetencia.obtenerParticipante(Integer.parseInt(atributo[2])).get(0);
-			
-			if (atributo[3].equals("null") == false ) {
-			this.ganador= GestorCompetencia.obtenerParticipante(Integer.parseInt(atributo[3])).get(0);
-			}
-			
-			this.lugar= GestorLugaresDeRealizacion.obtenerLugarDeRealizacion(Integer.parseInt(atributo[4])).get(0);
 			
 			List<Resultado> res= ResultadoDAO.getResultadosEncuentro(idEncuentro);
 			if(res.size() >0) {
@@ -69,6 +112,8 @@ public class Encuentro {
 		this.fecha= atributo[6];
 		this.hora= atributo[7];
 	}
+	
+	
 
 
 	

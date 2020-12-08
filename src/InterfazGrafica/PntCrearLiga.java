@@ -233,6 +233,7 @@ public class PntCrearLiga extends JPanel {
 									GestorCompetencia.crearLiga(competenciaDTO, ligaDTO);
 									VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
 									//Obtenemos el id de la competencia creada
+									VentanaAdmin.pntListarParticipantes.restaurarTabla();
 									VentanaAdmin.pntListarParticipantes.idCompetenciaActual= GestorCompetencia.obtenerUltimaCompetencia().get(0).idCompetencia;
 									VentanaAdmin.pntListarParticipantes.actualizarTitulo();
 									VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);	

@@ -649,7 +649,7 @@ public class GestorCompetencia {
 			
 			c.participantes.add(p);
 			
-			CompetenciaDAO.newParticipanteCompetencia(c);
+			CompetenciaDAO.newParticipanteNuloCompetencia(c);
 		}
 	
 }

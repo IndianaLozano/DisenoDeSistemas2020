@@ -135,18 +135,7 @@ public class CompetenciaDAO {
 	}
 	
 	
-	/*Metodo para traer todas las Competencias (enteras)
-		public static List<Competencia> getAllCompetencias() throws Exception{
-		try {
-			String query = "SELECT * FROM database.competencia;";
-			ArrayList<Competencia> competencias = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
-			return competencias;
-		}
-		catch(Exception ex) {
-			throw ex;
-		}
-	}*/
-	
+
 	
 	public static List<Fixture> getFixture(int idFixture) throws Exception{
 		try {
@@ -232,10 +221,8 @@ public class CompetenciaDAO {
 				ep=0;
 			}
 			 
-			System.out.println("disp");
 			String query2 = "INSERT INTO database.liga (id_competencia, empate_permitido, puntos_pe, puntos_pg, puntos_por_presentarse) VALUES (" + comp.idCompetencia + ", " + ep + ", " + comp.puntosPE + ", " + comp.puntosPG + ", " + comp.puntosPorPresentarse + " );"  ;
 			con.createStatement().executeUpdate(query2);
-			System.out.println("liga");
 			
 			con.commit();
 			
@@ -373,6 +360,39 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 	
 			MiExcepcion e = new MiExcepcion("9");
 			throw e;
+					
+	}
+	
+	public static void newParticipanteNuloCompetencia(Competencia c) throws Exception, MiExcepcion {
+		Participante p= c.participantes.get(c.participantes.size()-1);
+		
+		String query= "INSERT INTO database.participante (id_Competencia, nombre, contacto) VALUES ("+ c.idCompetencia + ", '" + p.nombre + "', '" + p.correo + "' );";
+		String query2= "UPDATE competencia SET competencia.id_estado = 1 WHERE competencia.id_competencia = " + c.idCompetencia + "; ";
+		String query3= "DELETE FROM database.fixture WHERE id_competencia = "+ c.idCompetencia + " ;";
+		Connection con = Conexion.conectarBDD();
+		try {
+			//Comienza transacción
+			con.setAutoCommit(false);
+			
+			con.createStatement().executeUpdate(query);
+			con.createStatement().executeUpdate(query2);
+			con.createStatement().executeUpdate(query3);
+			
+			con.commit();
+			
+			
+		}
+		catch (Exception e) {
+		System.err.println("ERROR: " + e.getMessage());
+		try {
+			//deshace todos los cambios realizados en los datos
+			con.rollback();
+			} catch (SQLException ex1) {
+				System.err.println( "No se pudo deshacer" + ex1.getMessage() );    
+				}
+		}
+	
+			
 					
 	}
 	

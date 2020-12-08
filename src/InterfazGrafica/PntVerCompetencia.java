@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DTO.CompDTO;
 import Entidades.Competencia;
+import Entidades.Estado;
 import Entidades.MiExcepcion;
 import Gestores.GestorCompetencia;
 import Gestores.GestorFixture;
@@ -29,6 +30,12 @@ public class PntVerCompetencia extends JPanel {
 	public JTextField tf_modalidad;
 	public JTextField tf_deporte;
 	public JTextField tf_estado;
+	
+	public JButton btn_verEncuentros = new JButton("Ver Pr\u00F3ximos Encuentros");
+	public JButton btn_generarFixture = new JButton("Generar Fixture");
+
+
+	
 	public int idCompetenciaActual;
 
 	/**
@@ -54,7 +61,7 @@ public class PntVerCompetencia extends JPanel {
 		tf_nombre = new JTextField();
 		tf_nombre.setEditable(false);
 		tf_nombre.setColumns(10);
-		tf_nombre.setBounds(141, 86, 142, 20);
+		tf_nombre.setBounds(141, 86, 168, 20);
 		add(tf_nombre);
 		
 		JLabel lblNewLabel_2 = new JLabel("Modalidad");
@@ -65,18 +72,18 @@ public class PntVerCompetencia extends JPanel {
 		tf_modalidad = new JTextField();
 		tf_modalidad.setEditable(false);
 		tf_modalidad.setColumns(10);
-		tf_modalidad.setBounds(141, 141, 142, 20);
+		tf_modalidad.setBounds(141, 141, 168, 20);
 		add(tf_modalidad);
 		
 		JLabel lblNewLabel_3 = new JLabel("Deporte");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_3.setBounds(48, 196, 61, 14);
+		lblNewLabel_3.setBounds(48, 192, 61, 22);
 		add(lblNewLabel_3);
 		
 		tf_deporte = new JTextField();
 		tf_deporte.setEditable(false);
 		tf_deporte.setColumns(10);
-		tf_deporte.setBounds(141, 195, 142, 20);
+		tf_deporte.setBounds(141, 195, 168, 20);
 		add(tf_deporte);
 		
 		JButton btnNewButton = new JButton("Atr\u00E1s");
@@ -96,7 +103,7 @@ public class PntVerCompetencia extends JPanel {
 		tf_estado = new JTextField();
 		tf_estado.setEditable(false);
 		tf_estado.setColumns(10);
-		tf_estado.setBounds(141, 247, 142, 20);
+		tf_estado.setBounds(141, 247, 168, 20);
 		add(tf_estado);
 		
 		JPanel panel = new JPanel();
@@ -124,8 +131,7 @@ public class PntVerCompetencia extends JPanel {
 		btnNewButton_7.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btnNewButton_7);
 		
-		JButton btnNewButton_5 = new JButton("Generar Fixture");
-		btnNewButton_5.addActionListener(new ActionListener() {
+		btn_generarFixture.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				if (VentanaAdmin.mensajeConsulta(null, "SPORTsYSTEM", "¿Desea generar el Fixture para la Competencia actual?") == 0) {
@@ -147,9 +153,9 @@ public class PntVerCompetencia extends JPanel {
 			}
 		}); 
 
-		btnNewButton_5.setBackground(SystemColor.inactiveCaption);
-		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel.add(btnNewButton_5);
+		btn_generarFixture.setBackground(SystemColor.inactiveCaption);
+		btn_generarFixture.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel.add(btn_generarFixture);
 		
 		JButton btn_verParticipantes = new JButton("Consultar Lista de Participantes");
 		btn_verParticipantes.addActionListener(new ActionListener() {
@@ -167,11 +173,11 @@ public class PntVerCompetencia extends JPanel {
 		btn_verParticipantes.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel.add(btn_verParticipantes);
 		
-		JButton btnNewButton_1 = new JButton("Ver Encuentros");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btn_verEncuentros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaAdmin.pntVerEncuentro.idCompetenciaActual= idCompetenciaActual;
 				try {
+					
 					VentanaAdmin.pntVerEncuentro.cargarEncuentrosProximos();
 					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntVerEncuentro, VentanaAdmin.n_pntVerEncuentros);
 				} catch (Exception e1) {
@@ -180,14 +186,29 @@ public class PntVerCompetencia extends JPanel {
 				
 			}
 		});
-		btnNewButton_1.setBackground(SystemColor.inactiveCaption);
-		panel.add(btnNewButton_1);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btn_verEncuentros.setBackground(SystemColor.inactiveCaption);
+		panel.add(btn_verEncuentros);
+		btn_verEncuentros.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 	}
 	
 	public void cargarDatos(CompDTO competDTO) {
 	
+		
+		if (competDTO.getModalidad() != "SistemaDeLiga") {
+			btn_generarFixture.setEnabled(false);
+		}else {
+			btn_generarFixture.setEnabled(true);
+		}
+		
+		if (competDTO.getEstado() == "Creada" || competDTO.getEstado() == "Finalizada" || competDTO.getModalidad() !="SistemaDeLiga") {
+			btn_verEncuentros.setEnabled(false);	
+		}else {
+			btn_verEncuentros.setEnabled(true);
+		}
+		
+		
+		
 		tf_nombre.setText(competDTO.getNombre());
 		tf_modalidad.setText(competDTO.getModalidad());
 		tf_estado.setText(competDTO.getEstado());
