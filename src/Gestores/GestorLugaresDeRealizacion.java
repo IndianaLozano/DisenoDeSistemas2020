@@ -16,7 +16,7 @@ public class GestorLugaresDeRealizacion {
 		return DeporteDAO.getDeportesLugar(idLugar);
 	} 
 	
-	////Retorna lista de LugardeRealizacion asociados a un idDeporte
+	//Retorna lista de LugardeRealizacion asociados a un idDeporte
 	public static List<LugarDeRealizacion> obtenerLugaresDeporte(int idDeporte) throws Exception{
 		return LugarDeRealizacionDAO.getLugaresDeporte(idDeporte);
 	}

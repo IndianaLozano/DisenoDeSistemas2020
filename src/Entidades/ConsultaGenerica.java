@@ -14,7 +14,6 @@ public class ConsultaGenerica {
 	        for(String str: rtas){
 	            resultados.put((str.split("--")[0]).trim(), (str.split("--")[1]).trim());
 
-	        	// resultados.put((str.split("-")[0]).trim(), (str.split("-")[1]).trim());
 	        }
 	    }
 	    

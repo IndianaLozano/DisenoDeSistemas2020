@@ -124,7 +124,7 @@ public class PntListarCompetencias extends JPanel {
 		
 		JButton btn_atras = new JButton("Atr\u00E1s");
 		btn_atras.setBackground(UIManager.getColor("Button.background"));
-		btn_atras.setBounds(18, 376, 77, 23);
+		btn_atras.setBounds(26, 388, 89, 23);
 		add(btn_atras);
 		
 		JButton btn_ver = new JButton("Ver Competencia");
@@ -210,12 +210,12 @@ public class PntListarCompetencias extends JPanel {
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntCrearCompetencia, VentanaAdmin.n_pntCrearCompetencia);
 			}
 		});
-		btn_altacompetencia.setBounds(485, 353, 218, 46);
+		btn_altacompetencia.setBounds(485, 364, 218, 46);
 		add(btn_altacompetencia);
 		
 		JLabel lblNewLabel_8 = new JLabel("+");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblNewLabel_8.setBounds(446, 353, 29, 46);
+		lblNewLabel_8.setBounds(446, 364, 29, 46);
 		add(lblNewLabel_8);
 	
 		

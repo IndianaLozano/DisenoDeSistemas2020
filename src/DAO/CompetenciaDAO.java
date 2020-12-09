@@ -150,7 +150,7 @@ public class CompetenciaDAO {
 		
 	}
 	
-	/* Este metodo retorna a una lista de nombres de todas las competencias existentes */
+	//Este metodo retorna a una lista de nombres de todas las competencias existentes
 	public static List<String> getNombresCompetencias() throws Exception {
 		
 		List<String> nombresCompetencias = new ArrayList<String> ();

@@ -92,7 +92,7 @@ public class PntVerCompetencia extends JPanel {
 				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarCompetencias,VentanaAdmin.n_pntListarCompetencias);
 			}
 		});
-		btnNewButton.setBounds(34, 374, 75, 23);
+		btnNewButton.setBounds(26, 388, 89, 23);
 		add(btnNewButton);
 		
 		JLabel lblNewLabel_4 = new JLabel("Estado");

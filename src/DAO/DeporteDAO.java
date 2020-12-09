@@ -48,8 +48,6 @@ public class DeporteDAO {
 	}
 	
 	
-	
-	
 public static int getIdDeporte(String deporte) throws Exception {
 		
 		try {
@@ -61,15 +59,6 @@ public static int getIdDeporte(String deporte) throws Exception {
 		}
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

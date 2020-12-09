@@ -35,11 +35,6 @@ public static String generarConsultaFiltro (List<String> campos, List<String> va
 			
 		}
 		
-		
-		
-		
-		
-		
 		return consulta ;
 	}
 

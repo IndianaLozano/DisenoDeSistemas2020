@@ -72,8 +72,6 @@ public class FixtureDAO {
 			e.printStackTrace();
 		}
 		
-		
-		
 	}
 	
 	public static List<Fixture> getUltimoFixture() throws Exception{

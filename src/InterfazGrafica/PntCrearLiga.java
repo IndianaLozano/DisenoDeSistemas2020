@@ -361,8 +361,4 @@ public class PntCrearLiga extends JPanel {
 	}
 	
 	
-	
-	
-	
-
 }

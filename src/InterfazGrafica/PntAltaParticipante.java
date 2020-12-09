@@ -19,6 +19,7 @@ import java.awt.Button;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 
 public class PntAltaParticipante extends JPanel {
 	public JTextField tf_nombre;
@@ -30,9 +31,6 @@ public class PntAltaParticipante extends JPanel {
 	public JLabel lbl_competencia = new JLabel("");
 
 
-	/**
-	 * Create the panel.
-	 */
 	public PntAltaParticipante() {
 		setBounds(100, 100, 733, 434);
 		setLayout(null);
@@ -60,20 +58,49 @@ public class PntAltaParticipante extends JPanel {
 		txtpnNombre.setBounds(24, 138, 70, 30);
 		add(txtpnNombre);
 		
-		Button button = new Button("Atr\u00E1s");
-		button.addActionListener(new ActionListener() {
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBounds(10, 69, 705, 216);
+		add(panel);
+		panel.setLayout(null);
+		
+		JTextPane txtpnCorreoElectronico = new JTextPane();
+		txtpnCorreoElectronico.setBounds(10, 139, 92, 37);
+		panel.add(txtpnCorreoElectronico);
+		txtpnCorreoElectronico.setText("Correo electr\u00F3nico (*)");
+		txtpnCorreoElectronico.setFont(new Font("Calibri", Font.PLAIN, 14));
+		txtpnCorreoElectronico.setEditable(false);
+		txtpnCorreoElectronico.setBackground(SystemColor.menu);
+		
+		tf_correo = new JTextField();
+		tf_correo.setBounds(110, 156, 308, 20);
+		panel.add(tf_correo);
+		tf_correo.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Competencia:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(10, 11, 92, 20);
+		panel.add(lblNewLabel);
+		
+		lbl_competencia.setForeground(new Color(0, 0, 128));
+		lbl_competencia.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lbl_competencia.setBounds(112, 11, 306, 20);
+		panel.add(lbl_competencia);
+		
+		JButton btn_atras = new JButton("Atr\u00E1s");
+		btn_atras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (pantallaAnterior == VentanaAdmin.pntListarParticipantes) {
 					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
 				}
-
 			}
 		});
-		button.setBounds(52, 373, 70, 22);
-		add(button);
+		btn_atras.setBounds(26, 388, 89, 23);
+		add(btn_atras);
 		
-		Button button_1 = new Button("Aceptar");
-		button_1.addActionListener(new ActionListener() {
+		JButton btn_aceptar = new JButton("Aceptar");
+		btn_aceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tf_nombre.getText().length()>0 && tf_correo.getText().length()>0) {
 					ParticipanteDTO pDTO = new ParticipanteDTO();
@@ -106,54 +133,13 @@ public class PntAltaParticipante extends JPanel {
 				}
 			}
 		});
-		button_1.setBounds(595, 373, 70, 22);
-		add(button_1);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(10, 69, 705, 216);
-		add(panel);
-		panel.setLayout(null);
-		
-		JTextPane txtpnCorreoElectronico = new JTextPane();
-		txtpnCorreoElectronico.setBounds(10, 139, 92, 37);
-		panel.add(txtpnCorreoElectronico);
-		txtpnCorreoElectronico.setText("Correo electr\u00F3nico (*)");
-		txtpnCorreoElectronico.setFont(new Font("Calibri", Font.PLAIN, 14));
-		txtpnCorreoElectronico.setEditable(false);
-		txtpnCorreoElectronico.setBackground(SystemColor.menu);
-		
-		tf_correo = new JTextField();
-		tf_correo.setBounds(110, 156, 308, 20);
-		panel.add(tf_correo);
-		tf_correo.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Competencia:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(10, 11, 92, 20);
-		panel.add(lblNewLabel);
-		
-		lbl_competencia.setForeground(new Color(0, 0, 128));
-		lbl_competencia.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbl_competencia.setBounds(112, 11, 306, 20);
-		panel.add(lbl_competencia);
+		btn_aceptar.setBounds(614, 388, 89, 23);
+		add(btn_aceptar);
 	}
 	
-	/*public static void opcConsulta(String[] arg){
-	String[] options = {"SI", "NO"};
-	int seleccion = JOptionPane.showOptionDialog(null, "¿Desea cancelar la carga de datos?\nSe perderá toda la información cargada.", "SPORTsYSTEM"
-			+ "", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
-	System.out.println(seleccion);
-	}*/
 	
 	public  void formatoPantalla(int idCompetencia) throws Exception {
 		Competencia c = GestorCompetencia.obtenerCompetencia(idCompetencia).get(0);
 		lbl_competencia.setText(c.nombre);
 	}
-	
-		
-	
-	
-	
-	
 }

@@ -63,7 +63,6 @@ public class Competencia {
 			this.modalidad = GestorCompetencia.obtenerModalidadEnum(Integer.parseInt(atributo[2]));			
 			this.deporte = GestorCompetencia.obtenerDeporte(Integer.parseInt(atributo[5])).get(0);
 		
-			//puede llegar a haber un else aca
 			this.puntuacion = GestorCompetencia.obtenerPuntuacionEnum(Integer.parseInt(atributo[4]));
 			} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -105,11 +104,6 @@ public class Competencia {
 	public void setDisponibilidades(List<Disponibilidad> disponibilidades) {
 		this.disponibilidades = disponibilidades;
 	}
-	
-	
-	
-	
-	
 	
 	
 }

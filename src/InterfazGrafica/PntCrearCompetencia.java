@@ -174,7 +174,6 @@ public class PntCrearCompetencia extends JPanel {
 					int cantRowsInTable = table.getRowCount();
 					
 					for (int i = 0; i < cantRowsInTable; i++) { //recorro todas las filas de la tabla existente
-						//fila[0] == nombreLugar
 						if(fila[0] == table.getValueAt(i, 0)){
 							nombreRepetido++;
 						}
@@ -209,7 +208,7 @@ public class PntCrearCompetencia extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
-				//VALIDAR NOMBRE
+				
 				boolean validarNombre = false;
 				if (validarNombreCompVacio() == true) {
 					
@@ -220,7 +219,7 @@ public class PntCrearCompetencia extends JPanel {
 					e.printStackTrace();
 				}
 				if (validarNombre == true && table.getRowCount() > 0) { 
-					//SETEAR NOMBRE EN CompetenciaDTO
+					
 					competenciaDTO.setNombre(tf_nombre_comp.getText());
 					llenarCompetenciaDTO();
 					

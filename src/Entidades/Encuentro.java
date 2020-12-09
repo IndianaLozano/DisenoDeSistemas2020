@@ -114,16 +114,4 @@ public class Encuentro {
 	}
 	
 	
-
-
-	
-
-
-	
-	
-	
-	
-	
-	
-
 }

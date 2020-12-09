@@ -51,7 +51,7 @@ public class PntVerEncuentros extends JPanel {
 			VentanaAdmin.cambiarPantalla(VentanaAdmin.pntVerCompetencia, VentanaAdmin.n_pntVerCompetencia);
 			}
 		});
-		btnNewButton.setBounds(10, 390, 75, 23);
+		btnNewButton.setBounds(26, 388, 89, 23);
 		add(btnNewButton);
 		
 		lbl_titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));

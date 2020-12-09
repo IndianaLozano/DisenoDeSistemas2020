@@ -24,9 +24,6 @@ import java.awt.event.ActionEvent;
 public class PantallaMostrarFixtureCU019 extends JPanel {
 	private JTable table;
 
-	/**
-	 * Create the panel.
-	 */
 	public PantallaMostrarFixtureCU019() {
 		setLayout(null);
 		
