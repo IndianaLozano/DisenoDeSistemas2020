@@ -419,6 +419,18 @@ public class PntCrearCompetencia extends JPanel {
 		return retorno;
 	}
 	
+	public void limpiarPantalla() {
+		
+		deleteAllRows(dm);
+		tf_nombre_comp.setText("");
+		cb_deporte.setSelectedIndex(0);
+		cb_modalidad.setSelectedIndex(0);
+		cb_lugar.setSelectedIndex(0);
+		cb_disponibilidad.setSelectedIndex(0);
+		ta_reglamento.setText("");
+		
+	}
+	
 	
 	
 	

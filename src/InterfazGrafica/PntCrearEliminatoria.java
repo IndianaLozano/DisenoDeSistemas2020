@@ -36,6 +36,9 @@ public class PntCrearEliminatoria extends JPanel {
 	public static JRadioButton rb_resultado_final = new JRadioButton("RESULTADO FINAL");
 	public static CompetenciaDTO competenciaDTO= new CompetenciaDTO();
 	
+	public ButtonGroup bg = new ButtonGroup();
+
+	
 	
 	/**
 	 * Create the panel.
@@ -76,6 +79,8 @@ public class PntCrearEliminatoria extends JPanel {
 					llenarEliminatoriaDTO();
 					GestorCompetencia.crearEliminatoria(competenciaDTO, eliminatoriaDTO);
 					VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
+					limpiarPantalla();
+					VentanaAdmin.pntCrearCompetencia.limpiarPantalla();
 					VentanaAdmin.pntListarParticipantes.restaurarTabla();
 					VentanaAdmin.pntListarParticipantes.idCompetenciaActual= GestorCompetencia.obtenerUltimaCompetencia().get(0).idCompetencia;
 					VentanaAdmin.pntListarParticipantes.actualizarTitulo();
@@ -143,7 +148,6 @@ public class PntCrearEliminatoria extends JPanel {
 		add(cb_cantidad_sets);
 		
 		// ButtonGroup para seleccionar solamente un rb a la vez
-		ButtonGroup bg = new ButtonGroup();
 		 bg.add(rb_sets);
 		 bg.add(rb_puntuacion);
 		 bg.add(rb_resultado_final);
@@ -152,7 +156,6 @@ public class PntCrearEliminatoria extends JPanel {
 	}
 	
 	public static void mensaje(String error, String titulo) {
-		// TODO Auto-generated method stub
 		if (JOptionPane.showConfirmDialog(null, error, titulo, 
 			JOptionPane.PLAIN_MESSAGE, 
 			JOptionPane.ERROR_MESSAGE)==0);
@@ -175,6 +178,14 @@ public class PntCrearEliminatoria extends JPanel {
 			eliminatoriaDTO.setCantidadSets(-1);
 			eliminatoriaDTO.setTantosGanadosAusRival(-1);
 		} 
+		
+	}
+	
+	public void limpiarPantalla() {
+		bg.setSelected(rb_sets.getModel(), true);
+		cb_cantidad_sets.setSelectedIndex(0);
+		cb_tantos_ganados_ausencia_rival.setSelectedIndex(0);
+		
 		
 	}
 }

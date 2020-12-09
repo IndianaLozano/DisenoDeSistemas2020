@@ -39,7 +39,9 @@ public class PntListarParticipantes extends JPanel {
 	public JComboBox cb_filtro = new JComboBox();
 	public JCheckBox chbx_descendente = new JCheckBox("Descendente");
 
-
+	public JPanel pantallaAnterior;
+	public String pntAnterior;
+	
 	public int idCompetenciaActual;
 	public static JTable table = new JTable();
 	public static DefaultTableModel dm = new DefaultTableModel(){
@@ -173,8 +175,9 @@ public class PntListarParticipantes extends JPanel {
 		JButton btnNewButton = new JButton("Atr\u00E1s");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaAdmin.cambiarPantalla(VentanaAdmin.pntVerCompetencia, VentanaAdmin.n_pntVerCompetencia);
-
+				
+				VentanaAdmin.pntListarCompetencias.limpiarPantalla();
+				VentanaAdmin.cambiarPantalla(pantallaAnterior, pntAnterior);
 				
 			}
 		});

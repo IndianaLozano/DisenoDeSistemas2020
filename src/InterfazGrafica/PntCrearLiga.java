@@ -233,6 +233,11 @@ public class PntCrearLiga extends JPanel {
 									GestorCompetencia.crearLiga(competenciaDTO, ligaDTO);
 									VentanaAdmin.mensajeExito("Competencia creada correctamente", "EXITO");
 									//Obtenemos el id de la competencia creada
+									limpiarPantalla();
+									VentanaAdmin.pntCrearCompetencia.limpiarPantalla();
+									VentanaAdmin.pntListarParticipantes.pantallaAnterior= VentanaAdmin.pntListarCompetencias;
+									VentanaAdmin.pntListarParticipantes.pntAnterior=VentanaAdmin.n_pntListarCompetencias;
+									
 									VentanaAdmin.pntListarParticipantes.restaurarTabla();
 									VentanaAdmin.pntListarParticipantes.idCompetenciaActual= GestorCompetencia.obtenerUltimaCompetencia().get(0).idCompetencia;
 									VentanaAdmin.pntListarParticipantes.actualizarTitulo();
@@ -342,6 +347,17 @@ public class PntCrearLiga extends JPanel {
 			retorno= true;
 		}
 		return retorno;
+	}
+	
+	
+	public void limpiarPantalla() {
+		cb_cantidad_sets.setSelectedIndex(0);
+		cb_tantos_ganados_ausencia_rival.setSelectedIndex(0);
+		bg.setSelected(rb_sets.getModel(), true);
+		tf_puntospg.setText("");
+		tf_puntospe.setText("");
+		tf_puntospp.setText("");
+		chb_empate_permitido.setSelected(false);
 	}
 	
 	

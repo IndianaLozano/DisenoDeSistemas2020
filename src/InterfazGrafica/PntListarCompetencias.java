@@ -34,8 +34,15 @@ import javax.swing.JScrollPane;
 import java.awt.Component;
 
 public class PntListarCompetencias extends JPanel {
-	private JTextField txtListarCompetencia;
+	public JTextField txtListarCompetencia;
 	public static JTextField tf_nombrecomp;
+	
+	public JComboBox cb_deporte = new JComboBox();
+	public JComboBox cb_modalidad = new JComboBox();
+	public JComboBox cb_estado = new JComboBox();
+
+
+
 	
 	public static JTable table = new JTable();
 	public static DefaultTableModel dm = new DefaultTableModel(){
@@ -90,7 +97,6 @@ public class PntListarCompetencias extends JPanel {
 		lblNewLabel_1.setBounds(18, 119, 64, 14);
 		add(lblNewLabel_1);
 		
-		JComboBox cb_deporte = new JComboBox();
 		cb_deporte.setFont(new Font("Calibri", Font.PLAIN, 15));
 		cb_deporte.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Voley", "Futbol", "Basquet", "Ajedrez", "Tenis", "Handball", "Nataci\u00F3n", "Rugby"}));
 		cb_deporte.setBounds(18, 134, 168, 20);
@@ -101,7 +107,6 @@ public class PntListarCompetencias extends JPanel {
 		lblNewLabel_2.setBounds(18, 175, 77, 14);
 		add(lblNewLabel_2);
 		
-		JComboBox cb_modalidad = new JComboBox();
 		cb_modalidad.setFont(new Font("Calibri", Font.PLAIN, 15));
 		cb_modalidad.setModel(new DefaultComboBoxModel(new String[] {"Todas", "Sistema de liga", "Sistema de eliminaci\u00F3n simple", "Sistema de eliminaci\u00F3n doble"}));
 		cb_modalidad.setBounds(18, 187, 168, 20);
@@ -112,7 +117,6 @@ public class PntListarCompetencias extends JPanel {
 		lblNewLabel_3.setBounds(18, 227, 46, 14);
 		add(lblNewLabel_3);
 		
-		JComboBox cb_estado = new JComboBox();
 		cb_estado.setFont(new Font("Calibri", Font.PLAIN, 15));
 		cb_estado.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Creada", "Planificada", "En Disputa", "Finalizada"}));
 		cb_estado.setBounds(18, 239, 168, 20);
@@ -234,6 +238,14 @@ public class PntListarCompetencias extends JPanel {
 
 	}
 	
+	public  void limpiarPantalla() {
+		restaurarTabla();
+		cb_deporte.setSelectedIndex(0);
+		cb_modalidad.setSelectedIndex(0);
+		cb_estado.setSelectedIndex(0);
+		tf_nombrecomp.setText("");
+		
+	}
 	public static void restaurarTabla() {
 	 for( int i = dm.getRowCount() - 1; i >= 0; i-- ) {
           dm.removeRow(i);

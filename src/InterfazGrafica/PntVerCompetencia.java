@@ -161,6 +161,9 @@ public class PntVerCompetencia extends JPanel {
 		btn_verParticipantes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					VentanaAdmin.pntListarParticipantes.pantallaAnterior= VentanaAdmin.pntVerCompetencia;
+					VentanaAdmin.pntListarParticipantes.pntAnterior=VentanaAdmin.n_pntVerCompetencia;
+					
 					VentanaAdmin.pntListarParticipantes.idCompetenciaActual= idCompetenciaActual ;
 					PntListarParticipantes.cargarParticipantes(idCompetenciaActual);
 					VentanaAdmin.cambiarPantalla(VentanaAdmin.pntListarParticipantes, VentanaAdmin.n_pntListarParticipantes);
