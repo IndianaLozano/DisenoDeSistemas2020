@@ -478,77 +478,78 @@ public class GestorCompetencia {
 		 if(dep == "Todos" && est== "Todos" && modal == 0) {
 			 //Devuelve todas las comp sin filtros
 			 if( nombre.length() == 0) {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " ";
 			 }
 			 else {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' ";
 			 }
 		 }
 		 else if(dep == "Todos" && est== "Todos" && modal != 0) {
 			 //Devuelve todas las comp sin filtros
 			 if( nombre.length() == 0) {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND modal.id_modalidad = " + modal +" ;" ;
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND modal.id_modalidad = " + modal +" " ;
 			 }
 			 else {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND modal.id_modalidad = " + modal +" ;" ;
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND modal.id_modalidad = " + modal +" " ;
 
 			 }
 		 }
 		 else if(dep == "Todos" && est != "Todos" && modal == 0) {
 			 //Devuelve todas las comp sin filtros
 			 if( nombre.length() == 0) {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario +" AND est.estado = '" + est + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario +" AND est.estado = '" + est + "' ";
 			 }
 			 else {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND est.estado = '" + est + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND est.estado = '" + est + "' ";
 			 }
 		 }
 		 else if(dep == "Todos" && est != "Todos" && modal != 0) {
 			 //Devuelve todas las comp sin filtros
 			 if( nombre.length() == 0) {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + "AND modal.id_modalidad = " + modal + " AND est.estado = '" + est + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + "AND modal.id_modalidad = " + modal + " AND est.estado = '" + est + "' ";
 			 }
 			 else {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre  + "' AND modal.id_modalidad = " + modal +" AND est.estado = '" + est + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre  + "' AND modal.id_modalidad = " + modal +" AND est.estado = '" + est + "' ";
 			 }
 		 }
 		 else if(dep != "Todos" && est == "Todos" && modal == 0) {
 			 //Devuelve todas las comp sin filtros
 			 if( nombre.length() == 0) {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario  + " AND dep.nombre = '" + dep + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario  + " AND dep.nombre = '" + dep + "' ";
 			 }
 			 else {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND dep.nombre = '" + dep + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND dep.nombre = '" + dep + "' ";
 			 }
 		 }
 		 else  if(dep != "Todos" && est == "Todos" && modal != 0) {
 				 //Devuelve todas las comp sin filtros
 				 if( nombre.length() == 0) {
-					 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND dep.nombre = '" + dep + "' AND modal.id_modalidad = " + modal + ";";
+					 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND dep.nombre = '" + dep + "' AND modal.id_modalidad = " + modal + "";
 				 }
 				 else {
-					 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND dep.nombre = '" + dep + "' AND modal.id_modalidad = " + modal + ";";
+					 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND dep.nombre = '" + dep + "' AND modal.id_modalidad = " + modal + " ";
 				 }
 			 }
 		 else if(dep != "Todos" && est != "Todos" && modal == 0) {
 					 //Devuelve todas las comp sin filtros
 					 if( nombre.length() == 0) {
-						 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario  + " AND dep.nombre = '" + dep +"' AND est.estado = '" + est + "' ;";
+						 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario  + " AND dep.nombre = '" + dep +"' AND est.estado = '" + est + "' ";
 					 }
 					 else {
-						 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND dep.nombre = '" + dep + "' AND est.estado = '" + est + "' ;";
+						 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND dep.nombre = '" + dep + "' AND est.estado = '" + est + "' ";
 					 }
 				 }
 		 else if(dep != "Todos" && est != "Todos" && modal != 0) {
 			 //Devuelve todas las comp sin filtros
 			 if( nombre.length() == 0) {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND dep.nombre = '" + dep + "' AND modal.id_modalidad = " + modal +" AND est.estado = '" + est + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND dep.nombre = '" + dep + "' AND modal.id_modalidad = " + modal +" AND est.estado = '" + est + "' ";
 			 }
 			 else {
-				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND dep.nombre = '" + dep + "' AND modal.id_modalidad = " + modal +" AND est.estado = '" + est + "' ;";
+				 query2 = "SELECT comp.* FROM database.competencia comp JOIN database.modalidad modal ON (comp.id_modalidad = modal.id_modalidad) JOIN database.deporte dep ON (dep.id_deporte = comp.id_deporte) JOIN database.estado est ON (comp.id_estado = est.id_estado) JOIN database.usuario us ON (us.id_usuario = comp.id_usuario) WHERE us.id_usuario = " + idUsuario + " AND comp.nombre = '" + nombre + "' AND dep.nombre = '" + dep + "' AND modal.id_modalidad = " + modal +" AND est.estado = '" + est + "' ";
 				 	
 			 }
 		 }
+		 query2 = query2 + " AND dada_de_baja = 0 ;";
 		 List<Competencia> competencias = CompetenciaDAO.getCompetenciasUsuarioSegunFiltro(query2);
 		 
 		 return competencias;
