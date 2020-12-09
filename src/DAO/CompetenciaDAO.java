@@ -304,7 +304,7 @@ public static void newCompetenciaEliminatoria (Eliminatoria comp) throws Excepti
 	
 	public static List<Competencia> getCompetencia(int idCompetencia) throws Exception{
 		try {
-			String query = "SELECT * FROM database.competencia WHERE competencia.id_competencia= " + idCompetencia + " ;";                            
+			String query = "SELECT * FROM database.competencia WHERE competencia.id_competencia= " + idCompetencia + ";";                            
 			ArrayList<Competencia> competencia = (ArrayList<Competencia>)((Object)Conexion.consultar(query, Competencia.class));
 			return competencia;
 		}
